@@ -1,0 +1,3 @@
+class FootballMatch < Match
+  
+end

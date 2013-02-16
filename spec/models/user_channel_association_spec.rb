@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe UserChannelAssociation do
-  pending "add some examples to (or delete) #{__FILE__}"
+   it { should validate_presence_of(:user) }
+   it { should validate_presence_of(:channel) }
 end

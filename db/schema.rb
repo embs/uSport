@@ -11,13 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216180119) do
+ActiveRecord::Schema.define(:version => 20130216214842) do
 
   create_table "channels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "move_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comments", ["move_id"], :name => "index_comments_on_move_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "matches", :force => true do |t|
     t.string   "type"
@@ -26,6 +37,21 @@ ActiveRecord::Schema.define(:version => 20130216180119) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "moves", :force => true do |t|
+    t.integer  "match_id"
+    t.integer  "quarter"
+    t.integer  "minute"
+    t.string   "kind"
+    t.string   "description"
+    t.integer  "points"
+    t.integer  "yards"
+    t.integer  "player_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "moves", ["match_id"], :name => "index_moves_on_match_id"
 
   create_table "players", :force => true do |t|
     t.string   "first_name"
