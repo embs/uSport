@@ -54,7 +54,7 @@ a {
 }
 
 /*****************************************************************/
-nav ul {
+#menu-login ul {
   margin: 0;
   padding: 2px;
   list-style: none;
@@ -67,19 +67,19 @@ nav ul {
   border-radius: 3px;
 }
 
-nav li {
+#menu-login li {
   float: left;
 }
 
-nav #login {
+#menu-login #login {
   border-right: 1px solid #ddd;
   -moz-box-shadow: 1px 0 0 #fff;
   -webkit-box-shadow: 1px 0 0 #fff;
   box-shadow: 1px 0 0 #fff;
 }
 
-nav #login-trigger,
-nav #signup a {
+#menu-login #login-trigger,
+#menu-login #signup a {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -92,25 +92,25 @@ nav #signup a {
   /*text-shadow: 0 1px 0 #fff; */
 }
 
-nav #signup a {
+#menu-login #signup a {
   -moz-border-radius: 0 3px 3px 0;
   -webkit-border-radius: 0 3px 3px 0;
   border-radius: 0 3px 3px 0;
 }
 
-nav #login-trigger {
+#menu-login #login-trigger {
   -moz-border-radius: 3px 0 0 3px;
   -webkit-border-radius: 3px 0 0 3px;
   border-radius: 3px 0 0 3px;
 }
 
-/*nav #login-trigger:hover,
-nav #login .active,
-nav #signup a:hover {
+/*#menu-login #login-trigger:hover,
+#menu-login #login .active,
+#menu-login #signup a:hover {
   background: #3d83c4;
 }*/
 
-nav #login-content {
+#menu-login #login-content {
   display: none;
   position: absolute;
   top: 24px;
@@ -132,7 +132,7 @@ nav #login-content {
   border-radius: 3px 0 3px 3px;
 }
 
-nav li #login-content {
+#menu-login li #login-content {
   right: 0;
   width: 250px;
 }

@@ -3,7 +3,8 @@ class CreateTeams < ActiveRecord::Migration
     create_table :teams do |t|
       t.string :name
       t.string :sport_type
-      
+      t.references :match
+
       t.timestamps
     end
   end

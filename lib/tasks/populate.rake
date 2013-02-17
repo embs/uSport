@@ -25,10 +25,13 @@ task :create_all => :environment do
   v.match = m
   v.save
   p.moves << v
+
   v = Move.new
   v.kind = "Touchdown"
   v.match = m
+  v.description = 'aldkjfalkdjfioai'
   v.save
+
   p.moves << v
   v = Move.new
   v.kind = "Homerun"
@@ -40,4 +43,14 @@ task :create_all => :environment do
   v.match = m
   v.save
   p.moves << v
+
+  t = Team.new
+  t.name = "Recife"
+  t.sport_type = "Football"
+  m.teams << t
+
+  t = Team.new
+  t.name = "Olinda"
+  t.sport_type = "Football"
+  m.teams << t
 end
