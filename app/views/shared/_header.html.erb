@@ -1,0 +1,39 @@
+<header style="padding: 8px">
+  <div class="container_16">
+    <div class="grid_16">
+      <div id="logo-content" class="grid_3 alpha">
+        <a href="#"><%= image_tag("logo.png") %></a>
+      </div>
+
+      <fieldset id="search" class="grid_9">
+        <input id="search-content" type="textarea" style="width: 400px">
+        <input id="search-submit" type="submit" value="Search">
+      </fieldset>
+
+      <nav>
+        <ul>
+          <li id="login">
+            <a id="login-trigger" href="#" class="">
+              Login <span>&#x25BC;</span>
+            </a>
+            <div id="login-content">
+              <form>
+                <fieldset id="inputs">
+                  <input id="username" type="email" name="Email" placeholder="Your email address" required="">
+                  <input id="password" type="password" name="Password" placeholder="Password" required="">
+                </fieldset>
+                <fieldset id="actions">
+                  <input type="submit" id="submit" value="Login">
+                  <label><input type="checkbox" checked="checked"> Keep me signed in</label>
+                </fieldset>
+              </form>
+            </div>
+          </li>
+          <li id="signup">
+            <a href="">Sign up FREE</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

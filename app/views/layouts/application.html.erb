@@ -5,12 +5,34 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#login-trigger').click(function(){
+        $(this).next('#login-content').slideToggle();
+        $(this).toggleClass('active');
+
+        if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+          else $(this).find('span').html('&#x25BC;')
+        })
+    });
+  </script>
 </head>
+
 <body>
+  <%= render partial: "shared/header" %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
-<%= yield %>
-
+  <div id="wrap" class="container_16">
+    <div id="channel-id" class="grid_16">
+      <%= yield %>
+    </div>
+  </div>
+  <%= render partial: "shared/footer" %>
 </body>
 </html>
