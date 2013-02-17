@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130217133606) do
     t.string   "type"
     t.datetime "date"
     t.string   "name"
+    t.integer  "channel_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

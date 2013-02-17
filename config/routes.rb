@@ -2,9 +2,15 @@ Quince::Application.routes.draw do
 
   devise_for :users
 
-  root to: "home#index"
+  root to: "channels#index"
 
-  resources :users
+  resources :channels, :only => :index
+
+  resources :users, :only => [] do
+    resources :channels, :only => :index do
+      resources :matches, :only => [:index, :show]
+    end
+  end
 
   devise_scope :user do
     get "/login" => "devise/sessions#new"

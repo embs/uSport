@@ -1,0 +1,7 @@
+<h1> <%= @match.name %></h1>
+<ul>
+  <% @match.moves.each do |m| %>
+  <li> <%= m.kind %> </li>
+  <li> <%= m.player.first_name %> </li> <br />
+  <% end %>
+</ul>
