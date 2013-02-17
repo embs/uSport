@@ -1,4 +1,16 @@
 Quince::Application.routes.draw do
+
+  devise_for :users
+
+  root to: "home#index"
+
+  resources :users
+
+  devise_scope :user do
+    get "/login" => "devise/sessions#new"
+    get "/logout" => "devise/sessions#destroy"
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
