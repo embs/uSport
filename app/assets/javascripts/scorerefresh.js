@@ -13,7 +13,8 @@ var reloadFunc = function()
   {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
-    $('#score').html(xmlhttp.responseText);
+    // $('#score').html(xmlhttp.responseText);
+    $('#score').after(xmlhttp.responseText).remove();
     }
   }
 

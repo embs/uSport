@@ -3,7 +3,6 @@ class MovesController < ApplicationController
   layout "clean"
 
   def index
-    # @moves = Match.find(params[:match_id]).moves.order('created_at DESC')
   end
 
   # retorna todos os moves mais recentes que o move com o ID referido além
@@ -58,6 +57,8 @@ class MovesController < ApplicationController
       3
     when "touchdown"
       6
+    else
+      0
     end
   end
 

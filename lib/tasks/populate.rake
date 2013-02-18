@@ -21,6 +21,11 @@ task :create_all => :environment do
   p.last_name = "Oliveira"
   p.number = 404
   p.save
+  p = Player.new
+  p.first_name = "João"
+  p.last_name = "das Palmeiras"
+  p.number = 39
+  p.save
 
   v = Move.new
   v.kind = "Field Goal is Good"
