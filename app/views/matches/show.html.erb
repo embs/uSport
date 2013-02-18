@@ -1,20 +1,18 @@
-<div id='wrap' class = 'container_16'>
+<div id='wrap'>
   <% channel = @user.channels.first
      match = channel.matches.first
      match.value1=0
      match.value2=0 %>
 
-  <header id= 'channel-header' class= 'grid_16'>
-    <div id="profile-picture" class= 'alpha'><%= image_tag("profile_picture.jpg") %>
+  <header id= 'channel-header' class='grid_16'>
+    <div id="profile-picture">
+      <%= image_tag("profile_picture.jpg") %>
+      <h1>  <%= channel.name %> </h1>
     </div>
-    <h1>  <%= channel.name %> </h1>
-    <input type="submit" value="Follow" />
-
-
   </header>
 
   <section class="grid_16">
-    <nav class="grid_3">
+    <nav class="grid_3 alpha">
       <ul>
         <h2> Matches </h2>
         <% channel.matches.each do |m| %>
@@ -23,7 +21,7 @@
       </ul>
     </nav>
 
-    <section class="grid_10">
+    <section>
       <header>
         <h1> <%= match.teams[0].name + ' ' + match.value1.to_s() %>
           X <%= match.value2.to_s() + ' ' +  match.teams[1].name %> </h1>
@@ -63,23 +61,3 @@
 
   </section>
 </div>
-
-
-
-
-
-<!--<h1> <%= @match.name %></h1>
-
-
-
-
-
-
-
-<!--<ul>
-  <% @match.moves.each do |m| %>
-  <li> <%= m.kind %> </li>
-  <li> <%= m.player.first_name %> </li> <br />
-  <% end %>
-</ul>
--->
