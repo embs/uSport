@@ -9,8 +9,6 @@
     </div>
     <h1>  <%= channel.name %> </h1>
     <input type="submit" value="Follow" />
-
-
   </header>
 
   <section class="grid_16">
@@ -24,33 +22,17 @@
     </nav>
 
     <section class="grid_10">
-      <header>
-        <h1> <%= match.teams[0].name + ' ' + match.value1.to_s() %>
-          X <%= match.value2.to_s() + ' ' +  match.teams[1].name %> </h1>
+      <header id="score">
+        <h1>
+          <%= match.teams[0].name + ' ' + match.value1.to_s() %>
+          X <%= match.value2.to_s() + ' ' +  match.teams[1].name %>
+        </h1>
       </header>
 
       <section>
-
         <ul>
           <% match.moves.each do |move| %>
-
-          <li> <% if move.kind == "Touchdown"
-                    msg = move.player.first_name + " marcou um Touchdown"
-
-
-                    if move.description != nil
-                      desc= move.description
-
-
-                    else
-                      desc= ''
-
-                    end
-                  end %> </li>
-                  <%= msg %>
-                  <br />
-                  <%= desc %>
-
+            <li><%= move.to_string %></li>
           <% end %>
         </ul>
       </section>
@@ -63,23 +45,3 @@
 
   </section>
 </div>
-
-
-
-
-
-<!--<h1> <%= @match.name %></h1>
-
-
-
-
-
-
-
-<!--<ul>
-  <% @match.moves.each do |m| %>
-  <li> <%= m.kind %> </li>
-  <li> <%= m.player.first_name %> </li> <br />
-  <% end %>
-</ul>
--->

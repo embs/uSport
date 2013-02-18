@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130217133606) do
     t.integer  "points"
     t.integer  "yards"
     t.integer  "player_id"
+    t.integer  "team_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

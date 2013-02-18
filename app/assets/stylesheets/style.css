@@ -1,3 +1,15 @@
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+#container {
+   min-height:100%;
+   position:relative;
+}
+
 header {
 	padding: 7px;
 	border-bottom: 1px solid #fff;
@@ -36,9 +48,12 @@ header {
 }
 
 footer {
+  position: absolute;
+  bottom: 0;
 	background-image: url('footer.png');
 	background-repeat: repeat-x;
 	height: 87px;
+  width: 100% ;
 }
 
 footer h1 {
@@ -224,4 +239,8 @@ a {
   position: relative;
   top: 2px;
   right: 2px;
+}
+
+#wrap {
+  padding-bottom: 87px;   /* Height of the footer */
 }

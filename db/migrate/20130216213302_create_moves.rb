@@ -9,6 +9,7 @@ class CreateMoves < ActiveRecord::Migration
       t.integer :points
       t.integer :yards
       t.references :player
+      t.references :team
 
       t.timestamps
     end

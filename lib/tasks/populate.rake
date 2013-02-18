@@ -1,3 +1,4 @@
+# encoding: utf-8
 task :create_all => :environment do
   u = User.new
   u.email = "diogo.nobrega@outlook.com"
@@ -20,26 +21,40 @@ task :create_all => :environment do
   p.last_name = "Oliveira"
   p.number = 24
   p.save
+
   v = Move.new
-  v.kind = "Apito inicial"
+  v.kind = "Field Goal is Good"
+  v.match = m
+  v.save
+  p.moves << v
+
+  v = Move.new
+  v.kind = "Kickoff"
+  v.match = m
+  v.description = 'Essa jogada foi arretada'
+  v.save
+
+  p.moves << v
+  v = Move.new
+  v.kind = "Interceptação"
+  v.match = m
+  v.save
+  p.moves << v
+
+  v = Move.new
+  v.kind = "Punt"
+  v.match = m
+  v.save
+  p.moves << v
+
+  v = Move.new
+  v.kind = "Fumble"
   v.match = m
   v.save
   p.moves << v
 
   v = Move.new
   v.kind = "Touchdown"
-  v.match = m
-  v.description = 'aldkjfalkdjfioai'
-  v.save
-
-  p.moves << v
-  v = Move.new
-  v.kind = "Homerun"
-  v.match = m
-  v.save
-  p.moves << v
-  v = Move.new
-  v.kind = "Strike"
   v.match = m
   v.save
   p.moves << v
