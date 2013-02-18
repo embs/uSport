@@ -8,7 +8,9 @@ Quince::Application.routes.draw do
 
   resources :users, :only => [] do
     resources :channels, :only => :index do
-      resources :matches, :only => [:index, :show]
+      resources :matches, :only => [:index, :show] do
+        resources :moves, :only => [:create, :new]
+      end
     end
   end
 
