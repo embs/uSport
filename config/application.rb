@@ -67,5 +67,8 @@ module Quince
     # Configura o locale
     config.i18n.default_locale = "pt-BR"
     config.i18n.locale = "pt-BR" # Configuração de fix para o Heroku
+
+    # Configuração de fix para o Heroku
+    config.assets.initialize_on_precompile = false
   end
 end
