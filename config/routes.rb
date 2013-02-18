@@ -8,7 +8,10 @@ Quince::Application.routes.draw do
 
   resources :users, :only => [] do
     resources :channels, :only => :index do
-      resources :matches, :only => [:index, :show]
+      resources :matches, :only => [:index, :show] do
+        member { get 'score' }
+        resources :moves, :only => [:index, :show, :new, :create]
+      end
     end
   end
 

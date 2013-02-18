@@ -1,0 +1,9 @@
+<h1> Todos os canais </h1>
+
+<% @channels.each do |channel| %>
+  <div class="channel" %>
+    <ul>
+      <li>Nome do canal: <%= channel.name %></li>
+    </ul>
+  </div>
+<% end %>

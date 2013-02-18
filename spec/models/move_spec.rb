@@ -5,4 +5,5 @@ describe Move do
   it { should validate_presence_of :kind }
   it { should belong_to :match }
   it { should belong_to :player }
+  it { should belong_to :team }
 end

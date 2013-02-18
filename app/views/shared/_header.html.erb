@@ -1,0 +1,51 @@
+<header id="header" style="padding: 8px">
+  <div class="container_16">
+    <div class="grid_16">
+      <div id="logo-content" class="grid_3 alpha">
+        <a href="#"><%= image_tag("logo.png") %></a>
+      </div>
+
+      <fieldset id="search" class="grid_9">
+        <input id="search-content" type="textarea" style="width: 400px">
+        <input id="search-submit" type="submit" value="Buscar">
+      </fieldset>
+
+      <nav id = "menu-login">
+        <% if !current_user %>
+          <ul>
+            <li id="login">
+              <a id="login-trigger" href="#" class="">
+                Entrar <span>&#x25BC;</span>
+              </a>
+              <div id="login-content">
+                <%= form_for(User.new, :as => :user,
+                             :url => session_path(:user)) do |f| %>
+                  <fieldset id="inputs">
+                    <%= f.email_field :email, :autofocus => true,
+                      :placeholder => "Seu endereço de e-mail" %>
+                    <%= f.password_field :password,
+                      :placeholder => "Senha" %>
+                  </fieldset>
+                  <fieldset id="actions">
+                    <%= f.label :remember_me do %>
+                      <%= f.check_box :remember_me %> Mantenha-me conectado
+                    <% end %>
+                    <div><%= f.submit "Entrar", :id => "submit" %></div>
+                  </fieldset>
+                <% end %>
+                <%= link_to "Esqueceu sua senha?",
+                  new_password_path(:user) %>
+              </div>
+            </li>
+            <li id="signup">
+              <%= link_to "Cadastrar", new_registration_path(:user) %>
+            </li>
+          </ul>
+        <% else %>
+          Bem vindo, <%= current_user.first_name %>
+          <%= link_to "Sair", logout_path %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</header>

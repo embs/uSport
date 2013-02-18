@@ -35,8 +35,10 @@ ActiveRecord::Schema.define(:version => 20130217133606) do
     t.datetime "date"
     t.string   "name"
     t.integer  "channel_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "value1",     :default => 0
+    t.integer  "value2",     :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "moves", :force => true do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130217133606) do
     t.integer  "points"
     t.integer  "yards"
     t.integer  "player_id"
+    t.integer  "team_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -66,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130217133606) do
   create_table "teams", :force => true do |t|
     t.string   "name"
     t.string   "sport_type"
+    t.integer  "match_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
