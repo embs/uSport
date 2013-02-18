@@ -1,3 +1,6 @@
+<script type="text/javascript">
+  setTimeout('loadXMLDoc()', 10000);
+</script>
   <% channel = @user.channels.first
      match = channel.matches.first
      match.value1=0
@@ -23,16 +26,14 @@
     <section class="grid_10">
       <header id="score">
         <h1>
-          <%= match.teams[0].name + ' ' + match.value1.to_s() %>
-          X <%= match.value2.to_s() + ' ' +  match.teams[1].name %>
+          <%= @match.teams[0].name + ' ' + @match.value1.to_s %>
+          X <%= @match.value2.to_s + ' ' +  @match.teams[1].name %>
         </h1>
       </header>
 
       <section>
-        <ul>
-          <% match.moves.each do |move| %>
-            <li><%= move.to_string %> Descrição: <%= move.description %></li>
-          <% end %>
+        <ul id="moves">
+          <%= render @moves %>
         </ul>
       </section>
 
