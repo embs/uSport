@@ -6,7 +6,7 @@ gem 'devise'
 
 gem 'debugger'
 
-gem 'sqlite3'
+gem 'pg'
 
 gem 'jquery-rails'
 
