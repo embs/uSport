@@ -1,3 +1,6 @@
+<script type="text/javascript">
+  setTimeout('loadXMLDoc()', 10000);
+</script>
 <% channel = @user.channels.first
    match = channel.matches.first
    match.value1=0
@@ -27,41 +30,26 @@
     <header id="score">
       <div id="team1">
           <h1 class="popup">
-            <%= match.teams[0].name %>
+            <%= @match.teams[0].name %>
           </h1>
         <%= image_tag("escudos/1.gif") %>
-        <p><%= match.value1.to_s() %></p>
+        <p><%= @match.value1.to_s %></p>
       </div>
       <div id="versus">
         <p>X</p>
       </div>
       <div id="team2">
-        <p><%=match.value2.to_s()%></p>
+        <p><%= @match.value2.to_s %></p>
         <%= image_tag("escudos/2.gif") %>
         <h1 class="popup">
-          <%= match.teams[1].name %>
+          <%= @match.teams[1].name %>
         </h1>
       </div>
     </header>
 
     <section id="timeline">
-      <ul>
-        <%
-          cor = true
-          match.moves.each do |move|
-            if cor
-              cor = false
-        %>
-              <li class="cor1"> <%= move.to_string %> </li>
-        <%
-            else
-              cor = true
-        %>
-              <li class="cor2"> <%= move.to_string %> </li>
-        <%
-            end
-          end
-        %>
+      <ul id="moves">
+        <%= render @moves %>
       </ul>
     </section>
 

@@ -8,18 +8,23 @@ task :create_all => :environment do
   u.password = "12345678"
   u.save
   c = Channel.new
-  c.name = "Bissa Online"
+  c.name = "Nóbrega Football Class"
   c.save
   u.channels << c
   m = Match.new
-  m.name = "Copa Bissa"
+  m.name = "Recife X Olinda"
   m.date = Time.now
   m.save
   c.matches << m
   p = Player.new
   p.first_name = "Arthur"
   p.last_name = "Oliveira"
-  p.number = 24
+  p.number = 404
+  p.save
+  p = Player.new
+  p.first_name = "João"
+  p.last_name = "das Palmeiras"
+  p.number = 39
   p.save
 
   v = Move.new

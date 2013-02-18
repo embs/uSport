@@ -1,0 +1,19 @@
+<header id="score">
+  <div id="team1">
+      <h1 class="popup">
+        <%= @match.teams[0].name %>
+      </h1>
+    <%= image_tag("escudos/1.gif") %>
+    <p><%= @match.value1.to_s %></p>
+  </div>
+  <div id="versus">
+    <p>X</p>
+  </div>
+  <div id="team2">
+    <p><%= @match.value2.to_s %></p>
+    <%= image_tag("escudos/2.gif") %>
+    <h1 class="popup">
+      <%= @match.teams[1].name %>
+    </h1>
+  </div>
+</header>

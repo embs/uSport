@@ -5,8 +5,8 @@ class CreateMatches < ActiveRecord::Migration
       t.datetime :date
       t.string :name
       t.references :channel
-      t.integer :value1
-      t.integer :value2
+      t.integer :value1, :default => 0
+      t.integer :value2, :default => 0
 
       t.timestamps
     end

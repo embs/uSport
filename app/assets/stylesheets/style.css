@@ -162,7 +162,7 @@ html {
 
 #team1 h1, #team2 h1 {
   display: inline-block;
-  width: 135px;
+  width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #4F4F4F;
@@ -183,14 +183,7 @@ html {
   border-top-style: solid ;
 }
 
-.cor1 {
-  border-bottom-width: 1px;
-  border-bottom-color: #C8C8C8;
-  border-bottom-style: solid ;
-  padding: 10px;
-}
-
-.cor2 {
+.cor {
   border-bottom-width: 1px;
   border-bottom-color: #C8C8C8;
   border-bottom-style: solid ;
