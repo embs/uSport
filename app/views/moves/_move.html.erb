@@ -1,1 +1,15 @@
-<li id="<%=move.id%>" class="move cor"><%= move.to_string %></li>
+<li id="<%=move.id%>" class="move cor">
+  <div class="move-team-emblem">
+    <%# Gambs temps %>
+    <% if move.team.name == "Recife" %>
+      <%= image_tag('escudos/1.gif') %>
+    <% end %>
+    <% if move.team.name == "Olinda" %>
+      <%= image_tag('escudos/2.gif') %>
+    <% end %>
+  </div>
+  <div>
+    <div><%= move.to_string %></div>
+    <p class="move-date"><%= l move.created_at, :format => :long %></p>
+  </div>
+</li>

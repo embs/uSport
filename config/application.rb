@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -58,5 +59,13 @@ module Quince
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Configura o timezone
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local
+
+    # Configura o locale
+    config.i18n.default_locale = "pt-BR"
+    config.i18n.locale = "pt-BR" # Configuração de fix para o Heroku
   end
 end

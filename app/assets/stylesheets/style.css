@@ -394,3 +394,15 @@ a {
   top: 2px;
   right: 2px;
 }
+
+.move-date {
+  color: #555;
+}
+
+.move-team-emblem {
+  float: right;
+}
+
+.move-team-emblem img {
+  width: 37px;
+}

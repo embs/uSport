@@ -27,9 +27,20 @@ task :create_all => :environment do
   p.number = 39
   p.save
 
+  t1 = Team.new
+  t1.name = "Recife"
+  t1.sport_type = "Football"
+  m.teams << t1
+
+  t2 = Team.new
+  t2.name = "Olinda"
+  t2.sport_type = "Football"
+  m.teams << t2
+
   v = Move.new
   v.kind = "Field Goal is Good"
   v.match = m
+  v.team = t1
   v.save
   p.moves << v
 
@@ -37,40 +48,35 @@ task :create_all => :environment do
   v.kind = "Kickoff"
   v.match = m
   v.description = 'Essa jogada foi arretada'
+  v.team = t1
   v.save
-
   p.moves << v
+
   v = Move.new
   v.kind = "Interceptação"
   v.match = m
+  v.team = t1
   v.save
   p.moves << v
 
   v = Move.new
   v.kind = "Punt"
   v.match = m
+  v.team = t2
   v.save
   p.moves << v
 
   v = Move.new
   v.kind = "Fumble"
   v.match = m
+  v.team = t2
   v.save
   p.moves << v
 
   v = Move.new
   v.kind = "Touchdown"
   v.match = m
+  v.team = t2
   v.save
   p.moves << v
-
-  t = Team.new
-  t.name = "Recife"
-  t.sport_type = "Football"
-  m.teams << t
-
-  t = Team.new
-  t.name = "Olinda"
-  t.sport_type = "Football"
-  m.teams << t
 end
