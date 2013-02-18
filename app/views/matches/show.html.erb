@@ -1,45 +1,75 @@
-  <% channel = @user.channels.first
-     match = channel.matches.first
-     match.value1=0
-     match.value2=0 %>
+<% channel = @user.channels.first
+   match = channel.matches.first
+   match.value1=0
+   match.value2=0 %>
 
-  <header id= 'channel-header' class='grid_16'>
-    <div id="profile-picture">
-      <%= image_tag("profile_picture.jpg") %>
-      <h1>  <%= channel.name %> </h1>
-    </div>
-  </header>
+<header id= 'channel-header' class='grid_16'>
+  <div id="profile-picture">
+    <%= image_tag("profile_picture.jpg") %>
+    <h1><%= channel.name %></h1>
+  </div>
+</header>
 
-  <section class="grid_16">
-    <nav class="grid_3 alpha">
-      <ul>
-        <h2> Matches </h2>
-        <% channel.matches.each do |m| %>
+<section id="channel-content" class="grid_16">
+  <nav id="match-list" class="grid_3 alpha">
+    <ul>
+      <h2> Matches </h2>
+      <% channel.matches.each do |m| %>
         <li> <%= m.name %> </li>
-        <% end %>
-      </ul>
-    </nav>
+      <% end %>
+    </ul>
+  </nav>
 
-    <section class="grid_10">
-      <header id="score">
-        <h1>
-          <%= match.teams[0].name + ' ' + match.value1.to_s() %>
-          X <%= match.value2.to_s() + ' ' +  match.teams[1].name %>
+  <div id="oculta">
+  </div>
+
+  <section class="grid_10">
+    <header id="score">
+      <div id="team1">
+          <h1 class="popup">
+            <%= match.teams[0].name %>
+          </h1>
+        <%= image_tag("escudos/1.gif") %>
+        <p><%= match.value1.to_s() %></p>
+      </div>
+      <div id="versus">
+        <p>X</p>
+      </div>
+      <div id="team2">
+        <p><%=match.value2.to_s()%></p>
+        <%= image_tag("escudos/2.gif") %>
+        <h1 class="popup">
+          <%= match.teams[1].name %>
         </h1>
-      </header>
+      </div>
+    </header>
 
-      <section>
-        <ul>
-          <% match.moves.each do |move| %>
-            <li><%= move.to_string %></li>
-          <% end %>
-        </ul>
-      </section>
-
+    <section id="timeline">
+      <ul>
+        <%
+          cor = true
+          match.moves.each do |move|
+            if cor
+              cor = false
+        %>
+              <li class="cor1"> <%= move.to_string %> </li>
+        <%
+            else
+              cor = true
+        %>
+              <li class="cor2"> <%= move.to_string %> </li>
+        <%
+            end
+          end
+        %>
+      </ul>
     </section>
 
-    <aside>
-
-    </aside>
-
   </section>
+
+  <aside class="grid_3 omega">
+    <%= image_tag("propagandas/propaganda1.png") %><br /><br />
+    <%= image_tag("propagandas/propaganda2.png") %><br /><br />
+  </aside>
+
+</section>
