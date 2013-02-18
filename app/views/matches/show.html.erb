@@ -31,7 +31,7 @@
       <section>
         <ul>
           <% match.moves.each do |move| %>
-            <li><%= move.to_string %></li>
+            <li><%= move.to_string %> Descrição: <%= move.description %></li>
           <% end %>
         </ul>
       </section>
