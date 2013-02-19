@@ -3,4 +3,5 @@ class Match < ActiveRecord::Base
   validates_presence_of :date, :name
   has_many :moves
   has_many :teams
+  belongs_to :channel
 end

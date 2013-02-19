@@ -420,3 +420,7 @@ a {
 .move-team-emblem img {
   width: 37px;
 }
+
+#ui-datepicker-div {
+  display: none;
+}

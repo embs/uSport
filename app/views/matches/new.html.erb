@@ -1,0 +1,11 @@
+<%= form_for @match, :url => { :action => "create" } do |f| %>
+  <%= f.text_field :name, :placeholder => "Nome da partida" %><br />
+  <%= f.text_field :date, :placeholder => "Data da transmissão" %><br />
+  <%= f.label :type, "Esporte: " %>
+  <%= f.select :type, options_for_select([["Futebol Americano", "FootballMatch"]]) %><br />
+  <%= f.label :team1, "Time 1:" %>
+  <%= select_tag('match[teams][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
+  <%= f.label :team2, "Time 2:" %>
+  <%= select_tag('match[teams][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
+  <%= f.submit :submit, value: "Criar" %>
+<% end %>

@@ -1,24 +1,19 @@
 <script type="text/javascript">
   setTimeout('loadXMLDoc()', 10000);
 </script>
-<% channel = @user.channels.first
-   match = channel.matches.first
-   match.value1=0
-   match.value2=0 %>
-
 <header id= 'channel-header' class='grid_16'>
   <div id="profile-picture">
     <%= image_tag("profile_picture.jpg") %>
-    <h1><%= channel.name %></h1>
+    <h1><%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %></h1>
   </div>
 </header>
 
 <section id="channel-content" class="grid_16">
   <nav id="match-list" class="grid_3 alpha">
     <ul>
-      <h2> Matches </h2>
-      <% channel.matches.each do |m| %>
-        <li> <%= m.name %> </li>
+      <h2>Partidas</h2>
+      <% @match.channel.matches.each do |m| %>
+        <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
       <% end %>
     </ul>
   </nav>

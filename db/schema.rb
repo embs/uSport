@@ -15,9 +15,12 @@ ActiveRecord::Schema.define(:version => 20130217133606) do
 
   create_table "channels", :force => true do |t|
     t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "channels", ["user_id"], :name => "index_channels_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"

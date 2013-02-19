@@ -9,9 +9,10 @@ task :create_all => :environment do
   u.save
   c = Channel.new
   c.name = "Nóbrega Football Class"
+  c.owner << u
   c.save
   u.channels << c
-  m = Match.new
+  m = FootballMatch.new
   m.name = "Recife X Olinda"
   m.date = Time.now
   m.save
