@@ -15,3 +15,6 @@
 /tmp
 
 config/database.yml
+
+# Ignora arquivo de configuração do RVM
+.rvmrc
