@@ -1,83 +1,30 @@
 # encoding: utf-8
-task :create_all => :environment do
-  u = User.new
-  u.email = "diogo.nobrega@outlook.com"
-  u.first_name = "Diogo"
-  u.last_name = "Nobrega"
-  u.username = "diogo"
-  u.password = "12345678"
-  u.save
-  c = Channel.new
-  c.name = "Nóbrega Football Class"
-  c.owner << u
-  c.save
-  u.channels << c
-  m = FootballMatch.new
-  m.name = "Recife X Olinda"
-  m.date = Time.now
-  m.save
-  c.matches << m
-  p = Player.new
-  p.first_name = "Arthur"
-  p.last_name = "Oliveira"
-  p.number = 404
-  p.save
-  p = Player.new
-  p.first_name = "João"
-  p.last_name = "das Palmeiras"
-  p.number = 39
-  p.save
-
-  t1 = Team.new
-  t1.name = "Recife"
-  t1.sport_type = "Football"
-  m.teams << t1
-
-  t2 = Team.new
-  t2.name = "Olinda"
-  t2.sport_type = "Football"
-  m.teams << t2
-
-  v = Move.new
-  v.kind = "Field Goal is Good"
-  v.match = m
-  v.team = t1
-  v.save
-  p.moves << v
-
-  v = Move.new
-  v.kind = "Kickoff"
-  v.match = m
-  v.description = 'Essa jogada foi arretada'
-  v.team = t1
-  v.save
-  p.moves << v
-
-  v = Move.new
-  v.kind = "Interceptação"
-  v.match = m
-  v.team = t1
-  v.save
-  p.moves << v
-
-  v = Move.new
-  v.kind = "Punt"
-  v.match = m
-  v.team = t2
-  v.save
-  p.moves << v
-
-  v = Move.new
-  v.kind = "Fumble"
-  v.match = m
-  v.team = t2
-  v.save
-  p.moves << v
-
-  v = Move.new
-  v.kind = "Touchdown"
-  v.match = m
-  v.team = t2
-  v.save
-  p.moves << v
+task create_users: :environment do
+  5.times { FactoryGirl.create :user }
 end
+
+task create_teams: :environment do
+  FactoryGirl.create :team_with_players, name: 'Recife Mariners'
+  FactoryGirl.create :team_with_players, name: 'Olinda Killers'
+  FactoryGirl.create :team_with_players, name: 'João Pessoa Destroyers'
+  FactoryGirl.create :team_with_players, name: 'Caruaru Carnicers'
+  FactoryGirl.create :team_with_players, name: 'Petrolina Supplanters'
+end
+
+task create_channels: :environment do
+  owner = User.first || FactoryGirl.create(:user)
+  5.times { FactoryGirl.create(:channel, owner: owner) }
+end
+
+task create_matches: :environment do
+  channel = Channel.first || FactoryGirl.create(:channel)
+  5.times { FactoryGirl.create(:match, channel: channel) }
+end
+
+task create_moves: :environment do
+  match = Match.first || FactoryGirl.create(:match)
+  10.times { FactoryGirl.create(:move, match: match) }
+end
+
+task :create_all => [:environment, :create_users, :create_teams,
+  :create_channels, :create_matches, :create_moves]

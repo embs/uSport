@@ -6,14 +6,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  
-  attr_accessible :email, :first_name, :last_name, :username
-  validates_presence_of :first_name, :last_name, :email, :username
-  validates_uniqueness_of :username
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+    :first_name, :last_name, :username
+
+  # Associações
   has_many :channels, :through => :user_channel_association
   has_many :user_channel_association
   has_many :comments
 
-
+  # Validações
+  validates_presence_of :first_name, :last_name, :email, :username
+  validates_uniqueness_of :username, :email
 end
