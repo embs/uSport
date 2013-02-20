@@ -3,5 +3,5 @@ class Team < ActiveRecord::Base
   validates_presence_of :name, :sport_type
   has_many :players
   has_many :moves
-  belongs_to :match
+  has_and_belongs_to_many :matches
 end

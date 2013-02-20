@@ -71,5 +71,10 @@ module Quince
 
     # Configuração de fix para o Heroku
     config.assets.initialize_on_precompile = false
+
+    # Faz com que sejam geradas factories em vez de fixtures do Rails
+    config.generators do |g|
+      g.fixture_replacement :factory_girl
+    end
   end
 end
