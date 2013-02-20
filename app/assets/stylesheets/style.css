@@ -75,6 +75,20 @@ html {
   font: lighter 24px Arial, Helvetica;
 }
 
+#logo-content h1 {
+  padding-left: 40px;
+  font: lighter 24px Arial, Helvetica;
+  font-size: 26px;
+  color: #344251;
+  text-shadow: 1px 1px 0px #bad3ed;
+  font-weight: bold;
+}
+
+#logo-content a:visited {
+  text-decoration: none;
+  color: #344251;
+}
+
 #channel-header h1 {
   float: left;
   padding-bottom: 16px;
