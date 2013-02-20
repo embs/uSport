@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :team do
-    name 'Mariners'
+    name "#{Faker::Address.city} Mariners"
     sport_type 'Futebol Americano'
 
     factory :team_with_players do

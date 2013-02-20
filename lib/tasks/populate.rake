@@ -4,11 +4,11 @@ task create_users: :environment do
 end
 
 task create_teams: :environment do
-  FactoryGirl.create :team_with_players, name: 'Recife Mariners'
-  FactoryGirl.create :team_with_players, name: 'Olinda Killers'
-  FactoryGirl.create :team_with_players, name: 'João Pessoa Destroyers'
-  FactoryGirl.create :team_with_players, name: 'Caruaru Carnicers'
-  FactoryGirl.create :team_with_players, name: 'Petrolina Supplanters'
+  sufix = ['Mariners', 'Pirates', 'Destroyers', 'Killers', 'Supplanters']
+  5.times do
+    FactoryGirl.create :team_with_players,
+      name: "#{Faker::Address.city} #{sufix[rand(5)]}"
+  end
 end
 
 task create_channels: :environment do
@@ -18,12 +18,16 @@ end
 
 task create_matches: :environment do
   channel = Channel.first || FactoryGirl.create(:channel)
-  5.times { FactoryGirl.create(:match, channel: channel) }
+  5.times { FactoryGirl.create(:match_with_teams, channel: channel) }
 end
 
 task create_moves: :environment do
   match = Match.first || FactoryGirl.create(:match)
-  10.times { FactoryGirl.create(:move, match: match) }
+  10.times do
+    team = match.teams[rand(2)]
+    FactoryGirl.create(:move, match: match, team: team,
+      player: team.players[rand(team.players.length)])
+  end
 end
 
 task :create_all => [:environment, :create_users, :create_teams,
