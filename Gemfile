@@ -10,6 +10,8 @@ gem 'pg'
 
 gem 'jquery-rails'
 
+gem 'jquery-ui-rails'
+
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem 'factory_girl_rails'

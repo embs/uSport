@@ -75,6 +75,9 @@ module Quince
     # Faz com que sejam geradas factories em vez de fixtures do Rails
     config.generators do |g|
       g.fixture_replacement :factory_girl
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
     end
   end
 end

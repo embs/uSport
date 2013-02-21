@@ -12,4 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.datepicker
 //= require_tree .
+
+$(function (){
+  // single dataset
+  $('input.typeahead').typeahead([
+    {
+      name: 'users',
+      remote: 'http://localhost:3000/users.json?q=%QUERY'
+    }
+  ]);
+});
