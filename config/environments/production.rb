@@ -1,4 +1,4 @@
-Quince::Application.configure do
+USport::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -64,4 +64,15 @@ Quince::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # Configuração da aplicação em omniauth providers
+  config.omniauth = {
+    :facebook => {
+      :app_id => '208423142635428',
+      :app_secret => '5226feab45bf2bdfa0625e388186e154'
+      # Adicionais
+      # :options => {:scope => 'email, read_stream, read_friendlists,
+      #   friends_likes, friends_status, offline_access'}
+    }
+  }
 end

@@ -13,6 +13,11 @@
 
       <nav id = "menu-login">
         <% if !current_user %>
+          <div id="facebook-login-btb">
+            <%= link_to 'entrar com <span>facebook</span>'.html_safe,
+              '/auth/facebook' %>
+            <!-- <a href="#">entrar com <span>facebook</span></a> -->
+          </div>
           <ul>
             <li id="login">
               <a id="login-trigger" href="#" class="">

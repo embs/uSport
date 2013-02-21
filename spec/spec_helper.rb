@@ -35,4 +35,10 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # Habilita o Devise nas specs
+  config.include Devise::TestHelpers, :type => :controller
+
+  # Habilita os métodos helpers existentes em support/controllers_helper.rb
+  config.extend ControllersHelper, :type => :controller
 end

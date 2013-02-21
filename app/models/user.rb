@@ -13,8 +13,19 @@ class User < ActiveRecord::Base
   has_many :channels, :through => :user_channel_association
   has_many :user_channel_association
   has_many :comments
+  has_many :authentications, :dependent => :destroy
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username
   validates_uniqueness_of :username, :email
+
+  def self.create_with_omniauth(auth)
+    User.create do |user|
+      user.first_name = auth['info']['first_name']
+      user.last_name = auth['info']['last_name']
+      user.email = auth['info']['email']
+      user.username = auth['info']['nickname']
+      user.password = '#TODO678' #TODO Gerar um password válido e difícil
+    end
+  end
 end

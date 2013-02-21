@@ -1,4 +1,4 @@
-Quince::Application.routes.draw do
+USport::Application.routes.draw do
 
   devise_for :users
 
@@ -14,11 +14,15 @@ Quince::Application.routes.draw do
       end
     end
   end
+  resources :authentications, :only => :create
 
   devise_scope :user do
     get "/login" => "devise/sessions#new"
     get "/logout" => "devise/sessions#destroy"
   end
+
+  # Autenticação com Facebook
+  match '/auth/:provider/callback' => 'authentications#create'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

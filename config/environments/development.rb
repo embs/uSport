@@ -1,4 +1,4 @@
-Quince::Application.configure do
+USport::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -37,4 +37,15 @@ Quince::Application.configure do
 
   # Configuração do devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # Configuração da aplicação em omniauth providers
+  config.omniauth = {
+    :facebook => {
+      :app_id => '453153111421388',
+      :app_secret => 'b37255af42146385e9ef759bda4d9102'
+      # Adicionais
+      # :options => {:scope => 'email, read_stream, read_friendlists,
+      #   friends_likes, friends_status, offline_access'}
+    }
+  }
 end

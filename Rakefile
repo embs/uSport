@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Quince::Application.load_tasks
+USport::Application.load_tasks
