@@ -1,0 +1,192 @@
+
+
+.new-match{
+   background-color: black;
+
+}
+
+/*.form1{
+
+  position: relative;
+  top: 2px;
+  right: 200px;
+
+}
+*/
+#posP{
+
+  font-size: 22px;
+  position: absolute;
+  left: 18%;
+  margin: 24px 0px 0px 0px;
+}
+
+/*posiciona e arruma labels*/
+
+#posL{
+  position: relative;
+  left: 28%;
+  margin: 25px 0px 0px 0px;
+  position: relative;
+}
+
+
+
+.submit{
+
+   position: absolute;
+   /*top: 50px;*/
+   left: 30%;
+   margin: 15px 0px 0px 0px;
+}
+
+
+#p1{
+   color: darkgray;
+}
+
+.h-1{
+  position: relative;
+  left: 35%;
+  font-size: 35px;
+  font-family: arial, verdana, sans-serif;
+  color: darkgray;
+  margin-bottom: 30px;
+
+
+}
+.h-2{
+  font-size: 20px;
+  color:darkgray;
+
+}
+.h-n{
+  font-size: 25px;
+  color:black;
+  position: relative;
+  left: 30%;
+  margin-bottom: 15px;
+}
+#menu01{
+  margin-top: 40px;
+}
+#li-1{
+  position: relative;
+  left: 15%;
+}
+
+/*posiciona e arruma paragrafos*/
+
+
+
+
+
+/*Classes dos paragrafos*/
+
+.parag6{
+
+   position: relative;
+   left: 52%;
+   font-size: 20px;
+   /*top: 50px;*/
+    margin: 15px 0px 0px 0px;
+
+}
+/*posiciona os testos\/*/
+.parag1{
+
+
+ margin: 15px 0px 0px 0px;
+
+}
+.parag2{
+
+
+    margin: 15px 0px 0px 0px;
+
+}
+.parag3{
+
+    position: absolute;
+    left: 18%;
+    font-size: 22px;
+
+    margin: 2px 0px 0px 0px;
+
+}
+.parag4{
+
+
+    margin: 15px 0px 0px 0px;
+
+}
+.parag5{
+
+  margin: 15px 0px 0px 0px;
+}
+
+.parag7{
+
+  margin: 0px 0px 0px 0px;
+
+}
+
+/*Classes labels*/
+
+/*posiciona as entradas\/*/
+.label6{
+
+  position: absolute;
+  /*top: 50px;*/
+  left: 50%;
+   margin: 23px 0px 0px 0px;
+}
+.label1{
+  position: relative;
+  /*top: 50px;*/
+  left: 10%;
+  margin: 15px 0px 0px 0px;
+
+}
+
+.label2{
+
+  position: relative;
+  /*top: 50px;*/
+  left: 10%;
+   margin: 15px 0px 0px 0px;
+}
+
+
+.label3{
+
+   position: relative;
+   /*top: 50px;*/
+  left: 10%;
+   margin: 15px 0px 0px 0px;
+}
+
+.label4{
+
+  position: relative;
+  /*top: 50px;*/
+  left: 10%;
+   margin: 15px 0px 0px 0px;
+}
+.label5{
+
+  position: relative;
+  /*top: 50px;*/
+  left: 10%;
+   margin: 15px 0px 0px 0px;
+}
+
+
+
+.label7{
+
+  position: relative;
+  /*top: 50px;*/
+  /*left: 44%;*/
+   margin: 15px 0px 0px 0px;
+}
