@@ -1,19 +1,132 @@
+
+<link rel="stylesheet" type="text/css" href="/home/marcos/Área de Trabalho/git2/quince/app/assets/stylesheets/style-test.css" />
+
+
+<section class= 'new-match' >
+
+
 <%= form_for(@move, :url => user_channel_match_moves_path) do |f| %>
-  <%= f.label :jogada %> <%= f.select :kind, options_for_select(@kinds) %><br />
-  <%= f.label :jogador %>
-  <%= f.select :player,
-    options_for_select(Player.all.collect { |p| [p.first_name, p.id] }) %><br/>
-  <%= f.label :time %>
-  <%= f.select :team,
-    options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %><br />
-  <%= f.label :quarto %>
-  <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
-    ["Second", 2], ["Third", 3], ["Fourth", 4]]) %><br />
-  <%= f.label :tempo %>
-  <%= f.select :minute, options_for_select(@minutes) %> (minuto)<br />
-  <%= f.label :description, :value => "Descrição" %>
-  <%= f.text_area :description %><br />
-  <%= f.label :jardas %>
-  <%= f.select :yards, options_for_select(@yards) %> (jardas)<br />
-  <%= f.submit %>
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="http://twitter.github.com/bootstrap/examples/fluid.html#">USport</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="http://twitter.github.com/bootstrap/examples/fluid.html#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Home</a></li>
+              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#about">Meus Canais</a></li>
+              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#contact">Partida</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+<h1 class= 'h-1'> JOGADAS </h1>
+
+
+<!-- posiciona jogada-->
+
+
+  <!-- posiciona description -->
+ <div class= 'parag6' id='pos'> <p id='p1'> Descrição do lance</p> </div>
+  <div class= 'label6' id='pos'>
+
+    <% f.label :description, :value => "Descrição" %>
+    <%= f.text_area :description %><br />
+  </div>
+
+<div >
+    <!-- posiciona time -->
+   <div class= 'parag3'>  <p  id='p1'> Time:</p> </div>
+    <div class= 'label3' id='posL'>
+
+      <% f.label :time %>
+      <%= f.select :team,
+      options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %><br />
+    </div>
+
+    <!-- posiciona jogador -->
+   <div class= 'parag2' id='posP'>  <p  id= 'p1'> Jogador:</p> </div>
+    <div class= 'label2' id='posL'>
+
+      <% f.label :jogador %>
+      <%= f.select :player,
+      options_for_select(Player.all.collect { |p| [p.first_name, p.id] }) %><br/>
+   </div>
+
+    <!-- posiciona jogada -->
+
+   <div class= 'parag1' id='posP'>  <p id ='p1'> Movimento:</p> </div>
+    <div class= 'label1' id='posL'>
+
+    <% f.label :jogada %>
+    <%= f.select :kind, options_for_select(@kinds) %><br />
+   </div>
+
+
+
+
+
+    <!-- posiciona quarto -->
+     <div class= 'parag4' id='posP'>  <p id='p1' > Quarto:</p> </div>
+    <div class= 'label4' id='posL'>
+
+      <% f.label :quarto %>
+      <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
+        ["Second", 2], ["Third", 3], ["Fourth", 4]]) %><br />
+    </div>
+
+    <!-- posiciona tempo -->
+    <div class= 'parag5' id='posP'>  <p id='p1' > Tempo:</p> </div>
+    <div class= 'label5' id='posL'>
+
+      <% f.label :tempo %>
+       <%= f.select :minute, options_for_select(@minutes) %> <br />
+    </div>
+
+
+    <!-- posiciona jardas -->
+    <div class= 'parag7' id='posP'> <p id='p1' > Jardas:</p> </div>
+    <div class= 'label7' id='posL'>
+      <% f.label :jardas %>
+      <%= f.select :yards, options_for_select(@yards) %> <br />
+    </div>
+
+    <!-- criar jogada -->
+    <div class ='submit'>
+      <%= f.submit %>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+</section>
+
+
 <% end %>
