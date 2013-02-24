@@ -1,4 +1,7 @@
 <%= form_for @channel, :url => { :action => "create" } do |f| %>
-  <%= f.text_field :name, :placeholder => "Nome do canal" %><br />
-  <%= f.submit :submit, value: "Criar" %>
+  <fieldset>
+    <legend><%=t :new_channel %></legend>
+    <%= f.text_field :name, :placeholder => "#{t :channels_name}" %><br />
+    <%= f.submit nil, :class => 'btn' %>
+  </fieldset>
 <% end %>

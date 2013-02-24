@@ -1,0 +1,58 @@
+<div class="navbar navbar-static-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <ul class="nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle brand" data-toggle="dropdown">
+            USport
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li role="presentation">
+              <%= link_to "Home", root_path, :role => 'menuitem' %>
+            </li>
+            <li role="presentation" class="divider"></li>
+            <% if current_user %>
+              <li crole="presentation">
+                <%= link_to "Gerenciar", root_path, :role => 'menuitem' %>
+              </li>
+              <li role="presentation" class="divider"></li>
+              <li crole="presentation">
+                <%= link_to "Sair", logout_path, :role => 'menuitem' %>
+              </li>
+            <% else %>
+              <li role="presentation">
+                <%= link_to "Entrar", login_path, :role => 'menuitem' %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <%# Transmitir pode ir para criação de partida, de canal ou login %>
+          <li>
+            <% if current_user && current_user.channels.empty? %>
+              <%= link_to "Transmitir!", new_user_channel_path(current_user) %>
+            <% elsif current_user %>
+              <%= link_to "Transmitir!", new_user_channel_match_path(current_user, nil) %>
+            <% else %>
+              <%#TODO ir pra criação de canal depois do login %>
+              <%= link_to "Transmitir!", login_path %>
+            <% end %>
+          </li>
+          <li class="divider-vertical"></li>
+          <li><%= link_to "Assistir" %></li>
+        </ul>
+       <form class="navbar-search pull-left">
+          <input type="text" class="search-query" placeholder="Buscar">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

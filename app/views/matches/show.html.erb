@@ -1,58 +1,33 @@
 <script type="text/javascript">
   setTimeout('loadXMLDoc()', 10000);
 </script>
-<header id= 'channel-header' class='grid_16'>
-  <div id="profile-picture">
-    <%= image_tag("profile_picture.jpg") %>
-    <h1><%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %></h1>
-  </div>
-</header>
+<% content_for :left_side_bar do %>
+  <%= image_tag("profile_picture.jpg") %>
+  <h1>
+    <%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %>
+  </h1>
+  <ul class="nav nav-tabs nav-stacked">
+    <h2>Partidas</h2>
+    <% @match.channel.matches.each do |m| %>
+      <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-<section id="channel-content" class="grid_16">
-  <nav id="match-list" class="grid_3 alpha">
-    <ul>
-      <h2>Partidas</h2>
-      <% @match.channel.matches.each do |m| %>
-        <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
-      <% end %>
-    </ul>
-  </nav>
-
-  <div id="oculta">
-  </div>
-
-  <section class="grid_10">
-    <header id="score">
-      <div id="team1">
-          <h1 class="popup">
-            <%= @match.teams[0].name %>
-          </h1>
-        <%= image_tag("escudos/1.gif") %>
-        <p><%= @match.value1.to_s %></p>
-      </div>
-      <div id="versus">
-        <p>X</p>
-      </div>
-      <div id="team2">
-        <p><%= @match.value2.to_s %></p>
-        <%= image_tag("escudos/2.gif") %>
-        <h1 class="popup">
-          <%= @match.teams[1].name %>
-        </h1>
-      </div>
-    </header>
-
-    <section id="timeline">
-      <ul id="moves">
-        <%= render @moves %>
-      </ul>
-    </section>
-
-  </section>
-
-  <aside class="grid_3 omega">
-    <%= image_tag("propagandas/propaganda1.png") %><br /><br />
-    <%= image_tag("propagandas/propaganda2.png") %><br /><br />
-  </aside>
-
-</section>
+<%= @match.teams[0].name %>
+<%= image_tag("escudos/1.gif") %>
+<%= @match.value1.to_s %>
+X
+<%= @match.value2.to_s %>
+<%= image_tag("escudos/2.gif") %>
+<%= @match.teams[1].name %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Lance a Lance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @moves %>
+  </tbody>
+</table>

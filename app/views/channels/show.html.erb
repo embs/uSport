@@ -1,44 +1,21 @@
-<header id= 'channel-header' class='grid_16'>
-  <div id="profile-picture">
-    <%= image_tag("profile_picture.jpg") %>
-    <h1><%= @channel.name %></h1>
-  </div>
-</header>
+<% content_for :left_side_bar do %>
+  <%= image_tag("profile_picture.jpg") %>
+  <h1>
+    <%= link_to @channel.name, user_channel_path(@channel.owner, @channel) %>
+  </h1>
   <% if current_user %>
     <%#TODO Verificar se o usuário tem permissão para transmitir nesse canal %>
     <%= link_to "Transmitir nova partida!",
       new_user_channel_match_path(current_user, @channel) %>
   <% end %>
+<% end %>
 
-<section id="channel-content" class="grid_16">
-  <nav id="match-list" class="grid_3 alpha">
-      <h2>Partidas</h2>
-  </nav>
-
-  <div id="oculta">
-  </div>
-
-  <section class="grid_10">
-    <% if @channel.matches.length == 0 %>
-      Esse canal ainda não transmitiu nenhuma partida
-    <% end %>
-
-    <section id="timeline">
-    <ul>
-      <% @channel.matches.each do |m| %>
-        <li><%= link_to m.name, user_channel_match_path(@channel.owner, @channel, m) %></li>
-      <% end %>
-    </ul>
-      <ul id="moves">
-        <%#= render @moves %>
-      </ul>
-    </section>
-
-  </section>
-
-  <aside class="grid_3 omega">
-    <%= image_tag("propagandas/propaganda1.png") %><br /><br />
-    <%= image_tag("propagandas/propaganda2.png") %><br /><br />
-  </aside>
-
-</section>
+<h2>Partidas</h2>
+<% if @channel.matches.length == 0 %>
+  Esse canal ainda não transmitiu nenhuma partida
+<% end %>
+<ul>
+  <% @channel.matches.each do |m| %>
+    <li><%= link_to m.name, user_channel_match_path(@channel.owner, @channel, m) %></li>
+  <% end %>
+</ul>

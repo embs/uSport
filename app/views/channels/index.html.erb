@@ -1,11 +1,11 @@
-<h1> Todos os canais </h1>
+  <h1> Todos os canais </h1>
 
-<% @channels.each do |channel| %>
-  <div class="channel" %>
-    <ul>
-      <li>
-        <%= link_to channel.name, user_channel_path(channel.owner.id, channel) %>
-      </li>
-    </ul>
-  </div>
-<% end %>
+  <% @channels.each do |channel| %>
+    <div class="channel" %>
+      <ul>
+        <li>
+          <%= link_to channel.name, user_channel_path(channel.owner.id, channel) %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
