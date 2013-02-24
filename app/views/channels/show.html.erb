@@ -8,6 +8,7 @@
     <%#TODO Verificar se o usuário tem permissão para transmitir nesse canal %>
     <%= link_to "Transmitir nova partida!",
       new_user_channel_match_path(current_user, @channel) %>
+    <%= link_to "Editar Canal", edit_user_channel_path(@channel.owner, @channel) %>
   <% end %>
 
 <section id="channel-content" class="grid_16">

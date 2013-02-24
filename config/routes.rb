@@ -6,9 +6,11 @@ USport::Application.routes.draw do
 
   resources :channels, :only => :index
 
-  resources :users, :only => :index do
-    resources :channels, :only => [:index, :show, :new, :create] do
-      resources :matches, :only => [:index, :show, :new, :create] do
+  resources :teams, :only => [:new, :create, :edit, :update, :destroy]
+
+  resources :users, :only => [:index, :edit, :update] do
+    resources :channels do
+      resources :matches, :except => [:index, :edit, :update] do
         member { get 'score' }
         resources :moves, :only => [:index, :show, :new, :create] do
           resources :comments, :only => [:index, :new, :create]

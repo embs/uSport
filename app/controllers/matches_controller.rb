@@ -2,7 +2,7 @@ class MatchesController < ApplicationController
   layout :choose_layout
 
   def new
-    @match = Match.new
+    @match = FootballMatch.new #FIXME Por enquanto, apenas partidas desse tipo
     @teams = Team.all
   end
 

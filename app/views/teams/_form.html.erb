@@ -1,0 +1,7 @@
+<%= form_for @team do |f| %>
+  <%= f.text_field :name %>
+  <%= f.select :sport_type, options_for_select([["Futebol Americano", "football"]]) %>
+  <%= image_tag @team.avatar(:thumb) %>
+  <%= f.file_field :avatar %>
+  <%= f.submit %>
+<% end %>

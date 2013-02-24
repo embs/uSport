@@ -51,6 +51,7 @@
           Bem vindo, <%= current_user.first_name %>
           <%= link_to "Sair", logout_path %><br />
           <%= link_to "Criar um canal!", new_user_channel_path(current_user) %>
+          <%= link_to "Configurar conta", edit_user_path(current_user) %>
         <% end %>
       </nav>
     </div>

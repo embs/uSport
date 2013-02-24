@@ -1,4 +1,1 @@
-<%= form_for @channel, :url => { :action => "create" } do |f| %>
-  <%= f.text_field :name, :placeholder => "Nome do canal" %><br />
-  <%= f.submit :submit, value: "Criar" %>
-<% end %>
+<%= render :partial => 'form', :locals => { :action => 'create' } %>

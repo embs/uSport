@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'paperclip/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -41,4 +42,7 @@ RSpec.configure do |config|
 
   # Habilita os métodos helpers existentes em support/controllers_helper.rb
   config.extend ControllersHelper, :type => :controller
+
+  # Habilita testes do Paperclip
+  config.include Paperclip::Shoulda::Matchers
 end

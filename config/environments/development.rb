@@ -48,4 +48,7 @@ USport::Application.configure do
       #   friends_likes, friends_status, offline_access'}
     }
   }
+
+  # Configuração do Paperclip
+  Paperclip.options[:command_path] = "/usr/bin/"
 end

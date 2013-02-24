@@ -1,0 +1,9 @@
+<%= form_for @user do |f| %>
+  <%= f.text_field :first_name, :placeholder => 'Nome' %>
+  <%= f.text_field :last_name, :placeholder => 'Sobrenome' %>
+  <%= f.text_field :email, :placeholder => 'E-mail' %>
+  <%= f.text_field :username, :placeholder => 'Nome de usuário' %>
+  <%= image_tag @user.avatar.url(:thumb) %>
+  <%= f.file_field :avatar %>
+  <%= f.submit %>
+<% end %>

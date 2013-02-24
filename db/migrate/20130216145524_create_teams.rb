@@ -6,5 +6,6 @@ class CreateTeams < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_attachment :teams, :avatar
   end
 end

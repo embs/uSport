@@ -13,6 +13,7 @@ describe User do
   it { should have_many(:channels).through(:user_channel_association) }
   it { should have_many :comments }
   it { should have_many :authentications }
+  it { should have_attached_file(:avatar) }
 
   # Validações
   it { should validate_presence_of :first_name }

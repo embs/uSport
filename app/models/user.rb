@@ -7,13 +7,15 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :first_name, :last_name, :username
+    :first_name, :last_name, :username, :avatar
 
   # Associações
   has_many :channels, :through => :user_channel_association
   has_many :user_channel_association
   has_many :comments
   has_many :authentications, :dependent => :destroy
+  has_attached_file :avatar, :styles => { :thumb => ["128x128#", :png] },
+    :default_url => "avatars/user/missing.jpg"
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username

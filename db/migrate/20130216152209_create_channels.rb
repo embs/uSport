@@ -7,5 +7,6 @@ class CreateChannels < ActiveRecord::Migration
       t.timestamps
     end
     add_index :channels, :user_id
+    add_attachment :channels, :avatar
   end
 end
