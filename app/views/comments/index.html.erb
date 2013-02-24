@@ -1,0 +1,8 @@
+<section id="channel-content" class="grid_16">
+<% @comments.each do |comment| %>
+  <%= l comment.created_at, :format => :long %>
+  <%= "#{comment.author.first_name} #{comment.author.last_name}" %>
+  comentou: <br />
+  <%= comment.body %><br />
+<% end %>
+</section>

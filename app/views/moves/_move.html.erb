@@ -10,6 +10,12 @@
   </div>
   <div>
     <div><%= move.to_string %></div>
-    <p class="move-date"><%= l move.created_at, :format => :long %></p>
+    <p class="move-date"><%= l move.created_at, :format => :long %></p><br />
+    <% if current_user %>
+      <%= link_to 'Comentar lance',
+        new_user_channel_match_move_comment_path(move.match.channel.owner, move.match.channel, move.match, move) %>
+    <% end %>
+    <%= link_to 'Ver comentários',
+      user_channel_match_move_comments_path(move.match.channel.owner, move.match.channel, move.match, move) %>
   </div>
 </li>

@@ -1,0 +1,4 @@
+<%= form_for @comment, :url => { :action => :create } do |f| %>
+  <%= f.text_area :body, :placeholder => 'Seu comentário aqui' %>
+  <%= f.submit %>
+<% end %>

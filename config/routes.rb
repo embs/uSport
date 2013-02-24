@@ -10,10 +10,13 @@ USport::Application.routes.draw do
     resources :channels, :only => [:index, :show, :new, :create] do
       resources :matches, :only => [:index, :show, :new, :create] do
         member { get 'score' }
-        resources :moves, :only => [:index, :show, :new, :create]
+        resources :moves, :only => [:index, :show, :new, :create] do
+          resources :comments, :only => [:index, :new, :create]
+        end
       end
     end
   end
+
   resources :authentications, :only => :create
 
   devise_scope :user do

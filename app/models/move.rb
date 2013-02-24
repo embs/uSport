@@ -2,10 +2,13 @@ class Move < ActiveRecord::Base
   attr_accessible :description, :kind, :minute, :player, :points, :quarter, :yards,
     :team
 
+  # Associações
   belongs_to :match
   belongs_to :player
   belongs_to :team #TODO Restrição: deve ser o mesmo time do jogador
+  has_many :comments
 
+  # Validações
   validates_presence_of :kind, :match
 
   def to_string

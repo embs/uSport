@@ -79,5 +79,8 @@ module USport
       g.javascripts false
       g.helper false
     end
+
+    # Carrega arquivos de locales dentro de subdiretórios
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
   end
 end
