@@ -10,6 +10,7 @@
   </div>
   <div>
     <div><%#= move.to_string %></div>
+    <div><%= move.description %></div>
     <p class="move-date"><%= l move.created_at, :format => :long %></p><br />
     <% if current_user %>
       <%= link_to 'Comentar lance',
