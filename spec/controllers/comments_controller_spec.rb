@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/exceptions'
 
 describe CommentsController do
   let(:user) { FactoryGirl.create(:user) }
@@ -28,16 +29,29 @@ describe CommentsController do
   end
 
   describe 'GET new' do
-    before do
-      get :new, @params
+    context 'when logged' do
+      before do
+        controller.stub(:current_user => user)
+        get :new, @params
+      end
+
+      it 'returns http success' do
+        response.should be_success
+      end
+
+      it 'assigns comment' do
+        assigns[:comment] = Comment.new
+      end
     end
 
-    it 'returns http success' do
-      response.should be_success
-    end
+    context 'when not logged' do
+      before do
+        get :new, @params
+      end
 
-    it 'assigns comment' do
-      assigns[:comment] = Comment.new
+      it { response.should redirect_to(root_path) }
+
+      it { should set_the_flash[:alert] }
     end
   end
 

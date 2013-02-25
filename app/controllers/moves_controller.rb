@@ -2,17 +2,16 @@
 class MovesController < ApplicationController
   layout "clean"
 
-  def index
-  end
-
   # retorna todos os moves mais recentes que o move com o ID referido além
   # do próprio move
   def show
     @move = Move.find(params[:id])
+    authorize! :show, @move
     @moves = Move.where('id > ?', params[:id]).order('created_at DESC')
   end
 
   def new
+    authorize! :manage, Channel.find(params[:channel_id])
     @move = Move.new
     @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
       ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
@@ -38,6 +37,7 @@ class MovesController < ApplicationController
       move.team = team
       move.match = match
       move.points = points
+      authorize! :create, move
     end
     # Atualiza o placar da partida
     if team == match.teams[0]

@@ -34,6 +34,7 @@ GEM
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
+    cancan (1.6.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -190,6 +191,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  cancan
   coffee-rails (~> 3.2.1)
   debugger
   devise

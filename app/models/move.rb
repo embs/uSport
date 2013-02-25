@@ -1,6 +1,6 @@
 class Move < ActiveRecord::Base
   attr_accessible :description, :kind, :minute, :player, :points, :quarter, :yards,
-    :team
+    :team, :match
 
   # Associações
   belongs_to :match

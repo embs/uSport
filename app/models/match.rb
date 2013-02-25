@@ -1,6 +1,6 @@
 class Match < ActiveRecord::Base
   # Atributos acessíveis
-  attr_accessible :date, :name, :type, :value1, :value2
+  attr_accessible :date, :name, :type, :value1, :value2, :channel
 
   # Associações
   has_many :moves

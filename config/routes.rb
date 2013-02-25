@@ -12,7 +12,7 @@ USport::Application.routes.draw do
     resources :channels do
       resources :matches, :except => [:index, :edit, :update] do
         member { get 'score' }
-        resources :moves, :only => [:index, :show, :new, :create] do
+        resources :moves, :only => [:show, :new, :create] do
           resources :comments, :only => [:index, :new, :create]
         end
       end

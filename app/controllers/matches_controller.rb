@@ -2,7 +2,9 @@ class MatchesController < ApplicationController
   layout :choose_layout
 
   def new
+    authorize! :manage, Channel.find(params[:channel_id])
     @match = FootballMatch.new #FIXME Por enquanto, apenas partidas desse tipo
+    authorize! :create, Match
     @teams = Team.all
   end
 
@@ -13,12 +15,14 @@ class MatchesController < ApplicationController
     match.teams << Team.find(teams.first)
     match.teams << Team.find(teams.last)
     match.date = params[:match][:date]
+    authorize! :create, match
     match.save
     redirect_to user_channel_match_path(current_user.id, params[:channel_id].to_i, match.id)
   end
 
   def show
     @match = Match.find(params[:id])
+    authorize! :show, @match
     @user = User.find(params[:user_id])
     @moves = @match.moves.order('created_at DESC')
   end

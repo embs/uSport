@@ -1,5 +1,7 @@
 # encoding: utf-8
 class AuthenticationsController < ApplicationController
+  skip_authorization_check
+
   def create
     auth = request.env['omniauth.auth']
 
