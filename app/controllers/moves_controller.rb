@@ -49,6 +49,40 @@ class MovesController < ApplicationController
     redirect_to new_user_channel_match_move_path
   end
 
+  def edit
+    @move = Move.find(params[:id])
+    authorize! :manage, @move
+    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
+      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
+      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @minutes = [["--", 0]]
+    15.times do |n|
+      @minutes << [(n+1).to_s, (n+1)]
+    end
+    @yards = []
+    151.times do |n|
+      @yards << [n.to_s, n]
+    end
+  end
+
+  def update
+    @move = Move.find(params[:id])
+    authorize! :manage, @move
+    @move.update_attributes(params[:move])
+    flash[:notice] = 'Jogada atualizada!'
+    redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
+      @move.match)
+  end
+
+  def destroy
+    @move = Move.find(params[:id])
+    authorize! :manage, @move
+    @move.destroy
+    flash[:notice] = 'A jogada foi removida.'
+    redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
+      @move.match)
+  end
+
   private
 
   def find_points(move_kind)

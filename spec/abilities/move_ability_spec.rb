@@ -21,15 +21,25 @@ describe 'Move ability' do
   end
 
   context 'when logged in' do
+    let(:move) { FactoryGirl.create(:move) }
+    let(:users_move) { FactoryGirl.create(:move, :match => users_match) }
     subject { Ability.new(user) }
 
     it 'user is not able to create a move for a match in a channel he does not own' do
       subject.should_not be_able_to(:create, Move.new(:match => match))
     end
 
+    it 'user is not able to manage a move for a match in a channel he does not own' do
+      subject.should_not be_able_to(:manage, match)
+    end
+
     context 'as channel owner' do
-      it 'user is able to create a move one of his channels match' do
+      it 'user is able to create a move for one of his channels matches' do
         subject.should be_able_to(:create, Move.new(:match => users_match))
+      end
+
+      it 'user is able to manage a move in one of his channels matches' do
+        subject.should be_able_to(:manage, users_move)
       end
     end
   end

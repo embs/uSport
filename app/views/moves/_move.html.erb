@@ -10,12 +10,20 @@
   </div>
   <div>
     <div><%#= move.to_string %></div>
+    <div><%= move.description %></div>
     <p class="move-date"><%= l move.created_at, :format => :long %></p><br />
-    <% if current_user %>
+    <% if can? :create, Comment %>
       <%= link_to 'Comentar lance',
         new_user_channel_match_move_comment_path(move.match.channel.owner, move.match.channel, move.match, move) %>
     <% end %>
     <%= link_to 'Ver comentários',
       user_channel_match_move_comments_path(move.match.channel.owner, move.match.channel, move.match, move) %>
+    <% if can? :manage, move %>
+      <%= link_to 'Editar jogada',
+        edit_user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move) %>
+      <%= link_to 'Remover jogada',
+        user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
+        :method => :delete %>
+    <% end %>
   </div>
 </li>
