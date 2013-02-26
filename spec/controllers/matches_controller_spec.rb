@@ -42,4 +42,93 @@ describe MatchesController do
       it { should set_the_flash[:alert] }
     end
   end
+
+  describe 'POST create' do
+    let(:team1) { FactoryGirl.create(:team) }
+    let(:team2) { FactoryGirl.create(:team) }
+    let(:valid_params) do
+      {
+        :user_id => channels_owner.id, :channel_id => channel.id,
+        :football_match => {
+          :name => 'Nova Partida', :type => 'FootballMatch', :date => '29/02/2013',
+          :channel_id => channel.id, :teams_ids => [team1.id, team2.id]
+        }
+      }
+    end
+
+    context 'when logged as channel owner' do
+      before do
+        controller.stub(:current_user => channels_owner)
+      end
+
+      context 'with valid fields' do
+
+        before do
+          post :create, valid_params
+        end
+
+        it 'creates new match' do
+          Match.last.name.should == valid_params[:football_match][:name]
+        end
+
+        it 'associates team1' do
+          Match.last.teams.should include(team1)
+        end
+
+        it 'associates team2' do
+          Match.last.teams.should include(team2)
+        end
+
+        it { should set_the_flash[:notice].to('Partida criada!')}
+
+        it { should redirect_to user_channel_match_path(channels_owner.id,
+          channel.id, Match.last.id) }
+
+        it { response.should be_redirect }
+      end # context 'with valid fields'
+
+      context 'with invalid fields' do
+        let(:invalid_params) do
+          {
+            :user_id => channels_owner.id, :channel_id => channel.id,
+            :football_match => {
+              :name => '', :type => 'FootballMatch', :date => '29/02/2013',
+              :channel_id => channel.id, :teams_ids => [team1.id, team2.id]
+            }
+          }
+        end
+
+        before do
+          post :create, invalid_params
+        end
+
+        it { should render_template(:new) }
+
+        it 'does not create match' do
+          Match.last.should be_nil
+        end
+      end # context 'with invalid fields'
+    end # context 'when logged as channel owner'
+
+    context 'when logged as an user wich does not own the channel' do
+      before do
+        controller.stub(:current_user => user)
+        post :create, valid_params
+      end
+
+      it { response.should redirect_to(root_path) }
+
+      it { should set_the_flash[:alert] }
+    end # context 'when logged as an user wich does not own the channel'
+
+    context 'when not logged' do
+      before do
+        post :create, valid_params
+      end
+
+      it { response.should redirect_to(root_path) }
+
+      it { should set_the_flash[:alert] }
+    end # context 'when not logged'
+  end
 end
