@@ -5,7 +5,7 @@
 <section class= 'new-match' >
 
 
-<%= form_for(@move, :url => user_channel_match_moves_path) do |f| %>
+<%= form_for @move, :url => user_channel_match_moves_path, :remote => :true do |f| %>
 <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">

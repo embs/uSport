@@ -48,9 +48,7 @@ class MovesController < ApplicationController
     @match.save
 
     respond_to do |format|
-      format.html do
-        redirect_to new_user_channel_match_move_path
-      end
+      format.html { render 'create.js.erb' }
       format.js
     end
   end
