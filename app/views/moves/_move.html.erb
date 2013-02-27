@@ -1,17 +1,7 @@
-<li id="<%=move.id%>" class="move cor">
-  <div class="move-team-emblem">
-    <%# Gambs temps %>
-    <% if move.team.name == "Recife" %>
-      <%= image_tag('escudos/1.gif') %>
-    <% end %>
-    <% if move.team.name == "Olinda" %>
-      <%= image_tag('escudos/2.gif') %>
-    <% end %>
-  </div>
-  <div>
-    <div><%#= move.to_string %></div>
-    <div><%= move.description %></div>
-    <p class="move-date"><%= l move.created_at, :format => :long %></p><br />
+<tr id="<%=move.id%>">
+  <td>
+    <%= move.description %>
+    <%= l move.created_at, :format => :long %>
     <% if can? :create, Comment %>
       <%= link_to 'Comentar lance',
         new_user_channel_match_move_comment_path(move.match.channel.owner, move.match.channel, move.match, move) %>
@@ -25,5 +15,5 @@
         user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
         :method => :delete %>
     <% end %>
-  </div>
-</li>
+  </td>
+</tr>

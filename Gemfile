@@ -23,13 +23,13 @@ gem 'paperclip'
 gem 'cancan'
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+  gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'faker'
 end
 
 group :test do
-  gem "shoulda-matchers"
+  gem 'shoulda-matchers'
 end
 
 # Gems used only for assets and not required
@@ -40,7 +40,7 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
-
+  gem 'twitter-bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 

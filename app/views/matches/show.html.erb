@@ -1,58 +1,196 @@
 <script type="text/javascript">
   setTimeout('loadXMLDoc()', 10000);
 </script>
-<header id= 'channel-header' class='grid_16'>
-  <div id="profile-picture">
-    <%= image_tag("profile_picture.jpg") %>
-    <h1><%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %></h1>
+
+
+<% content_for :left_side_bar do %>
+ <div class= "well">
+  <%= image_tag("profile_picture.jpg") %>
+  <h1>
+    <%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %>
+  </h1>
+  <ul class="nav nav-tabs nav-stacked">
+    <h2>Partidas</h2>
+    <% @match.channel.matches.each do |m| %>
+      <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
+    <% end %>
+  </ul>
   </div>
-</header>
+<% end %>
 
-<section id="channel-content" class="grid_16">
-  <nav id="match-list" class="grid_3 alpha">
-    <ul>
-      <h2>Partidas</h2>
-      <% @match.channel.matches.each do |m| %>
-        <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
-      <% end %>
-    </ul>
-  </nav>
 
-  <div id="oculta">
-  </div>
+<!-- Placar + Escudos -->
+<div class = "well">
 
-  <section class="grid_10">
-    <header id="score">
-      <div id="team1">
-          <h1 class="popup">
-            <%= @match.teams[0].name %>
-          </h1>
-        <%= image_tag("escudos/1.gif") %>
-        <p><%= @match.value1.to_s %></p>
-      </div>
-      <div id="versus">
-        <p>X</p>
-      </div>
-      <div id="team2">
-        <p><%= @match.value2.to_s %></p>
-        <%= image_tag("escudos/2.gif") %>
-        <h1 class="popup">
-          <%= @match.teams[1].name %>
-        </h1>
-      </div>
-    </header>
 
-    <section id="timeline">
-      <ul id="moves">
-        <%= render @moves %>
-      </ul>
-    </section>
+  <!-- Eu acredito que tenha gasto mais variaveis do que seria necessário,  devemos priorizar memoria ou execução/ legibilidade do codigo ?-->
+  <!-- ainda precisa verificar casos do primeiro ou ultimo nome muito grandes -->
+  <!-- seria bom uma verificação para não permitir siglas iguais -->
 
-  </section>
+  <!-- trunca o nome do primeiro time-->
+<% nome_time= @match.teams[0].name
 
-  <aside class="grid_3 omega">
-    <%= image_tag("propagandas/propaganda1.png") %><br /><br />
-    <%= image_tag("propagandas/propaganda2.png") %><br /><br />
-  </aside>
+    entra = true
+    nome_dividido = nome_time.split(" ")
+    trunca = nome_dividido.length - 2
 
-</section>
+    # definir o valor em 15 \/ mas depois a gente repensa
+    while nome_time.length > 15 and entra
+
+      if trunca > 0
+        nome_dividido = nome_time.split(" ")
+        nome_time = ''
+
+        cont = 0
+        for parte in nome_dividido
+
+          if cont == trunca
+
+            # depois tornar upercase\/
+            nome_time = nome_time + parte[0] + '. '
+          else
+            nome_time = nome_time + parte + ' '
+          end
+          cont = cont +1
+        end
+        trunca = trunca -1
+      else
+        entra = false
+      end
+    end
+%>
+
+<!-- Se o primeiro e ultimo nomes forem muito Grandes
+mas se isso acontecer vai ficar bem deselegante, temos que pensar em uma
+solução mais inteligente, quem sabe no caso de acontecer usar sigla para os dois
+times. (só não botei direto sigla aos dois times porque perde a graça)
+-->
+
+<%
+
+    # se o tamanho 20 ainda tiver grande é só mudar o valor aqui\/.
+  if nome_time.length > 20
+    nome_dividido = nome_time.split(" ")
+
+    cont = 0
+    for parte in nome_dividido
+      nome_dividido[cont] = parte + ' '
+      cont = cont + 1
+    end
+    nome_dividido[nome_dividido.length- 1] = nome_dividido[nome_dividido.length- 1][0] + '.'
+    nome_time = nome_dividido.join
+
+  end
+
+    # só trunca o primeiro nome caso esteja com mais de 25 caracteres
+   if nome_time.length > 25
+    nome_dividido = nome_time.split(" ")
+
+    cont = 0
+    for parte in nome_dividido
+      nome_dividido[cont] = parte + ' '
+      cont = cont + 1
+    end
+    nome_dividido[0] = nome_dividido[0][0] + '. '
+    nome_time = nome_dividido.join
+
+  end
+
+%>
+
+  <!-- imprime a truncagem -->
+  <%= nome_time%>
+
+
+  <%= image_tag("escudos/1.gif") %>
+  <%= @match.value1.to_s %>
+  X
+  <%= @match.value2.to_s %>
+  <%= image_tag("escudos/2.gif") %>
+
+
+  <!-- Faz a truncagem do nome do time 2 -->
+
+  <% nome_time= @match.teams[1].name
+
+    entra = true
+    nome_dividido = nome_time.split(" ")
+    trunca = nome_dividido.length - 2
+
+
+    # definir o valor em 15 \/ mas depois a gente repensa
+    while nome_time.length > 15 and entra
+
+      if trunca > 0
+        nome_dividido = nome_time.split(" ")
+        nome_time = ''
+
+        cont = 0
+        for parte in nome_dividido
+
+          if cont == trunca
+
+            # depois tornar upercase\/
+            nome_time = nome_time + parte[0] + '. '
+          else
+            nome_time = nome_time + parte + ' '
+          end
+          cont = cont +1
+        end
+        trunca = trunca -1
+      else
+        entra = false
+      end
+    end
+%>
+
+<!-- A verificação dos tamanhos dos primeiros e ultimos nomes -->
+<%
+
+  # se o tamanho 20 ainda tiver grande é só mudar o valor aqui\/.
+  if nome_time.length > 20
+    nome_dividido = nome_time.split(" ")
+
+    cont = 0
+    for parte in nome_dividido
+      nome_dividido[cont] = parte + ' '
+      cont = cont + 1
+    end
+    nome_dividido[nome_dividido.length- 1] = nome_dividido[nome_dividido.length- 1][0] + '.'
+    nome_time = nome_dividido.join
+
+  end
+
+  # só trunca o primeiro nome caso esteja com mais de 25 caracteres
+   if nome_time.length > 25
+    nome_dividido = nome_time.split(" ")
+
+    cont = 0
+    for parte in nome_dividido
+      nome_dividido[cont] = parte + ' '
+      cont = cont + 1
+    end
+    nome_dividido[0] = nome_dividido[0][0] + '. '
+    nome_time = nome_dividido.join
+
+  end
+
+%>
+<!-- imprime a truncagem do nome time2 -->
+<%= nome_time %>
+
+</div>
+
+<!-- Lance a Lance -->
+<div class = "well">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Lance a Lance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @moves %>
+    </tbody>
+  </table>
+</div>
