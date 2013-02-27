@@ -1,6 +1,14 @@
 <%= form_for @match, :url => { :action => "create" } do |f| %>
+  <%= f.label :name, "Nome:" %>
   <%= f.text_field :name, :placeholder => "Nome da partida" %><br />
-  <%= f.text_field :date, :placeholder => "Data da transmissão" %><br />
+  <%= f.label :date, "Data:" %>
+  <div class='input-append'>
+    <%= f.text_field :date, :readonly => 'readonly',
+      :value => Date.today.strftime('%d/%m/%Y') %>
+    <span class="add-on"><i class="icon-calendar"></i></span>
+  </div>
+  <%= f.label :hour, "Hora:" %>
+  <%= f.time_select :date %><br />
   <%= f.label :type, "Esporte: " %>
   <%= f.select :type, options_for_select([["Futebol Americano", "FootballMatch"]]) %><br />
   <%= f.label :team1, "Time 1:" %>

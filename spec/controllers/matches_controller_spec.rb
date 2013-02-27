@@ -46,12 +46,17 @@ describe MatchesController do
   describe 'POST create' do
     let(:team1) { FactoryGirl.create(:team) }
     let(:team2) { FactoryGirl.create(:team) }
+    let(:match_date) { { :day => 16, :month => 1, :year => 2013, :hour => 20,
+      :min => 0 } }
     let(:valid_params) do
       {
         :user_id => channels_owner.id, :channel_id => channel.id,
         :football_match => {
           :name => 'Nova Partida', :type => 'FootballMatch', :date => '29/02/2013',
-          :channel_id => channel.id, :teams_ids => [team1.id, team2.id]
+          :channel_id => channel.id, :teams_ids => [team1.id, team2.id],
+          "date(1i)" => match_date[:year], "date(2i)" => match_date[:month],
+          "date(3i)" => match_date[:day], "date(4i)" => match_date[:hour],
+          "date(5i)" => match_date[:min]
         }
       }
     end
@@ -77,6 +82,15 @@ describe MatchesController do
 
         it 'associates team2' do
           Match.last.teams.should include(team2)
+        end
+
+        it 'sets match date and time properly' do
+          m = Match.last
+          m.date.year.should == match_date[:year]
+          m.date.month.should == match_date[:month]
+          m.date.day.should == match_date[:day]
+          m.date.hour.should == match_date[:hour]
+          m.date.min.should == match_date[:min]
         end
 
         it { should set_the_flash[:notice].to('Partida criada!')}
