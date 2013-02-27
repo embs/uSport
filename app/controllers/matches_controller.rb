@@ -1,3 +1,4 @@
+# encoding: utf-8
 class MatchesController < ApplicationController
   layout :choose_layout
 
@@ -9,15 +10,21 @@ class MatchesController < ApplicationController
   end
 
   def create
-    teams = params[:match].delete(:teams)
-    match = Match.new(params[:match])
-    match.channel = Channel.find(params[:channel_id])
-    match.teams << Team.find(teams.first)
-    match.teams << Team.find(teams.last)
-    match.date = params[:match][:date]
-    authorize! :create, match
-    match.save
-    redirect_to user_channel_match_path(current_user.id, params[:channel_id].to_i, match.id)
+    channel = Channel.find(params[:channel_id])
+    authorize! :manage, channel
+    teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
+    @teams = Team.all
+    @match = Match.new(params[:football_match]) do |m|
+      m.teams << Team.find(teams) if teams
+      m.channel = channel
+    end
+    if @match.save
+      flash[:notice] = 'Partida criada!'
+      redirect_to user_channel_match_path(current_user.id, channel.id, @match.id)
+    else
+      flash[:alert] = @match.errors
+      render 'new'
+    end
   end
 
   def show
@@ -25,6 +32,21 @@ class MatchesController < ApplicationController
     authorize! :show, @match
     @user = User.find(params[:user_id])
     @moves = @match.moves.order('created_at DESC')
+    # Daqui para baixo são setadas as variáveis utilizadas para criação de move
+    @move = Move.new(:match => @match)
+    if can?(:create, @move)
+      @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
+        ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
+        ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+      @minutes = [["--", 0]]
+      15.times do |n|
+        @minutes << [(n+1).to_s, (n+1)]
+      end
+      @yards = []
+      151.times do |n|
+        @yards << [n.to_s, n]
+      end
+    end
   end
 
   def score

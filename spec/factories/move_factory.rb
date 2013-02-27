@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :move do
     match { FactoryGirl.create(:match) }
+    player { FactoryGirl.create(:player) }
     kind do
       kinds = ["punt", "touchdown", "kickoff", "field-goal-is-good", "fumble",
         "interceptation"]

@@ -8,6 +8,10 @@ module MoveAbility
       can :create, Move do |move|
         move.match.channel.owner == user
       end
+
+      can :manage, Move do |move|
+        move.match.channel.owner == user
+      end
     end
   end
 end

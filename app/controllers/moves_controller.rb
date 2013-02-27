@@ -1,6 +1,5 @@
 # encoding: utf-8
 class MovesController < ApplicationController
-  layout "clean"
 
   # retorna todos os moves mais recentes que o move com o ID referido além
   # do próprio move
@@ -51,6 +50,40 @@ class MovesController < ApplicationController
       format.html { render 'create.js.erb' }
       format.js
     end
+  end
+
+  def edit
+    @move = Move.find(params[:id])
+    authorize! :manage, @move
+    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
+      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
+      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @minutes = [["--", 0]]
+    15.times do |n|
+      @minutes << [(n+1).to_s, (n+1)]
+    end
+    @yards = []
+    151.times do |n|
+      @yards << [n.to_s, n]
+    end
+  end
+
+  def update
+    @move = Move.find(params[:id])
+    authorize! :manage, @move
+    @move.update_attributes(params[:move])
+    flash[:notice] = 'Jogada atualizada!'
+    redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
+      @move.match)
+  end
+
+  def destroy
+    @move = Move.find(params[:id])
+    authorize! :manage, @move
+    @move.destroy
+    flash[:notice] = 'A jogada foi removida.'
+    redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
+      @move.match)
   end
 
   private

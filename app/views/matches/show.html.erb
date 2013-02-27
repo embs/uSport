@@ -1,71 +1,46 @@
-<script type="text/javascript">
-  setTimeout('loadXMLDoc()', 10000);
-</script>
-<header id= 'channel-header' class='grid_16'>
-  <div id="profile-picture">
-    <%= image_tag("profile_picture.jpg") %>
-    <h1><%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %></h1>
+<%= subscribe_to new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match) %>
+<% content_for :top_of_content do %>
+  <div class="well">
+    <% if can? :create, @move %>
+      <%= render :partial => 'moves/form' %>
+    <% end %>
   </div>
-</header>
+<% end %>
 
-<section id="channel-content" class="grid_16">
-  <nav id="match-list" class="grid_3 alpha">
-    <ul>
+<% content_for :left_side_bar do %>
+ <div class="well">
+    <%= image_tag("profile_picture.jpg") %>
+    <h1>
+      <%= link_to @match.channel.name, user_channel_path(@match.channel.owner, @match.channel) %>
+    </h1>
+    <ul class="nav nav-tabs nav-stacked">
       <h2>Partidas</h2>
       <% @match.channel.matches.each do |m| %>
         <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
       <% end %>
     </ul>
-
-    <%= form_for Move.new, :url => user_channel_match_moves_path(@match.channel.owner, @match.channel, @match), :remote => :true do |f| %>
-      <%= f.text_area :description, :placeholder => 'Descrição' %>
-      <%= f.select :team,
-        options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
-      <%= f.select :player,
-        options_for_select(Player.all.collect { |p| [p.first_name, p.id] }) %>
-      <%= f.select :kind, options_for_select([["Punt", "punt"], ["Touchdown", "touchdown"],
-        ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-        ["Fumble", "fumble"], ["Interceptação", "interceptation"]]) %>
-      <%= f.submit %>
-    <% end %>
-    <%= subscribe_to new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match) %>
-  </nav>
-
-  <div id="oculta">
   </div>
+<% end %>
 
-  <section class="grid_10">
-    <header id="score">
-      <div id="team1">
-          <h1 class="popup">
-            <%= @match.teams[0].name %>
-          </h1>
-        <%= image_tag("escudos/1.gif") %>
-        <p id="team1-score"><%= @match.value1.to_s %></p>
-      </div>
-      <div id="versus">
-        <p>X</p>
-      </div>
-      <div id="team2">
-        <p id="team2-score"><%= @match.value2.to_s %></p>
-        <%= image_tag("escudos/2.gif") %>
-        <h1 class="popup">
-          <%= @match.teams[1].name %>
-        </h1>
-      </div>
-    </header>
-
-    <section id="timeline">
-      <ul id="moves">
-        <%= render @moves %>
-      </ul>
-    </section>
-
-  </section>
-
-  <aside class="grid_3 omega">
-    <%= image_tag("propagandas/propaganda1.png") %><br /><br />
-    <%= image_tag("propagandas/propaganda2.png") %><br /><br />
-  </aside>
-
-</section>
+<div class="well">
+  <%= @match.teams[0].name %>
+  <%= image_tag @match.teams[0].avatar(:thumb) %>
+  <%= @match.value1.to_s %>
+  X
+  <%= @match.value2.to_s %>
+  <%= image_tag @match.teams[1].avatar(:thumb) %>
+  <%= @match.teams[1].name %>
+</div>
+<!-- Lance a Lance -->
+<div class="well">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Lance a Lance</th>
+      </tr>
+    </thead>
+    <tbody id='moves'>
+      <%= render @moves %>
+    </tbody>
+  </table>
+</div>
