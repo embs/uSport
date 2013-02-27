@@ -1,4 +1,5 @@
-<%= form_for @move, :url => user_channel_match_moves_path, :remote => :true do |f| %>
+<%= form_for @move, :url => user_channel_match_moves_path(@match.channel.owner,
+  @match.channel, @match), :remote => :true do |f| %>
   <% f.label :description, :value => "Descrição" %>
   <%= f.text_area :description %>
     <% f.label :time %>

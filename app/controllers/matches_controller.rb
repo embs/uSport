@@ -32,6 +32,21 @@ class MatchesController < ApplicationController
     authorize! :show, @match
     @user = User.find(params[:user_id])
     @moves = @match.moves.order('created_at DESC')
+    # Daqui para baixo são setadas as variáveis utilizadas para criação de move
+    @move = Move.new(:match => @match)
+    if can?(:create, @move)
+      @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
+        ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
+        ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+      @minutes = [["--", 0]]
+      15.times do |n|
+        @minutes << [(n+1).to_s, (n+1)]
+      end
+      @yards = []
+      151.times do |n|
+        @yards << [n.to_s, n]
+      end
+    end
   end
 
   def score

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require jquery.ui.datepicker
+//= require private_pub
 //= require_tree .
 
 $(function (){

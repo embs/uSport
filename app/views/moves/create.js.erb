@@ -1,0 +1,13 @@
+<%# j render => escape_javascript render %>
+<% publish_to new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match) do %>
+  $('#moves').prepend("<%= j render(@move) %>");
+  $('#team1-score').html(<%= @match.value1 %>);
+  $('#team2-score').html(<%= @match.value2 %>);
+<% end %>
+<% if request.xhr? %> <%# Se a request tiver formato js, reinicia o formulário %>
+  $('#new_move')[0].reset();
+<% else request.xhr? %> <%# Se não, redireciona para view de new move %>
+  <script>
+    window.location.pathname = '<%= "#{new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match).to_s}" %>';
+  </script>
+<% end %>

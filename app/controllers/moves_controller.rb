@@ -1,6 +1,5 @@
 # encoding: utf-8
 class MovesController < ApplicationController
-  layout "clean"
 
   # retorna todos os moves mais recentes que o move com o ID referido além
   # do próprio move
@@ -30,23 +29,27 @@ class MovesController < ApplicationController
   def create
     player = Player.find(params[:move].delete(:player))
     team = Team.find(params[:move].delete(:team))
-    match = Match.find(params[:match_id])
+    @match = Match.find(params[:match_id])
     points = find_points(params[:move][:kind])
-    move = Move.create(params[:move]) do |move|
+    @move = Move.create(params[:move]) do |move|
       move.player = player
       move.team = team
-      move.match = match
+      move.match = @match
       move.points = points
       authorize! :create, move
     end
     # Atualiza o placar da partida
-    if team == match.teams[0]
-      match.value1 = match.value1 + points
+    if team == @match.teams[0]
+      @match.value1 = @match.value1 + points
     else
-      match.value2 = match.value2 + points
+      @match.value2 = @match.value2 + points
     end
-    match.save
-    redirect_to new_user_channel_match_move_path
+    @match.save
+
+    respond_to do |format|
+      format.html { render 'create.js.erb' }
+      format.js
+    end
   end
 
   def edit

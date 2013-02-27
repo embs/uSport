@@ -9,7 +9,6 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%#<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'> %>
 </head>
 
 <body>
@@ -21,6 +20,10 @@
     <div class="alert"><%= alert %></div>
   <% end %>
   <div id="container">
+    <div class="row">
+      <div class="span1 hidden-tablet hidden-phone"></div>
+      <div class="span11"><%= yield :top_of_content %></div>
+    </div>
     <div class="row">
       <div class="span1 hidden-tablet hidden-phone"></div>
       <div class="span3"><%= yield :left_side_bar %></div>
