@@ -1,13 +1,6 @@
 # USport
 Aplicativo para a disciplina de Projetão do Centro de Informática.
 
-## Setup
-### [Faye](http://faye.jcoglan.com/)
-Iniciar a instância do servidor:
-```shell
-$ rackup private_pub.ru -s thin -E production
-```
-
 ## Descrição do projeto
 Aplicativo web que permite a trasmissão e acompanhamento de jogos de futebol americano.
 
@@ -69,6 +62,13 @@ $ rspec spec/controllers/moves_controller_spec.rb # indicando o nome do arquivo
 
 # Ou indicando o nome do arquivo e o número da linha do caso de teste que se quer rodar!
 $ rspec spec/controllers/moves_controller_spec.rb:81
+```
+
+### [Faye](http://faye.jcoglan.com/)
+O [Faye](http://faye.jcoglan.com/) é o serviço que faz funcionar o tempo real do lance-a-lance.
+Para iniciar a instância do servidor:
+```shell
+$ rackup private_pub.ru -s thin -E production
 ```
 
 ## Como Colaborar
