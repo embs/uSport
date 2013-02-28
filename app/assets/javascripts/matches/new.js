@@ -1,6 +1,6 @@
 // Calendário com datepicker
 $(function (){
-  $("#football_match_date").datepicker({
+  $("#match_date").datepicker({
     dateFormat: 'dd/mm/yy',
     dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
     dayNamesMin: ['D','S','T','Q','Q','S','S','D'],

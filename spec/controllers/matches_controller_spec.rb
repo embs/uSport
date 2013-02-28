@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe MatchesController do
@@ -121,6 +122,8 @@ describe MatchesController do
         it 'does not create match' do
           Match.last.should be_nil
         end
+
+        it { should set_the_flash[:alert].to('Ops! Não foi possível criar a partida.').now }
       end # context 'with invalid fields'
     end # context 'when logged as channel owner'
 
