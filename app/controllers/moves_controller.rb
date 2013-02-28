@@ -1,6 +1,15 @@
 # encoding: utf-8
 class MovesController < ApplicationController
 
+  # carrega jogadas de uma partida por javascript
+  def index
+    @moves = Match.find(params[:match_id]).moves.order('created_at DESC').page(params[:page])
+    authorize! :show, Move
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # retorna todos os moves mais recentes que o move com o ID referido além
   # do próprio move
   def show

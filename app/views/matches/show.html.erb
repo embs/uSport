@@ -43,4 +43,8 @@
       <%= render @moves %>
     </tbody>
   </table>
+    <%= link_to_unless @moves.last_page?, "Mostrar mais...",
+        user_channel_match_moves_path(@match.channel.owner, @match.channel, @match,
+        :page => (@moves.current_page+1)), :rel => 'next', :remote => true,
+        :id => 'show-more' %>
 </div>
