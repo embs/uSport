@@ -3,7 +3,7 @@
   <%= f.text_field :name, :placeholder => "Nome da partida" %><br />
   <%= f.label :date, "Data:" %>
   <div class='input-append'>
-    <%= f.text_field :date, :readonly => 'readonly',
+    <%= f.text_field :date, :readonly => 'readonly', :id => 'match_date',
       :value => Date.today.strftime('%d/%m/%Y') %>
     <span class="add-on"><i class="icon-calendar"></i></span>
   </div>

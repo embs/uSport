@@ -22,7 +22,7 @@ class MatchesController < ApplicationController
       flash[:notice] = 'Partida criada!'
       redirect_to user_channel_match_path(current_user.id, channel.id, @match.id)
     else
-      flash[:alert] = @match.errors
+      flash.now[:alert] = 'Ops! Não foi possível criar a partida.'
       render 'new'
     end
   end
