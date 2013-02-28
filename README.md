@@ -77,6 +77,39 @@ Para iniciar a instância do servidor:
 $ rackup private_pub.ru -s thin -E production
 ```
 
+## Quick Start
+Vamos supor que você instalou o Linux agora, e que não tem nada do projeto no seu
+PC. A partir dos passos a seguir, é possível dar um quick start no projeto, com o
+objetivo de otimizar o tempo nessa etapa.
+
+### Configurando um repositório Git
+1. A maioria das distribuições Linux já possui o Git instalado, mas caso não esteja,
+instale a partir do comando `sudo apt-get install git`
+2. Configure o seu usuário e seu email a partir dos comandos a seguir. O email precisa
+ser o mesmo cadastrado no github.
+```shell
+$ git config --global user.name "seu nome"
+$ git config --global user.email "seu email do github"
+```
+3. Você precisa agora criar uma chave SSH para poder autorizar o seu computador no
+github. Supondo que não exista nenhuma no seu sistema, execute o comando a seguir,
+usando seu email do github. Não é necessário configurar uma passphrase (pode apertar
+enter).
+```shell
+$ ssh-keygen -t rsa -C "your_email@example.com"
+```
+4. Copie a chave gerada (até o final, inclusive o email).
+Acesse esse [link](https://github.com/settings/ssh) e clique em 'Add SSH key'.
+Insira a chave e clique em "Add key" e confirme com sua senha do Github. Teste a
+configuração com o comando `ssh -T git@github.com` (esse email mesmo). Caso tenha
+dado algo errado, visite este [link](https://help.github.com/articles/generating-ssh-keys).
+5. Em uma pasta qualquer (a pasta que conterá a pasta do repositório), digite o
+seguinte comando no terminal:
+```shell
+git clone git@github.com:carlosecmacedo/quince.git
+```
+Isto irá criar automaticamente um repositório contendo todos os arquivos do projeto.
+
 ## Como Colaborar
 ### O jeito certo
 1. Escolha um [issue no Github](https://github.com/carlosecmacedo/quince/issues)
