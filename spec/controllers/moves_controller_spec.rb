@@ -2,6 +2,21 @@ require 'spec_helper'
 
 describe MovesController do
 
+  describe 'GET index' do
+    let(:match) { FactoryGirl.create(:match) }
+    before do
+      10.times do
+        match.moves << FactoryGirl.create(:move, :match => match)
+      end
+      get :index, :user_id => match.channel.owner.id, :channel_id => match.channel.id,
+        :match_id => match.id
+    end
+
+    it "paginates moves" do
+      assigns[:moves].should == match.moves.first(10)
+    end
+  end
+
   describe 'GET edit' do
     let(:move) { FactoryGirl.create(:move) }
     let(:params) do

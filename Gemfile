@@ -26,6 +26,8 @@ gem 'private_pub'
 
 gem 'thin'
 
+gem 'kaminari'
+
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'

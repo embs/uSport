@@ -1,0 +1,5 @@
+$('#moves').append("<%= j render(@moves) %>");
+$('#show-more').html("<%= j (link_to_next_page(@moves, 'Mostrar mais...', remote: true)) %>")
+<% if @moves.last_page? %>
+  $("#show-more").remove();
+<% end %>
