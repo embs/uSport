@@ -12,6 +12,12 @@ Os modelos principais do aplicativo são:
 * Team
 * Player
 
+## Wiki
+Se você precisar de ajuda e as informações do README não forem suficientes para resolver
+seu problema, consulte a [Wiki do projeto](https://github.com/carlosecmacedo/quince/wiki).
+Lá você pode encontrar informações importantes sobre ferramentas utilizadas e setup --
+incluindo [como instalar o PostgreSQL](https://github.com/carlosecmacedo/quince/wiki/Instalando-o-PostgreSQL-em-distribui%C3%A7%C3%B5es-baseadas-no-Ubuntu)
+
 ##  Setup
 
 ### Banco de dados
