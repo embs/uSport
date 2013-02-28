@@ -2,7 +2,7 @@ USport::Application.routes.draw do
 
   devise_for :users
 
-  root to: "channels#index"
+  root to: "landing#index" # mudar essa linha
 
   resources :channels, :only => :index
 

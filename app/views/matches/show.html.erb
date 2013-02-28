@@ -23,6 +23,9 @@
 <% end %>
 
 <div class="well">
+  <h1>
+    <%= @match.name %>
+  </h1>
   <%= @match.teams[0].name %>
   <%= image_tag @match.teams[0].avatar(:thumb) %>
   <%= @match.value1.to_s %>

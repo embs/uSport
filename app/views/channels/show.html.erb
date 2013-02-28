@@ -17,6 +17,17 @@
 <% end %>
 <ul>
   <% @channel.matches.each do |m| %>
-    <li><%= link_to m.name, user_channel_match_path(@channel.owner, @channel, m) %></li>
+    <div class="well">
+      <h1>
+        <%= link_to m.name, user_channel_match_path(@channel.owner, @channel, m)%>
+      </h1>
+      <%= m.teams[0].name %>
+      <%= image_tag m.teams[0].avatar(:thumb) %>
+      <%= m.value1.to_s %>
+      X
+      <%= m.value2.to_s %>
+      <%= image_tag m.teams[1].avatar(:thumb) %>
+      <%= m.teams[1].name %>
+    </div>
   <% end %>
 </ul>
