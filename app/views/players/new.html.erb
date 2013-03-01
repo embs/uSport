@@ -1,0 +1,11 @@
+<%= form_for @player do |f| %>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+  <%= f.label :number %>
+  <%= f.text_field :number %>
+  <%= f.label :team %>
+  <%= f.select :team_id, options_for_select(Team.all.collect { |t| [t.name, t.id] }) %>
+  <div><%= f.submit nil, :class => 'btn' %></div>
+<% end %>

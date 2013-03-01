@@ -8,6 +8,7 @@ class Ability
   include MatchAbility
   include MoveAbility
   include TeamAbility
+  include PlayerAbility
 
   def initialize(user)
     execute_rules(user)
