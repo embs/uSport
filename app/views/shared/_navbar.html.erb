@@ -19,7 +19,8 @@
             <li role="presentation" class="divider"></li>
             <% if current_user %>
               <li crole="presentation">
-                <%= link_to "Gerenciar", root_path, :role => 'menuitem' %>
+                <%= link_to "Gerenciar", edit_user_path(current_user),
+                  :role => 'menuitem' %>
               </li>
               <li role="presentation" class="divider"></li>
               <li crole="presentation">
