@@ -14,7 +14,7 @@ class MatchesController < ApplicationController
     authorize! :manage, channel
     teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
     @teams = Team.all
-    @match = Match.new(params[:football_match]) do |m|
+    @match = FootballMatch.new(params[:football_match]) do |m|
       m.teams << Team.find(teams) if teams
       m.channel = channel
     end

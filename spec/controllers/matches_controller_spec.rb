@@ -102,6 +102,21 @@ describe MatchesController do
         it { response.should be_redirect }
       end # context 'with valid fields'
 
+      context 'trying to create a match without associated teams' do
+        before do
+          valid_params[:football_match].delete(:teams_ids)
+          post :create, valid_params
+        end
+
+        it { should render_template(:new) }
+
+        it 'does not create match' do
+          Match.last.should be_nil
+        end
+
+        it { should set_the_flash[:alert].to('Ops! Não foi possível criar a partida.').now }
+      end
+
       context 'with invalid fields' do
         let(:invalid_params) do
           {
