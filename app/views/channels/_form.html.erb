@@ -1,10 +1,20 @@
 <%# action: nome da action para a qual o formulário deverar dar POST / PUT %>
 <%= form_for @channel, :url => { :action => action } do |f| %>
+  
   <fieldset>
-    <legend><%=t :new_channel %></legend>
+
+    <div >
     <%= f.text_field :name, :placeholder => "Nome do canal" %><br />
+    </div>
+
+    <div>
     <%= image_tag @channel.avatar(:thumb) %>
+    </div>
+    <div>
     <%= f.file_field :avatar %>
+    </div>
+    <div>
     <%= f.submit %>
+    </div>
   </fieldset>
 <% end %>
