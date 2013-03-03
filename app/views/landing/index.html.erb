@@ -1,26 +1,20 @@
-  <div>
-    <h1> USport </h1>
-    <h2> Acompanhe partidas em tempo real e transmita um jogo em seu próprio canal! </h2>
-    <br />
-  </div>
-  <div>
-    <h1> Partidas acontecendo neste momento </h1>
-    <% @channels.each do |channel| %>
-      <div class="channel" %>
-      <% channel.matches.each do |m| %>
-        <div class="well">
-            <%= link_to m.name, user_channel_match_path(channel.owner, channel, m) %>
-            do canal
-            <%= link_to channel.name, user_channel_path(channel.owner, channel) %>
-            <br />
-          <%= m.teams[0].name %>
-          <%= image_tag m.teams[0].avatar(:thumb) %>
-          <%= m.value1.to_s %>
-          X
-          <%= m.value2.to_s %>
-          <%= image_tag m.teams[1].avatar(:thumb) %>
-          <%= m.teams[1].name %>
-        </div>
-      <% end %>
+<% content_for :left_side_bar do %>
+  <ul class='well nav nav-list'>
+    <li><%= link_to 'Partidas' %></li>
+    <li><%= link_to 'Canais' %></li>
+    <% if current_user %>
+      <li><%= link_to 'Meus Canais' %></li>
+      <li><%= link_to 'Canais Favoritos' %></li>
     <% end %>
+    <li><%= link_to 'Esportes' %></li>
+  </ul><hr />
+  <div class='well'>
+    <h5>Bem-Vindo!</h5>Quer saber mais sobre o <b>USport</b>?
   </div>
+<% end %>
+
+<div>
+  <ul class="thumbnails">
+    <%= render :partial => 'matches/preview', :collection => @matches %>
+  </ul>
+</div>

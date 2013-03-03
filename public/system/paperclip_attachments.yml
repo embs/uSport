@@ -1,4 +1,11 @@
 ---
 :User:
   :avatar:
+  - :mini
+  - :thumb
+:Team:
+  :avatar:
+  - :thumb
+:Channel:
+  :avatar:
   - :thumb

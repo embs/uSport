@@ -1,6 +1,8 @@
 /*
   =require twitter-bootstrap-static/bootstrap
-
+*/
+body { padding-top: 60px; } /* Afasta o resto da página do navbar */
+/*
   Use Font Awesome icons (default)
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
   =require twitter-bootstrap-static/fontawesome

@@ -1,19 +1,19 @@
 pt-BR:
   devise:
     confirmations:
-      confirmed: "Your account was successfully confirmed. You are now signed in."
+      confirmed: "Parabéns! Sua conta foi confirmada. Você está logado."
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
       already_authenticated: "Você já está logado."
-      inactive: "Your account was not activated yet."
+      inactive: "Sua conta ainda não foi ativada"
       invalid: "E-mail e / ou senha inválidos."
-      invalid_token: "Invalid authentication token."
-      locked: "Your account is locked."
+      invalid_token: "Token de autenticação inválido."
+      locked: "Sua conta está bloqueada."
       not_found_in_database: "E-mail e / ou senha inválidos."
       timeout: "Your session expired, please sign in again to continue."
       unauthenticated: "Você precisa entrar ou se cadastrar para continuar"
-      unconfirmed: "You have to confirm your account before continuing."
+      unconfirmed: "Você precisa confirmar sua conta antes de continuar."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
@@ -32,15 +32,15 @@ pt-BR:
       updated_not_active: "Your password was changed successfully."
     registrations:
       destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
-      signed_up: "Welcome! You have signed up successfully."
+      signed_up: "Bem vindo ao time! Cadastro efetuado com sucesso."
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
       signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
       signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
-      updated: "You updated your account successfully."
+      updated: "Sua conta foi atualizada!"
     sessions:
-      signed_in: "Signed in successfully."
-      signed_out: "Signed out successfully."
+      signed_in: "Logado! Agora você pode comentar em jogadas e mais uma porção de coisas."
+      signed_out: "Deslogado! Entre com sua conta novamente para poder comentar jogadas e mais uma porção de coisas."
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."

@@ -2,3 +2,10 @@ pt-BR:
   activerecord:
     models:
       user: "Usuário"
+    attributes:
+      user:
+        first_name: "Nome"
+        last_name: "Sobrenome"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
+        username: "Nome de usuário"
