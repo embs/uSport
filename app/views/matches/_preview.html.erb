@@ -1,7 +1,8 @@
 <li class="span3">
-  <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
-    <%= image_tag '300x200.png' %>
-    <h3><%= preview.teams[0].name %> contra <%= preview.teams[1].name %></h3>
-    <p>Um jogo legal, bacana, supimpa e divertido!</p>
-  <% end %>
+	<div class="well thumbnail">
+	  <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
+	    <h3><%= preview.teams[0].name %> contra <%= preview.teams[1].name %></h3>
+	    <p>Um jogo legal, bacana, supimpa e divertido!</p>
+	  <% end %>
+	</div>
 </li>
