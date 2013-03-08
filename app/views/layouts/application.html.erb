@@ -13,6 +13,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap-responsive", :media => "all" %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -36,7 +37,7 @@
   </head>
   <body>
 
-    <div class="navbar navbar-fluid-top">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
@@ -45,7 +46,10 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="#">USport</a>
-          <div class="container-fluid nav-collapse">
+          <div class="nav-collapse collapse">
+          	<p class="navbar-text pull-right">
+          		<a href="#" class="navbar-link">Login</a>
+          	</p>
             <ul class="nav">
               <li><%= link_to "Link1", "/path1"  %></li>
               <li><%= link_to "Link2", "/path2"  %></li>
@@ -57,7 +61,7 @@
     </div>
 
     <div class="container-fluid">
-      <div class="row-fluid">
+      
         <div class="span2">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
@@ -68,13 +72,14 @@
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span10">
+
+        <div class="span10" tb-g-1400="span12" tb-g-1600="span12">
             <%= bootstrap_flash %>
             <%= yield %>
         </div>
-      </div><!--/row-->
+      
 
-      <footer>
+      <footer class="span12">
         <p>&copy; Company 2013</p>
       </footer>
 
