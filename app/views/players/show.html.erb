@@ -1,0 +1,5 @@
+
+<h4> Nome: <%= @player.first_name  %>  <%= @player.last_name  %> </h4>
+<h4> Número: <%= @player.number  %> </h4> 
+<h4> Time: <%= Team.find(@player.team_id).name  %> </h4> 
+ <%= image_tag Team.find(@player.team_id).avatar(:thumb) %>

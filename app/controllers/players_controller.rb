@@ -17,4 +17,9 @@ class PlayersController < ApplicationController
       render 'new'
     end
   end
+
+  def show
+    authorize! :show, Player
+    @player = Player.find(params[:id])
+  end
 end
