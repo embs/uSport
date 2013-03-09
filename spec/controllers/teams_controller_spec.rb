@@ -4,6 +4,20 @@ require 'spec_helper'
 describe TeamsController do
   let(:user) { FactoryGirl.create(:user) }
 
+  describe 'GET show' do
+    let(:team) { FactoryGirl.create(:team) }
+
+    before do
+      get :show, :id => team.id
+    end
+
+    it { assigns[:team].should == Team.find(team.id) }
+
+    it { response.should be_success }
+
+    it { should render_template(:show) }
+  end
+
   describe 'GET new' do
     context 'when logged' do
       before do

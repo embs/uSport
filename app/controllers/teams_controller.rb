@@ -1,6 +1,11 @@
 # encoding: utf-8
 class TeamsController < ApplicationController
 
+  def show
+    authorize! :show, Team
+    @team = Team.find(params[:id])
+  end
+
   def new
     authorize! :create, Team
     @team = Team.new
