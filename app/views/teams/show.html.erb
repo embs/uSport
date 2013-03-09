@@ -1,0 +1,16 @@
+<div class='hero-unit'>
+  <h2><%= @team.name %><%= image_tag(@team.avatar(:thumb)) %></h2>
+  <p>Esporte: <%= @team.sport_type %></p>
+  <p>Escalação:</p>
+  <ul>
+    <% @team.players.each do |player| %>
+      <li><%= player.first_name %>, #<%= player.number %></li>
+    <% end %>
+  </ul>
+  <p>Partidas:</p>
+  <ul>
+    <% @team.matches.each do |match| %>
+      <li><%= match.name %></li>
+    <% end %>
+  </ul>
+</div>
