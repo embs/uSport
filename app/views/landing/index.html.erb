@@ -1,7 +1,7 @@
 <% content_for :left_side_bar do %>
   <ul class='well nav nav-list'>
-    <li><%= link_to 'Partidas' %></li>
-    <li><%= link_to 'Canais' %></li>
+    <li><%= link_to "Eventos", "/"  %></li>
+    <li><%= link_to "Canais", "/channels"  %></li>
     <% if current_user %>
       <li><%= link_to 'Meus Canais' %></li>
       <li><%= link_to 'Canais Favoritos' %></li>
