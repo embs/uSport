@@ -1,11 +1,17 @@
-  <h1> Todos os canais </h1>
 
-  <% @channels.each do |channel| %>
-    <div class="channel" %>
-      <ul>
-        <li>
-          <%= link_to channel.name, user_channel_path(channel.owner.id, channel) %>
-        </li>
-      </ul>
+  <% @channels.each_with_index do |channel,counter| %>
+    <% if (counter % 4) == 0 %>
+      <% if counter > 0 %>
+        </div>
+      <% end %> 
+      <div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid"> 
+    <% end %>
+    <div class="span3" tb-g-1200="span3" tb-g-1600="span3" tb-768-980="Nothing">
+      <div class="well thumbnail">
+        <%= link_to user_channel_path(channel.owner, channel) do %>
+          <h3><%= channel.name %></h3>
+          <p>Um canal foda!</p>
+        <% end %>
+      </div>
     </div>
   <% end %>
