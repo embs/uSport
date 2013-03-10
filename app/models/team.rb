@@ -11,4 +11,5 @@ class Team < ActiveRecord::Base
 
   # Validações
   validates_presence_of :name, :sport_type
+  validates_inclusion_of :is_official, :in => [true, false]
 end

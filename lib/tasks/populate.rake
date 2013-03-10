@@ -5,10 +5,12 @@ end
 
 task create_teams: :environment do
   sufix = ['Mariners', 'Pirates', 'Destroyers', 'Killers', 'Supplanters']
-  5.times do
-    FactoryGirl.create :team_with_players,
+  5.times {
+    FactoryGirl.create(:team_with_players,
+      is_official: (rand(2) == 1),
       name: "#{Faker::Address.city} #{sufix[rand(5)]}"
-  end
+      )
+  }
 end
 
 task create_channels: :environment do
