@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130221202158) do
 
   create_table "channels", :force => true do |t|
     t.string   "name"
+    t.text     "description"
     t.integer  "user_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false

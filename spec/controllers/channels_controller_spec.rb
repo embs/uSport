@@ -4,17 +4,34 @@ require 'spec_helper'
 describe ChannelsController do
 
   describe 'GET index' do
-    before do
-      get :index, :locale => 'pt-BR'
-    end
 
-    it 'returns http success' do
-      response.should be_success
-    end
+    context 'for specific user channels' do
+      let(:user) { FactoryGirl.create :user }
 
-    it 'assigns channels' do
-      assigns[:channels] = Channel.all
-    end
+      before do
+        FactoryGirl.create(:channel) # canal de outro usuário
+        user.channels << FactoryGirl.create(:channel, owner: user)
+        get :index, user_id: user.id
+      end
+
+      it { assigns[:channels].should == user.channels }
+
+      it { response.should be_success }
+
+      it { should render_template(:index) }
+    end # context 'for specific user channels'
+
+    context 'for all channels' do
+      before do
+        get :index
+      end
+
+      it { response.should be_success }
+
+      it { should render_template(:index) }
+
+      it { assigns[:channels] = Channel.all }
+    end # context 'for all channels'
   end # describe 'GET index'
 
   describe 'GET show' do
@@ -87,8 +104,10 @@ describe ChannelsController do
 
         it { should set_the_flash.to('Seu canal está pronto para transmitir!') }
 
-        it 'returns http success' do
-          response.should be_redirect
+        it { response.should be_redirect }
+
+        it 'associates channel with its owner' do
+          user.channels.length.should_not == 0
         end
       end # context 'with valid params'
 

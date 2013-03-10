@@ -2,3 +2,7 @@ pt-BR:
   activerecord:
     models:
       channel: "Canal"
+    attributes:
+      channel:
+        name: "Nome"
+        description: "Descrição"

@@ -1,6 +1,6 @@
 class Channel < ActiveRecord::Base
   # Getters & Setters
-  attr_accessible :name, :avatar
+  attr_accessible :name, :description, :avatar
 
   # Associações
   has_many :users

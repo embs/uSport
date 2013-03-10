@@ -3,7 +3,7 @@
     <li><%= link_to "Eventos", "/"  %></li>
     <li><%= link_to "Canais", "/channels"  %></li>
     <% if current_user %>
-      <li><%= link_to 'Meus Canais' %></li>
+      <li><%= link_to 'Meus Canais', user_channels_path(current_user) %></li>
       <li><%= link_to 'Canais Favoritos' %></li>
     <% end %>
     <li><%= link_to 'Esportes' %></li>
@@ -13,7 +13,7 @@
   </div>
 <% end %>
 
-<div class="thumbnails"> 
+<div class="thumbnails">
     <%= render :partial => 'matches/preview', :collection => @matches %>
 </div>
 </div>
