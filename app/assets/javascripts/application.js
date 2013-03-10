@@ -37,11 +37,11 @@ $(document).ready(function(){
 	});
 	
 	//sniff for a query string to respond to
-	lookForAlerts();
+	//lookForAlerts();
 	
-	setupNews();
+	//setupNews();
 	
-	outboundLinkTracking();
+	//outboundLinkTracking();
 
 });
 
