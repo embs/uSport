@@ -25,7 +25,7 @@
 <div class="well text-center">
   <%=
     if @match.teams[0].is_official
-            image_tag("oficial.png", :width => "100")
+            image_tag("oficial.png", :width => "50")
         end
   %>
   <%= @match.teams[0].name %>
@@ -36,8 +36,8 @@
   <%= image_tag @match.teams[1].avatar(:thumb) %>
   <%= @match.teams[1].name %>
   <%=
-    if @match.teams[0].is_official
-            image_tag("oficial.png", :width => "300")
+    if @match.teams[1].is_official
+            image_tag("oficial.png", :width => "50")
         end
   %>
 </div>

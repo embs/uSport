@@ -5,22 +5,22 @@
 	<div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid"> 
 <% end %>
 <div class="span3" tb-g-1200="span3" tb-g-1600="span3" tb-768-980="Nothing">
-	<div class="well thumbnail">
-	  <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
-	    <%=
-    		if preview.teams[0].is_official
-                image_tag("oficial.png", :width => 100)
-            end
-        %>
-        <h3><%= preview.teams[0].name %></h3>
-        <h4>contra</h4>
-        <h3><%= preview.teams[1].name %></h3>
-        <%=
-            if preview.teams[1].is_official
-    			image_tag("oficial.png", :width => 100)
-    		end
-    	%>
-	    <p>Um jogo legal, bacana, supimpa e divertido!</p>
-	  <% end %>
-	</div>
+    <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
+        <div class="well thumbnail">
+            <%=
+                if preview.teams[0].is_official
+                    image_tag("oficial.png", :width => "50")
+                end
+            %>
+            <h3><%= preview.teams[0].name %></h3>
+            <h4>contra</h4>
+            <h3><%= preview.teams[1].name %></h3>
+            <%=
+                if preview.teams[1].is_official
+        			image_tag("oficial.png", :width => "50")
+        		end
+        	%>
+    	    <p>Um jogo legal, bacana, supimpa e divertido!</p>
+	   </div>
+    <% end %>
 </div>
