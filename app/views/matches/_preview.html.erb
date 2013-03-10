@@ -1,26 +1,35 @@
-<% if (preview_counter % 4) == 0 %>
+<% if (preview_counter % 2) == 0 %>
 	<% if preview_counter > 0 %>
 		</div>
 	<% end %>	
 	<div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid"> 
 <% end %>
-<div class="span3" tb-g-1200="span3" tb-g-1600="span3" tb-768-980="Nothing">
+<div class="span6" tb-g-1200="span6" tb-g-1600="span6" tb-768-980="span6">
     <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
-        <div class="well thumbnail">
-            <%=
-                if preview.teams[0].is_official
-                    image_tag("oficial.png", :width => "50")
-                end
-            %>
-            <h3><%= preview.teams[0].name %></h3>
-            <h4>contra</h4>
-            <h3><%= preview.teams[1].name %></h3>
-            <%=
-                if preview.teams[1].is_official
-        			image_tag("oficial.png", :width => "50")
-        		end
-        	%>
-    	    <p>Um jogo legal, bacana, supimpa e divertido!</p>
+        <div class="well thumbnail row-fluid">
+                <div class="span4">
+                    <%=
+                        if preview.teams[0].is_official
+                            image_tag("oficial.png", :width => "50")
+                        end
+                    %>
+                    <%= image_tag preview.teams[0].avatar(:thumb), :style => "float: left"%>
+                </div>
+                <div class="span4" >
+                    <h1 style = "margin-left: 10px;"> <%= preview.value1.to_s + " X " + preview.value2.to_s%> </h1>
+                </div>
+                 <div class="span4">
+                    <%= image_tag preview.teams[1].avatar(:thumb)%>
+                        <%=
+                            if preview.teams[1].is_official
+                                image_tag("oficial.png", :width => "50")
+                            end
+                        %>
+                </div>
+               
+                <h3><%=preview.name%></h3> 
+           
 	   </div>
     <% end %>
+
 </div>
