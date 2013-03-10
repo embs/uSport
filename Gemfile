@@ -4,8 +4,6 @@ gem 'rails', '3.2.11'
 
 gem 'devise'
 
-gem 'debugger'
-
 gem 'pg'
 
 gem 'jquery-rails'
@@ -32,6 +30,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'debugger'
 end
 
 group :test do
