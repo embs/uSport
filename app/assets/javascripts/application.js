@@ -31,7 +31,6 @@ $(document).ready(function(){
 	tbAdaptor();
 
 	
-	$("a").attr("target","_blank");
 	$(window).resize(function() {
 	  //resize just happened, pixels changed
 	  tbAdaptor();
