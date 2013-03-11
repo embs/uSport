@@ -1,4 +1,7 @@
-<%= subscribe_to new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match) %>
+<%= content_for :load_javascript_after_application do %>
+  <%= subscribe_to new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match) %>
+<% end %>
+
 <% content_for :top_of_content do %>
   <div class="well">
     <% if can? :create, @move %>

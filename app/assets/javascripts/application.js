@@ -16,13 +16,3 @@
 //= require jquery.ui.datepicker
 //= require private_pub
 //= require_tree ./global
-
-$(function (){
-  // single dataset
-  $('input.typeahead').typeahead([
-    {
-      name: 'users',
-      remote: 'http://localhost:3000/users.json?q=%QUERY'
-    }
-  ]);
-});

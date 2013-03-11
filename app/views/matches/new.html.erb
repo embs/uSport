@@ -1,4 +1,4 @@
-<% content_for :header do %>
+<% content_for :load_javascript_before_application do %>
   <%= javascript_include_tag 'matches' %>
 <% end %>
 
@@ -25,5 +25,5 @@
   <%#Time2 %>
   <%= f.label :team2, "Time 2:" %>
   <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
-  <%= f.submit %>
+  <%= f.submit nil, class: 'btn' %>
 <% end %>
