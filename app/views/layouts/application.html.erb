@@ -46,6 +46,7 @@
       <%= render :partial => "shared/navbar" %>
       <div class="container-fluid">
         <div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid">
+          <%= content_for :top_of_content %>
           <div class="span2" tb-768-980="span2">
             <%= yield :left_side_bar %>
           </div>

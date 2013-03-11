@@ -3,11 +3,11 @@
 <% end %>
 
 <% content_for :top_of_content do %>
-  <div class="well">
-    <% if can? :create, @move %>
-      <%= render :partial => 'moves/form' %>
-    <% end %>
-  </div>
+  <% if can? :create, @move %>
+    <div class="well">
+      <%= render :partial => 'new_move' %>
+    </div>
+  <% end %>
 <% end %>
 
 <% content_for :left_side_bar do %>

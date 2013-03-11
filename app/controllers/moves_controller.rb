@@ -63,6 +63,7 @@ class MovesController < ApplicationController
 
   def edit
     @move = Move.find(params[:id])
+    @match = @move.match
     authorize! :manage, @move
     @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
       ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
@@ -80,7 +81,12 @@ class MovesController < ApplicationController
   def update
     @move = Move.find(params[:id])
     authorize! :manage, @move
-    @move.update_attributes(params[:move])
+    team = Team.find(params[:move].delete(:team))
+    player = Player.find(params[:move].delete(:player))
+    @move.update_attributes(params[:move]) do |move|
+      move.team = team
+      move.player = player
+    end
     flash[:notice] = 'Jogada atualizada!'
     redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
       @move.match)
