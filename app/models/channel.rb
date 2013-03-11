@@ -3,7 +3,8 @@ class Channel < ActiveRecord::Base
   attr_accessible :name, :description, :avatar
 
   # Associações
-  has_many :users
+  has_many :user_channel_associations, dependent: :destroy
+  has_many :users, :through => :user_channel_associations
   has_many :matches
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_attached_file :avatar, :styles => { :thumb => ["128x128#", :png] },

@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20130221202158) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "user_channel_associations", ["user_id", "channel_id"], :name => "index_user_channel_associations_on_user_id_and_channel_id"
+
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"

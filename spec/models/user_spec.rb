@@ -10,7 +10,7 @@ describe User do
   it { should respond_to :comments }
 
   # Associações
-  it { should have_many(:channels).through(:user_channel_association) }
+  it { should have_many(:channels).through(:user_channel_associations) }
   it { should have_many :comments }
   it { should have_many :authentications }
   it { should have_attached_file(:avatar) }

@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
     :first_name, :last_name, :username, :avatar
 
   # Associações
-  has_many :channels, :through => :user_channel_association
-  has_many :user_channel_association
+  has_many :user_channel_associations, dependent: :destroy
+  has_many :channels, :through => :user_channel_associations
   has_many :comments
   has_many :authentications, :dependent => :destroy
   has_attached_file :avatar, :styles => { :thumb => ["128x128#", :png],

@@ -1,10 +1,9 @@
 class CreateUserChannelAssociations < ActiveRecord::Migration
   def change
     create_table :user_channel_associations do |t|
-      t.integer :user_id
-      t.integer :channel_id
-
+      t.references :user, :channel
       t.timestamps
     end
+    add_index :user_channel_associations, [:user_id, :channel_id]
   end
 end

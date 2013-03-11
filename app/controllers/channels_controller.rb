@@ -17,10 +17,9 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    @channel = Channel.new(params[:channel])
+    authorize! :create, Channel
+    @channel = current_user.channels.build(params[:channel])
     @channel.owner = current_user
-    authorize! :create, @channel
-    authorize! :manage, @channel.owner
     if @channel.save
       current_user.channels << @channel
       flash[:notice] = 'Seu canal está pronto para transmitir!'
