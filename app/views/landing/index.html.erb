@@ -1,12 +1,12 @@
 <% content_for :left_side_bar do %>
   <ul class='well nav nav-list'>
-    <li><%= link_to "Eventos", "/"  %></li>
-    <li><%= link_to "Canais", "/channels"  %></li>
+    <li><%= link_to '<i class="icon-tint"></i> Eventos'.html_safe, "/"  %></li>
+    <li><%= link_to '<i class="icon-desktop"></i> Canais'.html_safe, "/channels"  %></li>
     <% if current_user %>
-      <li><%= link_to 'Meus Canais', user_channels_path(current_user) %></li>
-      <li><%= link_to 'Canais Favoritos' %></li>
+      <li><%= link_to '<i class="icon-user-md"></i> Meus Canais'.html_safe, user_channels_path(current_user) %></li>
+      <li><%= link_to '<i class="icon-heart-empty"></i> Canais Favoritos'.html_safe %></li>
     <% end %>
-    <li><%= link_to 'Esportes' %></li>
+    <li><%= link_to '<i class="icon-group"></i> Esportes'.html_safe %></li>
   </ul><hr />
   <div class='well'>
     <h5>Bem-Vindo!</h5>Quer saber mais sobre o <b>USport</b>?

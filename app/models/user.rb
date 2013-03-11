@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :authentications, :dependent => :destroy
   has_attached_file :avatar, :styles => { :thumb => ["128x128#", :png],
-    :mini => ["55x55", :png] }, :default_url => "avatars/user/missing.jpg"
+    :mini => ["27x27#", :png] }, :default_url => nil
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username

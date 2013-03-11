@@ -1,9 +1,17 @@
 <%= form_for @user do |f| %>
+  <% if current_user.avatar.exists? %>
+    <%= image_tag(current_user.avatar(:mini)) %>
+  <% else %>
+    <i class="icon-large icon-user"></i>
+  <% end %>
+  <%= f.file_field :avatar %><br />
+  <%= f.label :first_name %>
   <%= f.text_field :first_name, :placeholder => 'Nome' %>
+  <%= f.label :last_name %>
   <%= f.text_field :last_name, :placeholder => 'Sobrenome' %>
+  <%= f.label :email %>
   <%= f.text_field :email, :placeholder => 'E-mail' %>
-  <%= f.text_field :username, :placeholder => 'Nome de usuário' %>
-  <%= image_tag @user.avatar.url(:thumb) %>
-  <%= f.file_field :avatar %>
-  <%= f.submit %>
+  <%= f.label :username %>
+  <%= f.text_field :username, :placeholder => 'Nome de usuário' %><br />
+  <%= f.submit nil, class: 'btn' %>
 <% end %>
