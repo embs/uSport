@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20130311053822) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "players", ["first_name"], :name => "index_players_on_first_name"
+
   create_table "teams", :force => true do |t|
     t.string   "name"
     t.string   "sport_type"

@@ -10,4 +10,5 @@ describe Move do
   # Validações
   it { should validate_presence_of :match }
   it { should validate_presence_of :kind }
+  it { should validate_presence_of :player }
 end

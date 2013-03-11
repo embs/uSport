@@ -36,7 +36,7 @@ class MovesController < ApplicationController
   end
 
   def create
-    player = Player.find(params[:move].delete(:player))
+    player = Player.find_by_text_input(params[:move].delete(:player))
     team = Team.find(params[:move].delete(:team))
     @match = Match.find(params[:match_id])
     points = find_points(params[:move][:kind])
@@ -82,14 +82,18 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     authorize! :manage, @move
     team = Team.find(params[:move].delete(:team))
-    player = Player.find(params[:move].delete(:player))
-    @move.update_attributes(params[:move]) do |move|
-      move.team = team
-      move.player = player
+    player = Player.find_by_text_input(params[:move].delete(:player))
+    @move.update_attributes(params[:move])
+    @move.player = player
+    @move.team = team
+    if @move.save
+      flash[:notice] = 'Jogada atualizada!'
+      redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
+        @move.match)
+    else
+      flash.now[:alert] = 'Não foi possível atualizar a jogada. Verifique os dados.'
+      render 'edit'
     end
-    flash[:notice] = 'Jogada atualizada!'
-    redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
-      @move.match)
   end
 
   def destroy

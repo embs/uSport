@@ -3,33 +3,34 @@
   <%#jogada %>
   <h5 ><%='Jogada: '%></h5>
   <div>
-    <% f.label :jogada %>
+    <% f.label :move %>
     <%= f.select :kind, options_for_select(@kinds) %>
   </div>
   <%#time%>
   <h5 ><%='Time:'%></h5>
   <div>
-    <% f.label :time %>
+    <% f.label :team %>
     <%= f.select :team,
       options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
   </div>
   <%#jogador %>
   <h5 ><%='Jogador:'%></h5>
   <div>
-    <% f.label :jogador %>
-    <%= f.select :player,
+    <% f.label :player %>
+    <%#= f.select :player,
       options_for_select(Player.all.collect { |p| [p.first_name, p.id] }) %>
+    <% value = "##{@move.player.number} #{@move.player.first_name}" if @move.player %>
+    <%= f.text_field :player, class: 'typeahead player', value: value %>
   </div>
   <%#jardas %>
   <h5 ><%='Jardas:'%></h5>
   <div>
-    <% f.label :jardas %>
+    <% f.label :yards %>
     <%= f.select :yards, options_for_select(@yards) %>
   </div>
   <%#Descrição %>
   <h5><%="Descrição:"%></h5>
   <div>
-
     <% f.label :description, :value => "Descrição" %>
     <%= f.text_area :description, :cols => "30", :rows =>"8", :style => "resize: none;" %>
   </div>

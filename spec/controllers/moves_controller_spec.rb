@@ -4,6 +4,7 @@ describe MovesController do
 
   describe 'GET index' do
     let(:match) { FactoryGirl.create(:match) }
+
     before do
       10.times do
         match.moves << FactoryGirl.create(:move, :match => match)
@@ -15,6 +16,32 @@ describe MovesController do
     it "paginates moves" do
       assigns[:moves].should == match.moves.first(10)
     end
+  end
+
+  describe 'GET new' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:channel) { FactoryGirl.create(:channel, owner: user) }
+    let(:match) { FactoryGirl.create(:match, channel: channel) }
+
+    before do
+      controller.stub(current_user: user)
+      get :new, { user_id: match.channel.owner, channel_id: match.channel,
+        match_id: match }
+    end
+
+    it { assigns[:move].should_not be_nil }
+
+    it { assigns[:kinds].should_not be_nil }
+
+    it { assigns[:minutes].should_not be_nil }
+
+    it { assigns[:yards].should_not be_nil }
+
+    it { assigns[:match].should_not be_nil }
+
+    it { response.should be_success }
+
+    it { should render_template(:new) }
   end
 
   describe 'GET edit' do
@@ -72,7 +99,8 @@ describe MovesController do
         :user_id => move.match.channel.owner.id,
         :channel_id => move.match.channel.id, :match_id => move.match.id,
         :id => move.id
-      }.merge(:move => { :kind => 'punt', :player_id => player.id })
+      }.merge(move: { kind: 'punt', player: "##{player.number} #{player.first_name}",
+              team: player.team })
     end
 
     context 'when not logged' do

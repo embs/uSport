@@ -1,6 +1,16 @@
 # encoding: utf-8
 class PlayersController < ApplicationController
 
+  def index
+    authorize! :show, Player
+    @players = Team.find(params[:team_id]).players
+    respond_to do |format|
+      format.json do
+        render json: @players.collect { |p| "##{p.number} #{p.first_name}" }
+      end
+    end
+  end
+
   def new
     authorize! :create, Player
     @player = Player.new

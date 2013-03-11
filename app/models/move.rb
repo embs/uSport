@@ -9,7 +9,7 @@ class Move < ActiveRecord::Base
   has_many :comments
 
   # Validações
-  validates_presence_of :kind, :match
+  validates_presence_of :kind, :match, :player
 
   def to_string
   	if ["Kickoff", "Punt"].include? self.kind.capitalize
