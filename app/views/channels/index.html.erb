@@ -24,6 +24,10 @@
         <h3><%= channel.name %></h3>
         <p><%= channel.description %></p>
       <% end %>
+      <% if can? :create, UserFavoriteChannel %>
+        <%= link_to 'Favoritar Canal', user_favorite_channels_path(current_user,
+          channel_id: channel), method: :post %>
+      <% end %>
     </div>
   </div>
 <% end %>

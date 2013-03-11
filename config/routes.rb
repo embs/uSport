@@ -10,6 +10,7 @@ USport::Application.routes.draw do
 
   resources :players, :only => [:new, :create, :show]
 
+
   resources :users, :only => [:index, :edit, :update] do
     resources :channels do
       resources :matches, :except => [:index, :edit, :update] do
@@ -19,6 +20,7 @@ USport::Application.routes.draw do
         end
       end
     end
+    resources :favorite_channels, only: [:index, :create, :destroy]
   end
 
   resources :authentications, :only => :create

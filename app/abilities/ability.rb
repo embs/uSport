@@ -9,6 +9,7 @@ class Ability
   include MoveAbility
   include TeamAbility
   include PlayerAbility
+  include UserFavoriteChannelAbility
 
   def initialize(user)
     execute_rules(user)
