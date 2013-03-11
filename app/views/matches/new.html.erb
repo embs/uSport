@@ -1,3 +1,7 @@
+<% content_for :header do %>
+  <%= javascript_include_tag 'matches' %>
+<% end %>
+
 <%= form_for @match, :url => { :action => "create" } do |f| %>
   <%#Nome %>
     <%= f.label :name, "Nome:" %>
