@@ -1,6 +1,7 @@
 <tr id="<%=move.id%>">
   <td width="40px">
-    <%= image_tag(move.team.avatar, :id => "thumb", :class => "img-polaroid img-rounded") %>
+    <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
+      style: 'height: 40px, width: 40px') %>
   </td>
   <td>
     <p><b><%= move.kind %>, #<%= move.player.number %> <%= move.player.first_name %></b></p>
