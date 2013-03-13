@@ -1,5 +1,14 @@
 
-<h4> Nome: <%= @player.first_name  %>  <%= @player.last_name  %> </h4>
-<h4> Número: <%= @player.number  %> </h4> 
-<h4> Time: <%= Team.find(@player.team_id).name  %> </h4> 
- <%= image_tag Team.find(@player.team_id).avatar(:thumb) %>
+<div class = "well">
+
+  <div class = "row-fluid"> 
+
+    <div class= "span4"></div>
+    <div class= "span8">
+      <h4> Nome: <%= @player.first_name  %>  <%= @player.last_name  %> </h4>
+      <h4> Número: <%= @player.number  %> </h4> 
+      <h4> Time: <%= Team.find(@player.team_id).name  %> </h4> 
+       <%= image_tag Team.find(@player.team_id).avatar(:thumb) %>
+    </div>
+  </div> 
+</div>
