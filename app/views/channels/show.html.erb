@@ -1,14 +1,28 @@
 <% content_for :left_side_bar do %>
-  <%= image_tag("profile_picture.jpg") %>
-  <h1>
-    <%= link_to @channel.name, user_channel_path(@channel.owner, @channel) %>
-  </h1>
-  <% if current_user %>
-    <%#TODO Verificar se o usuário tem permissão para transmitir nesse canal %>
-    <%= link_to "Transmitir nova partida!",
-      new_user_channel_match_path(current_user, @channel) %>
-    <%= link_to "Editar Canal", edit_user_channel_path(@channel.owner, @channel) %>
-  <% end %>
+  <div class='thumbnail well'>
+    <%= image_tag(@channel.avatar(:thumb)) %>
+    <h4>
+      <%= @channel.name %>
+    </h4>
+    <dl>
+      <% if @channel.description %>
+        <dt>Sobre o Canal</dt>
+        <dd><%= @channel.description %></dd>
+      <% end %>
+      <dt>Dono do Canal</dt>
+      <dd><%= @channel.owner.display_name %></dd>
+    </dl>
+    <% if can? :manage, @channel %>
+      <div class="btn-group btn-group-vertical" style="width: 100%;">
+        <%= link_to new_user_channel_match_path(current_user, @channel), class: 'btn' do %>
+          <i class="icon-desktop"></i> Nova Partida!
+        <% end %>
+        <%= link_to edit_user_channel_path(@channel.owner, @channel), class: 'btn' do %>
+          <i class="icon-cog"></i> Editar Canal
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
 <h2>Partidas</h2>

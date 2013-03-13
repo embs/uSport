@@ -34,4 +34,12 @@ describe User do
       User.create_with_omniauth(@omniauth_auth).should be_valid
     end
   end
+
+  describe '.display_name' do
+    let(:user) { FactoryGirl.create :user }
+
+    it 'returns user first name + last name' do
+      user.display_name.should == "#{user.first_name} #{user.last_name}"
+    end
+  end
 end

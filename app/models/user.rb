@@ -32,4 +32,8 @@ class User < ActiveRecord::Base
       user.password = '#TODO678' #TODO Gerar um password válido e difícil
     end
   end
+
+  def display_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end
