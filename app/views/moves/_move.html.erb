@@ -11,7 +11,7 @@
       <li><a href="#"><i class="icon-comment"></i></a></li><span>.</span>
       <li class="text-right muted"><%= l move.created_at, :format => :long %></li>
     </ul>
-    <% if !params[:match_id] || params[:page] %>
+    <% if !params[:match_id] || params[:page] || show_comment_button %>
       <%= link_to user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
         class: 'btn' do %>
         <i class="icon-comment"></i> Comentar Jogada
