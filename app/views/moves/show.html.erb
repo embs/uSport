@@ -1,5 +1,13 @@
-<script type="text/javascript">
-  setTimeout('loadXMLDoc()', 10000);
-  setTimeout('loadXMLDocForScore()', 10000);
-</script>
-<%= render @moves if @moves %>
+<%= content_for :load_javascript_after_application do %>
+  <%= render partial: 'show.js.erb' %>
+<% end %>
+<table class="table table-striped">
+  <tbody id='moves'>
+    <%= render @move %>
+  </tbody>
+</table>
+<%= link_to user_channel_match_path(@move.match.channel.owner, @move.match.channel, @move.match),
+  class: 'btn' do %>
+  <i class='icon-arrow-left'></i> Voltar para a Partida
+<% end %>
+<div id="disqus_thread"></div>

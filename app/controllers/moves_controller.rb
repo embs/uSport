@@ -15,7 +15,6 @@ class MovesController < ApplicationController
   def show
     @move = Move.find(params[:id])
     authorize! :show, @move
-    @moves = Move.where('id > ?', params[:id]).order('created_at DESC')
   end
 
   def new

@@ -1,28 +1,31 @@
 <tr id="<%=move.id%>">
   <td width="40px">
     <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
-      style: 'height: 40px, width: 40px') %>
+      style: 'height: 40px; width: 40px;') %>
   </td>
   <td>
     <p><b><%= move.kind %>, #<%= move.player.number %> <%= move.player.first_name %></b></p>
     <p><%= move.description %></p>
     <ul class="inline">
-      <li><a href="#"><strong>Torcer</strong></a></li><span>.</span>
-      <li><a href="#"><strong>Comentar</strong></a></li><span>.</span>
       <li><a href="#"><i class="icon-thumbs-up"></i></a></li><span>.</span>
       <li><a href="#"><i class="icon-comment"></i></a></li><span>.</span>
       <li class="text-right muted"><%= l move.created_at, :format => :long %></li>
     </ul>
-    <% if can? :create, Comment %>
-      <%= link_to 'Comentar lance',
-        new_user_channel_match_move_comment_path(move.match.channel.owner, move.match.channel, move.match, move) %>
+    <% if !params[:match_id] || params[:page] %>
+      <%= link_to user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
+        class: 'btn' do %>
+        <i class="icon-comment"></i> Comentar Jogada
+      <% end %>
     <% end %>
     <% if can? :manage, move %>
-      <%= link_to 'Editar jogada',
-        edit_user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move) %>
-      <%= link_to 'Remover jogada',
-        user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
-        :method => :delete %>
+      <%= link_to edit_user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
+        class: 'btn' do %>
+        <i class="icon-cog"></i> Editar Jogada
+      <% end %>
+      <%= link_to user_channel_match_move_path(move.match.channel.owner, move.match.channel, move.match, move),
+        method: :delete, class: 'btn btn-danger' do %>
+        <i class="icon-trash icon-white"></i> Remover Jogada
+      <% end %>
     <% end %>
   </td>
 </tr>
