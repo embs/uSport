@@ -1,44 +1,42 @@
 <% if (preview_counter % 3) == 0 %>
-	<% if preview_counter > 0 %>
-		</div>
-	<% end %>	
-	<div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid"> 
+  <% if preview_counter > 0 %>
+    </div>
+  <% end %>
+  <div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid">
 <% end %>
 <div class="span4" tb-g-1200="span4" tb-g-1600="span4" tb-768-980="span4">
-    <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
-        <div class="well thumbnail row-fluid">
-            <table class="table table-striped" style="margin-bottom: 0px">
-                <thead>
-                    <tr>
-                        <th colspan="3">
-                            <%=preview.name%> 
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td width="33%" style="text-align: right">
-                            <%= image_tag preview.teams[0].avatar(:thumb), style: "width: 50px" %><br />
-                            <%= preview.teams[0].name %>
-                        </td>
-                        <td width="33%"  style="text-align: center">
-                            <h3> <%= preview.value1.to_s + " X " + preview.value2.to_s%> </h3>
-                        </td>
-                        <td width="33%" style="text-align: left">
-                            <%= image_tag preview.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
-                            <%= preview.teams[1].name %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <p>Clube da Marinha</p>
-                            <p><%= l preview.date, format: :short %></p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-	   </div>
-    <% end %>
-
+  <%= link_to user_channel_match_path(preview.channel.owner, preview.channel, preview) do %>
+    <div class="well thumbnail row-fluid">
+      <table class="table table-striped" style="margin-bottom: 0px">
+        <thead>
+          <tr>
+            <th colspan="3">
+              <%=preview.name%>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td width="33%" style="text-align: right">
+              <%= image_tag preview.teams[0].avatar(:thumb), style: "width: 50px" %><br />
+              <%= preview.teams[0].name %>
+            </td>
+            <td width="33%"  style="text-align: center">
+              <h3> <%= preview.value1.to_s + " X " + preview.value2.to_s%> </h3>
+            </td>
+            <td width="33%" style="text-align: left">
+              <%= image_tag preview.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
+              <%= preview.teams[1].name %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <p><%= preview.place %></p>
+              <p><%= l preview.date, format: :short %></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
-

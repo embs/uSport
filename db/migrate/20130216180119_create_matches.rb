@@ -3,6 +3,7 @@ class CreateMatches < ActiveRecord::Migration
     create_table :matches do |t|
       t.string :type
       t.datetime :date
+      t.string :place
       t.string :name
       t.references :channel
       t.integer :value1, :default => 0

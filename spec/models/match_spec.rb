@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe Match do
+  # Atributos
+  it { should respond_to :date }
+  it { should respond_to :name }
+  it { should respond_to :type }
+  it { should respond_to :value1 }
+  it { should respond_to :value2 }
+  it { should respond_to :channel }
+  it { should respond_to :channel_id }
+  it { should respond_to :moves }
+  it { should respond_to :teams }
+  it { should respond_to :channel }
+  it { should respond_to :place }
+
   # Associações
   it { should have_many :moves }
   it { should belong_to :channel }
@@ -10,6 +23,7 @@ describe Match do
   it { should validate_presence_of :date }
   it { should validate_presence_of :name }
   it { should validate_presence_of :channel }
+  it { should_not validate_presence_of :place } # local não é obrigatório
 
   # Assegura que a criação de novas partidas com times já associados a partidas
   # previamente existentes não desassocia times das partidas antigas - issue #1

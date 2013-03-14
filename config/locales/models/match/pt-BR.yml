@@ -1,4 +1,13 @@
 pt-BR:
   activerecord:
     models:
-      match: "Partida"
+      match: Partida
+    attributes:
+      match:
+        name: Nome
+        date: Data
+        hour: Hora
+        place: Local
+        type: Esporte
+        team1: Time 1
+        team2: Time 2
