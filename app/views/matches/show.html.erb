@@ -119,9 +119,11 @@
           locals: { show_comment_button: 'true' } %>
       </tbody>
     </table>
-    <%= link_to_unless @moves.last_page?, "Mostrar mais...",
+    <%= link_to_unless(@moves.last_page?, "Mostrar mais...",
       user_channel_match_moves_path(@match.channel.owner, @match.channel, @match,
-      :page => (@moves.current_page+1)), :rel => 'next', :remote => true,
-      :id => 'show-more' %>
+      page: (@moves.current_page+1)), rel: 'next', remote: true, class: 'btn',
+      id: 'show-more', style: 'margin: auto;') do |name| %>
+      <%= name = '' %> <%# # passa um bloco que apaga o 'Mostrar mais...' %>
+    <% end %>
   </div>
 <% end %>
