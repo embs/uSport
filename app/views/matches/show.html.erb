@@ -115,7 +115,8 @@
         </tr>
       </thead>
       <tbody id='moves'>
-        <%= render @moves %>
+        <%= render partial: 'moves/move', collection: @moves,
+          locals: { show_comment_button: 'true' } %>
       </tbody>
     </table>
     <%= link_to_unless @moves.last_page?, "Mostrar mais...",

@@ -3,7 +3,8 @@
 <% end %>
 <table class="table table-striped">
   <tbody id='moves'>
-    <%= render @move %>
+    <%= render partial: 'move', collection: [@move],
+      locals: { show_comment_button: nil } %>
   </tbody>
 </table>
 <%= link_to user_channel_match_path(@move.match.channel.owner, @move.match.channel, @move.match),
