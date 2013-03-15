@@ -3,12 +3,17 @@
     <table class="table table-striped" style="margin-bottom: 0px">
       <thead>
         <tr>
-          <th colspan="3">
-                <%= image_tag(preview.avatar(:thumb), width: '20px',
-                  class: 'pull-right channel-avatar', :'data-toggle' => 'tooltip',
-                  :'data-placement' => 'top', :'data-original-title' => preview.name) %>
+          <th style="width: 50px">
+            <%= image_tag(preview.avatar(:thumb), width: '40px',
+              class: 'img-rounded img-polaroid channel-avatar', :'data-toggle' => 'tooltip',
+              :'data-placement' => 'top', :'data-original-title' => preview.name) %>
+          </th>
+          <th colspan="2">
               <%= preview.name %>
-              <p class='muted offset1'><%= preview.owner.display_name %></p>
+              <p class='muted' style="font-size: 11px">
+                por <%= link_to(preview.owner.display_name,"#") %><span style="padding: 0px 5px">.</span>
+                <%= time_ago_in_words(preview.created_at).gsub('aproximadamente','±')%>
+              </p>
           </th>
         </tr>
       </thead>
@@ -16,10 +21,10 @@
         <tr>
           <% if preview.matches.last %><%# Canal já transmitiu alguma partida %>
             <% if preview.matches.last.moves.last %><%# Partida tem jogada %>
-              <td width="20%" style="text-align: right">
+              <td style="text-align: right">
                 <%= image_tag("icons/#{preview.matches.last.moves.last.kind}.png") %>
               </td>
-              <td width="80%"  style="text-align: left">
+              <td style="text-align: left">
                 <%= preview.matches.last.moves.last.kind %>,
                 #<%= preview.matches.last.moves.last.player.number %>
                 <%= preview.matches.last.moves.last.player.first_name %><br />
@@ -47,7 +52,7 @@
           <% end %>
         </tr>
         <tr>
-          <td width="30%" style="text-align: left">
+          <td style="text-align: left">
             <% if preview.matches.last %><%# Canal já transmitiu alguma partida %>
               <%# TODO futuramente há de se checar o tipo da partida %>
               <%= image_tag('icons/touchdown.png', width: '40px',
@@ -57,7 +62,7 @@
               <%# Por enquanto não mostra nada %>
             <% end %>
           </td>
-          <td width="70%" style="text-align: center">
+          <td style="text-align: center">
             <% if preview.matches.last%>
               <%#= preview.matches.last.teams[0].name %>
               <%= image_tag(preview.matches.last.teams[0].avatar(:thumb), width: '25px',
