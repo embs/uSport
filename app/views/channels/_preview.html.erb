@@ -1,0 +1,80 @@
+<%= link_to user_channel_path(preview.owner, preview) do %>
+  <div class="well thumbnail row-fluid">
+    <table class="table table-striped" style="margin-bottom: 0px">
+      <thead>
+        <tr>
+          <th colspan="3">
+                <%= image_tag(preview.avatar(:thumb), width: '20px',
+                  class: 'pull-right channel-avatar', :'data-toggle' => 'tooltip',
+                  :'data-placement' => 'top', :'data-original-title' => preview.name) %>
+              <%= preview.name %>
+              <p class='muted offset1'><%= preview.owner.display_name %></p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% if preview.matches.last %><%# Canal já transmitiu alguma partida %>
+            <% if preview.matches.last.moves.last %><%# Partida tem jogada %>
+              <td width="20%" style="text-align: right">
+                <%= image_tag("icons/#{preview.matches.last.moves.last.kind}.png") %>
+              </td>
+              <td width="80%"  style="text-align: left">
+                <%= preview.matches.last.moves.last.kind %>,
+                #<%= preview.matches.last.moves.last.player.number %>
+                <%= preview.matches.last.moves.last.player.first_name %><br />
+                <%= preview.matches.last.moves.last.description %><br />
+                X <i class="icon-thumbs-up"></i>
+                Y <i class="icon-comment"></i>
+              </td>
+            <% else %>
+              <td colspan='3'>
+                <% if preview.matches.last.date > Time.now %>
+                  Próxima partida será transmitida
+                  <%= l preview.matches.last.date, format: :short %>
+                <% else %>
+                  Última partida foi transmitida
+                  <%= l preview.matches.last.date, format: :short %>
+                <% end %>
+              </td>
+            <% end %>
+          <% else %><%# Canal não tem nenhuma partida %>
+            <td colspan='3'>
+              <p class='muted'>
+                Este canal ainda não transmitiu nenhuma partida.
+              </p>
+            </td>
+          <% end %>
+        </tr>
+        <tr>
+          <td width="30%" style="text-align: left">
+            <% if preview.matches.last %><%# Canal já transmitiu alguma partida %>
+              <%# TODO futuramente há de se checar o tipo da partida %>
+              <%= image_tag('icons/touchdown.png', width: '40px',
+                class: 'channel-avatar', :'data-toggle' => 'tooltip',
+                :'data-placement' => 'bottom', :'data-original-title' => 'Futebol americano') %>
+            <% else %>
+              <%# Por enquanto não mostra nada %>
+            <% end %>
+          </td>
+          <td width="70%" style="text-align: center">
+            <% if preview.matches.last%>
+              <%#= preview.matches.last.teams[0].name %>
+              <%= image_tag(preview.matches.last.teams[0].avatar(:thumb), width: '25px',
+                class: 'channel-avatar', :'data-toggle' => 'tooltip',
+                :'data-placement' => 'top', :'data-original-title' => preview.matches.last.teams[0].name) %>
+              <%= preview.matches.last.value1 %>
+              X
+              <%= preview.matches.last.value2 %>
+              <%= image_tag(preview.matches.last.teams[1].avatar(:thumb), width: '25px',
+                class: 'channel-avatar', :'data-toggle' => 'tooltip',
+                :'data-placement' => 'top', :'data-original-title' => preview.matches.last.teams[1].name) %>
+            <% else %>
+              <%# Por enquanto não mostra nada %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>

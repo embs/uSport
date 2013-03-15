@@ -1,0 +1,1 @@
+$('.channel-avatar').tooltip('hide');

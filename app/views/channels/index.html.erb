@@ -1,3 +1,26 @@
+<% content_for :load_javascript_before_application do %>
+  <%= javascript_include_tag 'landing' %>
+  <%= javascript_include_tag 'channels' %>
+<% end %>
+
+<% content_for :left_side_bar do %>
+  <ul class='well nav nav-list'>
+    <li><%= link_to '<i class="icon-tint"></i> Eventos'.html_safe, "/"  %></li>
+    <li><%= link_to '<i class="icon-desktop"></i> Canais'.html_safe, "/channels"  %></li>
+    <% if current_user %>
+      <li><%= link_to '<i class="icon-user-md"></i> Meus Canais'.html_safe, user_channels_path(current_user) %></li>
+      <li>
+        <%= link_to '<i class="icon-heart-empty"></i> Canais Favoritos'.html_safe,
+          user_favorite_channels_path(current_user) %>
+      </li>
+    <% end %>
+    <li><%= link_to '<i class="icon-group"></i> Esportes'.html_safe %></li>
+  </ul><hr />
+  <div class='well'>
+    <h5>Bem-Vindo!</h5>Quer saber mais sobre o <b>USport</b>?
+  </div>
+<% end %>
+
 <% if current_user && current_user.id == params[:user_id].to_i %>
   <%# Página de visualização de canais de usuário sendo visualizada pelo dono %>
   <% if @channels.empty? # usuário não tem canal nenhum %>
@@ -11,7 +34,7 @@
   <% end %>
 <% end %>
 
-<% @channels.each_with_index do |channel,counter| %>
+<% @channels.each_with_index do |channel, counter| %>
   <% if (counter % 4) == 0 %>
     <% if counter > 0 %>
       </div>
@@ -19,15 +42,6 @@
     <div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid">
   <% end %>
   <div class="span3" tb-g-1200="span3" tb-g-1600="span3" tb-768-980="Nothing">
-    <div class="well thumbnail">
-      <%= link_to user_channel_path(channel.owner, channel) do %>
-        <h3><%= channel.name %></h3>
-        <p><%= channel.description %></p>
-      <% end %>
-      <% if can? :create, UserFavoriteChannel %>
-        <%= link_to 'Favoritar Canal', user_favorite_channels_path(current_user,
-          channel_id: channel), method: :post %>
-      <% end %>
-    </div>
+    <%= render partial: 'preview', collection: [channel] %>
   </div>
 <% end %>
