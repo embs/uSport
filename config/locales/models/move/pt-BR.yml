@@ -1,4 +1,13 @@
 pt-BR:
   activerecord:
     models:
-      move: "Jogada"
+      move: Jogada
+    attributes:
+      move:
+        kind: Tipo da Jogada
+        team: Time
+        player: Jogador
+        yards: Jardas
+        description: Descrição
+        quarter: Quarto
+        minute: Tempo
