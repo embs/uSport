@@ -45,17 +45,14 @@
     <div class="wrapper">
       <%= render :partial => "shared/navbar" %>
       <div class="container-fluid">
-        <div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid">
+        <div class="row-fluid">
           <%= content_for :top_of_content %>
-          <div class="span2" tb-768-980="span2">
+          <div class="span2">
             <%= yield :left_side_bar %>
           </div>
-          <div class="span8" tb-768-980="span8" tb-g-1200="span8">
+          <div class="span10">
             <%= bootstrap_flash %>
             <%= yield %>
-          </div>
-          <div class="span2 text-center">
-            <%= image_tag("propagandas/propaganda3.png") %>
           </div>
         </div>
       </div>
