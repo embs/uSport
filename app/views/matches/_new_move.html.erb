@@ -1,5 +1,4 @@
-<%= form_for @move, :url => user_channel_match_moves_path(@match.channel.owner,
-  @match.channel, @match), :remote => :true do |f| %>
+<%= form_for @move, :url => moves_path(@match), :remote => :true do |f| %>
   <div style="float: left" >
      <%= f.label :description, :value => "Descrição" %>
     <%= f.text_area :description, :cols => "30", :rows => "8", :style => "resize: none;" %>
