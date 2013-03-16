@@ -7,7 +7,7 @@
       locals: { show_comment_button: nil } %>
   </tbody>
 </table>
-<%= link_to user_channel_match_path(@move.match.channel.owner, @move.match.channel, @move.match),
+<%= link_to match_path(@move.match),
   class: 'btn' do %>
   <i class='icon-arrow-left'></i> Voltar para a Partida
 <% end %>

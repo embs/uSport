@@ -2,7 +2,7 @@
   <%= javascript_include_tag 'matches' %>
 <% end %>
 
-<%= form_for @match, :url => { :action => "create" } do |f| %>
+<%= form_for @match, :url => { :action => "create", channel_id: params[:channel_id] } do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name, :placeholder => "Nome da partida" %><br />
   <%= f.label :date %>

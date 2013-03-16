@@ -100,7 +100,7 @@ describe ChannelsController do
           post :create, valid_params
         end
 
-        it { should redirect_to(user_channel_path(user, Channel.last)) }
+        it { should redirect_to(channel_path(Channel.last)) }
 
         it { should set_the_flash.to('Seu canal está pronto para transmitir!') }
 
@@ -213,7 +213,7 @@ describe ChannelsController do
           response.should be_redirect
         end
 
-        it { should redirect_to(user_channel_path(channel.owner, channel)) }
+        it { should redirect_to(channel_path(channel.owner, channel)) }
 
         it 'updates_channel' do
           c = Channel.find(channel.id) # Carrega o canal atualizado

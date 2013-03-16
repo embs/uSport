@@ -18,6 +18,6 @@ class CommentsController < ApplicationController
     authorize! :create, comment
     comment.save
 
-    redirect_to user_channel_match_path(current_user, move.match.channel, move.match)
+    redirect_to match_path(move.match)
   end
 end

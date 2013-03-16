@@ -8,7 +8,7 @@
     <li><%= link_to '<i class="icon-tint"></i> Eventos'.html_safe, "/"  %></li>
     <li><%= link_to '<i class="icon-desktop"></i> Canais'.html_safe, "/channels"  %></li>
     <% if current_user %>
-      <li><%= link_to '<i class="icon-user-md"></i> Meus Canais'.html_safe, user_channels_path(current_user) %></li>
+      <li><%= link_to '<i class="icon-user-md"></i> Meus Canais'.html_safe, channels_path(user_id: current_user) %></li>
       <li>
         <%= link_to '<i class="icon-heart-empty"></i> Canais Favoritos'.html_safe,
           user_favorite_channels_path(current_user) %>
@@ -25,7 +25,7 @@
   <%# Página de visualização de canais de usuário sendo visualizada pelo dono %>
   <% if @channels.empty? # usuário não tem canal nenhum %>
     Você ainda não possui um canal.
-    <%= link_to "Crie agora!", new_user_channel_path(current_user) %>
+    <%= link_to "Crie agora!", new_channel_path(user_id: current_user) %>
   <% end %>
 <% else %>
   <%# Página de visualização de canais de usuário sendo visualizada não pelo dono %>

@@ -1,5 +1,5 @@
 <%# j render => escape_javascript render %>
-<% publish_to new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match) do %>
+<% publish_to new_move_path(@match) do %>
   $('#moves').prepend("<%= j render(@move, show_comment_button: :true) %>");
   $('#team1-score').html(<%= @match.value1 %>);
   $('#team2-score').html(<%= @match.value2 %>);
@@ -8,6 +8,6 @@
   $('#new_move')[0].reset();
 <% else request.xhr? %> <%# Se não, redireciona para view de new move %>
   <script>
-    window.location.pathname = '<%= "#{new_user_channel_match_move_path(@match.channel.owner, @match.channel, @match).to_s}" %>';
+    window.location.pathname = '<%= "#{new_move_path(@match).to_s}" %>';
   </script>
 <% end %>
