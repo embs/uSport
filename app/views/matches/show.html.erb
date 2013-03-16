@@ -32,13 +32,13 @@
                     <div style='padding: 15px;'>
                       <%#TODO Transformar formulário abaixo em uma partial %>
                       <h3><%= kind.capitalize %>!</h3>
-                      <%= form_for Move.new, url: { action: 'create' }, remote: 'true' do |f| %>
+                      <%= form_for Move.new, url: { action: 'create'}, :html => {:autocomplete => "off"}, remote: 'true' do |f| %>
                         Time
                         <%= f.select :team,
                           options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
                         Jogador
                         <% value = "##{@move.player.number} #{@move.player.first_name}" if @move.player %>
-                        <%= f.text_field :player, class: 'typeahead player', value: value %>
+                        <%= f.text_field :player, class: 'typeahead player', autocomplete:'off', value: value %>
                         Comentário
                         <%= f.text_area :description, :cols => "30", :rows =>"8", :style => "resize: none;" %>
                         <%= f.submit :class => "btn" %>
