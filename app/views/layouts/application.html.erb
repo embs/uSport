@@ -19,7 +19,8 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <%#= stylesheet_link_tag "bootstrap-responsive", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap-responsive", :media => "all" %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -47,10 +48,10 @@
       <div class="container-fluid">
         <div tb-d="Nothing" tb-768-980="Nothing" tb-g-1200="row-fluid" tb-g-1400="row-fluid" tb-g-1600="row-fluid">
           <%= content_for :top_of_content %>
-          <div class="span2" tb-768-980="span2">
+          <div class="span2 visible-desktop">
             <%= yield :left_side_bar %>
           </div>
-          <div class="span8" tb-768-980="span8" tb-g-1200="span8">
+          <div class="span8" tb-768-980="span10" tb-g-1200="span8">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
