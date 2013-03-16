@@ -1,7 +1,13 @@
 <%= form_for @team do |f| %>
+  <legend>Novo Time</legend>
+  <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= f.select :sport_type, options_for_select([["Futebol Americano", "football"]]) %>
+  <%= f.label :abbreviation %>
+  <%= f.text_field :abbreviation %>
+  <%= f.label :sport_type %>
+  <%= f.select :sport_type,
+    options_for_select([["Futebol Americano", "football"]]) %><br />
   <%= image_tag @team.avatar(:thumb) %>
-  <%= f.file_field :avatar %>
-  <%= f.submit %>
+  <%= f.file_field :avatar %><br />
+  <%= f.submit nil, class: 'btn' %>
 <% end %>
