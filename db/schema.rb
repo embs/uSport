@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20130311053822) do
 
   create_table "teams", :force => true do |t|
     t.string   "name"
+    t.string   "abbreviation"
     t.string   "sport_type"
     t.boolean  "is_official",         :default => false
     t.datetime "created_at",                             :null => false
