@@ -43,8 +43,16 @@
         </ul>
 
         <ul class="nav hidden-desktop">
-          <li><%= link_to "Eventos", "/"  %></li>
-          <li><%= link_to "Canais", "/channels"  %></li>
+          <li><%= link_to '<i class="icon-tint"></i> Eventos'.html_safe, "/"  %></li>
+          <li><%= link_to '<i class="icon-desktop"></i> Canais'.html_safe, "/channels"  %></li>
+          <% if current_user %>
+            <li><%= link_to '<i class="icon-user-md"></i> Meus Canais'.html_safe, user_channels_path(current_user) %></li>
+            <li>
+              <%= link_to '<i class="icon-heart-empty"></i> Canais Favoritos'.html_safe,
+                user_favorite_channels_path(current_user) %>
+            </li>
+          <% end %>
+          <li><%= link_to '<i class="icon-group"></i> Esportes'.html_safe %></li>
         </ul>
 
       </div><!--/.nav-collapse -->
