@@ -96,8 +96,7 @@ describe MatchesController do
 
         it { should set_the_flash[:notice].to('Partida criada!')}
 
-        it { should redirect_to user_channel_match_path(channels_owner.id,
-          channel.id, Match.last.id) }
+        it { should redirect_to match_path(Match.last) }
 
         it { response.should be_redirect }
       end # context 'with valid fields'

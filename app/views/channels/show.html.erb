@@ -14,10 +14,10 @@
     </dl>
     <% if can? :manage, @channel %>
       <div class="btn-group btn-group-vertical" style="width: 100%;">
-        <%= link_to new_user_channel_match_path(current_user, @channel), class: 'btn' do %>
+        <%= link_to new_match_path(channel_id: @channel), class: 'btn' do %>
           <i class="icon-desktop"></i> Nova Partida!
         <% end %>
-        <%= link_to edit_user_channel_path(@channel.owner, @channel), class: 'btn' do %>
+        <%= link_to edit_channel_path(@channel), class: 'btn' do %>
           <i class="icon-cog"></i> Editar Canal
         <% end %>
       </div>
@@ -33,7 +33,7 @@
   <% @channel.matches.each do |m| %>
     <div class="well">
       <h1>
-        <%= link_to m.name, user_channel_match_path(@channel.owner, @channel, m)%>
+        <%= link_to m.name, match_path(m)%>
       </h1>
       <%= m.teams[0].name %>
       <%= image_tag m.teams[0].avatar(:thumb) %>

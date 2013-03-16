@@ -87,8 +87,7 @@ class MovesController < ApplicationController
     @move.team = team
     if @move.save
       flash[:notice] = 'Jogada atualizada!'
-      redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
-        @move.match)
+      redirect_to match_path(@move.match)
     else
       flash.now[:alert] = 'Não foi possível atualizar a jogada. Verifique os dados.'
       render 'edit'
@@ -100,8 +99,7 @@ class MovesController < ApplicationController
     authorize! :manage, @move
     @move.destroy
     flash[:notice] = 'A jogada foi removida.'
-    redirect_to user_channel_match_path(@move.match.channel.owner, @move.match.channel,
-      @move.match)
+    redirect_to match_path(@move.match)
   end
 
   private

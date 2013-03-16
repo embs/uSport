@@ -23,7 +23,7 @@ class ChannelsController < ApplicationController
     if @channel.save
       current_user.channels << @channel
       flash[:notice] = 'Seu canal está pronto para transmitir!'
-      redirect_to user_channel_path(@channel.owner, @channel)
+      redirect_to channel_path(@channel)
     else
       flash.now[:error] = 'Ops! Não foi possível criar o canal.'
       render 'new'
@@ -40,7 +40,7 @@ class ChannelsController < ApplicationController
     authorize! :edit, @channel
     if @channel.update_attributes(params[:channel])
       flash[:notice] = 'Os dados do canal foram atualizados.'
-      redirect_to user_channel_path(@channel.owner, @channel)
+      redirect_to channel_path(@channel.owner, @channel)
     else
       flash.now[:error] = 'Ops! Não foi possível atualizar o canal.'
       render 'edit'

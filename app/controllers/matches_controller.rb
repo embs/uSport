@@ -20,7 +20,7 @@ class MatchesController < ApplicationController
     end
     if @match.save
       flash[:notice] = 'Partida criada!'
-      redirect_to user_channel_match_path(current_user.id, channel.id, @match.id)
+      redirect_to match_path(@match)
     else
       flash.now[:alert] = 'Ops! Não foi possível criar a partida.'
       render 'new'
@@ -30,7 +30,7 @@ class MatchesController < ApplicationController
   def show
     @match = Match.find(params[:id])
     authorize! :show, @match
-    @user = User.find(params[:user_id])
+    # @user = User.find(params[:user_id])
     @moves = @match.moves.order('created_at DESC').page(params[:page])
     # Daqui para baixo são setadas as variáveis utilizadas para criação de move
     @move = Move.new(:match => @match)

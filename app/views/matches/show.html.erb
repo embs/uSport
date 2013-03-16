@@ -88,7 +88,7 @@
     <h4>Partidas</h4>
     <ul class="nav nav-list">
       <% @match.channel.matches.each do |m| %>
-        <li><%= link_to m.name, user_channel_match_path(@match.channel.owner, @match.channel, m) %></li>
+        <li><%= link_to m.name, match_path(m) %></li>
       <% end %>
     </ul>
   </div>
@@ -120,7 +120,7 @@
       </tbody>
     </table>
     <%= link_to_unless(@moves.last_page?, "Mostrar mais...",
-      user_channel_match_moves_path(@match.channel.owner, @match.channel, @match,
+      moves_path(@match,
       page: (@moves.current_page+1)), rel: 'next', remote: true, class: 'btn',
       id: 'show-more', style: 'margin: auto;') do |name| %>
       <%= name = '' %> <%# # passa um bloco que apaga o 'Mostrar mais...' %>
