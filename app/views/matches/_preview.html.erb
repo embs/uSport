@@ -23,14 +23,14 @@
           <tr>
             <td width="33%" style="text-align: right">
               <%= image_tag preview.teams[0].avatar(:thumb), style: "width: 50px" %><br />
-              <%= preview.teams[0].name %>
+              <%= preview.teams[0].abbreviation %>
             </td>
-            <td width="33%"  style="text-align: center">
+            <td width="33%"  style="text-align: center; white-space: nowrap">
               <h3> <%= preview.value1.to_s + " X " + preview.value2.to_s%> </h3>
             </td>
             <td width="33%" style="text-align: left">
               <%= image_tag preview.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
-              <%= preview.teams[1].name %>
+              <%= preview.teams[1].abbreviation %>
             </td>
           </tr>
           <tr>

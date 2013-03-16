@@ -8,6 +8,7 @@
     <li><%= link_to '<i class="icon-desktop"></i> Canais'.html_safe, "/channels"  %></li>
     <% if current_user %>
       <li><%= link_to '<i class="icon-user-md"></i> Meus Canais'.html_safe, channels_path(user_id: current_user) %></li>
+      <li><%= link_to '<i class="icon-edit"></i> Criar Canal'.html_safe, new_channel_path %></li>
       <li>
         <%= link_to '<i class="icon-heart-empty"></i> Canais Favoritos'.html_safe,
           user_favorite_channels_path(current_user) %>

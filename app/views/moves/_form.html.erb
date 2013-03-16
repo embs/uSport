@@ -1,42 +1,46 @@
+<script type="text/javascript">
+  
+</script>
 <%= form_for @move, url: { action: action }, remote: remote do |f| %>
   <legend>Nova Jogada</legend>
+  
+  <%#quarto %>
+  <div>
+        <%= f.label :quarter %>
+        <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
+        ["Second", 2], ["Third", 3], ["Fourth", 4]]) %> 
+  </div>
+  <%#tipo %>
   <div>
     <%= f.label :kind %>
     <%= f.select :kind, options_for_select(@kinds) %>
   </div>
-
+  <%#time%>
   <div>
     <%= f.label :team %>
     <%= f.select :team,
       options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
   </div>
-
+  <%#jardas %>
+  <div>
+    <%= f.label :yards %>
+    <%= f.select :yards, options_for_select(@yards) %>
+  </div>
+  <%#tempo%>
+  <div >
+    <%= f.label :minute %>
+    <%= f.select :minute, options_for_select(@minutes) %>
+  </div>
+  <%#Jogador%>
   <div>
     <%= f.label :player %>
     <% value = "##{@move.player.number} #{@move.player.first_name}" if @move.player %>
     <%= f.text_field :player, class: 'typeahead player', value: value %>
   </div>
-
-  <div>
-    <%= f.label :yards %>
-    <%= f.select :yards, options_for_select(@yards) %>
-  </div>
-
+  <%#Descrição %>
   <div>
     <%= f.label :description, :value => "Descrição" %>
     <%= f.text_area :description, :cols => "30", :rows =>"8", :style => "resize: none;" %>
   </div>
-
-  <div>
-    <%= f.label :quarter %>
-    <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
-      ["Second", 2], ["Third", 3], ["Fourth", 4]]) %>
-  </div>
-
-  <div >
-    <%= f.label :minute %>
-    <%= f.select :minute, options_for_select(@minutes) %>
-  </div>
-
   <%= f.submit :class => "btn" %>
 <% end %>
