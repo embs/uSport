@@ -1,4 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      team: "Time"
+      team: Time
+    attributes:
+      team:
+        name: Nome*
+        abbreviation: Abreviação*
+        sport_type: Esporte*

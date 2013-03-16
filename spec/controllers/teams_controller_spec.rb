@@ -46,7 +46,9 @@ describe TeamsController do
   describe 'POST create' do
     let(:common_params) { { :locale => 'pt-BR' } }
     let(:valid_params) do
-      { :team => { :name => 'USport Team', :sport_type => 'football' } }.merge(common_params)
+      { team: {
+        name: 'USport Team', sport_type: 'football', abbreviation: 'US'
+      } }.merge(common_params)
     end
 
     context 'when logged' do
