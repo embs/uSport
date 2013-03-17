@@ -65,8 +65,8 @@
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <%= content_for :load_javascript_before_application %>
-    <%= javascript_include_tag "application" %>
-    <%= content_for :load_javascript_after_application %>
+    <%= javascript_include_tag (content_for?(:include_js) ? yield(:include_js) : "application") %>
+    <%= yield :subscribe_to_match %><%# Só para matches/show %>
+    <%= yield :show_move_comments %><%# Só para move/show %>
   </body>
 </html>

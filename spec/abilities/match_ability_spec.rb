@@ -22,8 +22,14 @@ describe 'Match ability' do
     subject { Ability.new(user) }
 
     context 'as channel owner' do
+      let(:match) { FactoryGirl.create(:match, channel: users_channel) }
+
       it 'user is able to create a match for his channel' do
         subject.should be_able_to(:create, Match.new(:channel => users_channel))
+      end
+
+      it 'user is able to manage his match' do
+        subject.should be_able_to(:manage, match)
       end
     end
   end

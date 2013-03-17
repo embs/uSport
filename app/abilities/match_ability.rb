@@ -8,6 +8,10 @@ module MatchAbility
       can :create, Match do |match|
         match.channel.owner == user
       end
+
+      can :manage, Match do |match|
+        match.channel.owner == user
+      end
     end
   end
 end

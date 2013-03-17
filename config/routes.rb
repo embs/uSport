@@ -14,11 +14,11 @@ USport::Application.routes.draw do
     resources :favorite_channels, only: [:index, :create, :destroy]
   end
 
-  resources :moves do
-    resources :comments, :only => [:index, :new, :create]
+  resources :matches, :except => [:index, :edit, :update] do
+    resources :moves do
+      resources :comments, :only => [:index, :new, :create]
+    end
   end
-
-  resources :matches, :except => [:index, :edit, :update]
 
   resources :authentications, :only => :create
 

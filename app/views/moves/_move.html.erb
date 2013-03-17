@@ -12,17 +12,17 @@
       <li class="text-right muted"><%= l move.created_at, :format => :long %></li>
     </ul>
     <% if show_comment_button %>
-      <%= link_to move_path(move),
+      <%= link_to match_move_path(move.match, move),
         class: 'btn' do %>
         <i class="icon-comment"></i> Comentar Jogada
       <% end %>
     <% end %>
     <% if can? :manage, move %>
-      <%= link_to edit_move_path(move),
+      <%= link_to edit_match_move_path(move.match, move),
         class: 'btn' do %>
         <i class="icon-cog"></i> Editar Jogada
       <% end %>
-      <%= link_to move_path(move),
+      <%= link_to match_move_path(move.match, move),
         method: :delete, class: 'btn btn-danger' do %>
         <i class="icon-trash icon-white"></i> Remover Jogada
       <% end %>

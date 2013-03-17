@@ -1,4 +1,4 @@
-<%= content_for :load_javascript_after_application do %>
+<%= content_for :show_move_comments do %>
   <%= render partial: 'show.js.erb' %>
 <% end %>
 <table class="table table-striped">
@@ -7,8 +7,7 @@
       locals: { show_comment_button: nil } %>
   </tbody>
 </table>
-<%= link_to match_path(@move.match),
-  class: 'btn' do %>
+<%= link_to match_path(@move.match), class: 'btn' do %>
   <i class='icon-arrow-left'></i> Voltar para a Partida
 <% end %>
 <div id="disqus_thread"></div>

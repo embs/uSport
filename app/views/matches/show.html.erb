@@ -1,5 +1,7 @@
-<%= content_for :load_javascript_after_application do %>
-  <%= subscribe_to new_move_path(@match) %>
+<%# subscribe_to tem que ser chamado depois de carregar os javascripts %>
+<%# por isso ele é colocado dentro de um content_for %>
+<% content_for :subscribe_to_match do %>
+  <%= subscribe_to new_match_move_path(@match) %>
 <% end %>
 
 <% content_for :left_side_bar do %>
@@ -18,7 +20,7 @@
 <% if can? :create, @move %>
       <div class="well">
         <table class='table'>
-        
+
           <thead>
             <tr class='hidden-tablet hidden-phone'>
               <td>
@@ -59,7 +61,7 @@
               </td>
             </tr>
           </thead>
-        
+
         </table>
         <%#FIXME Tableless? Que é que é isso? %>
       </div>
@@ -86,7 +88,7 @@
 
     <div class="hidden-desktop">
       <table class="table" style="margin-bottom: 0px">
-        
+
         <thead>
           <tr>
             <td width="33%" style="text-align: right">
@@ -102,7 +104,7 @@
             </td>
           </tr>
           </thead>
-        
+
       </table>
     </div>
   </div>
@@ -119,11 +121,6 @@
       surgir mesmo antes do início da partida.
     <% end %>
   </div>
-
-  
-
-  
-
 <% else %> <%# Lance a Lance, exibido quando há ao menos uma jogada %>
   <div class="well">
     <table class="table table-striped">
@@ -138,7 +135,7 @@
       </tbody>
     </table>
     <%= link_to_unless(@moves.last_page?, "Mostrar mais...",
-      moves_path(@match,
+      match_moves_path(@match,
       page: (@moves.current_page+1)), rel: 'next', remote: true, class: 'btn',
       id: 'show-more', style: 'margin: auto;') do |name| %>
       <%= name = '' %> <%# # passa um bloco que apaga o 'Mostrar mais...' %>

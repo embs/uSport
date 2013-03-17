@@ -1,5 +1,5 @@
 <%# j render => escape_javascript render %>
-<% publish_to new_move_path(@match) do %>
+<% publish_to new_match_move_path(@match) do %>
   $('#moves').prepend("<%= j render(@move, show_comment_button: :true) %>");
   $('#team1-score').html(<%= @match.value1 %>);
   $('#team2-score').html(<%= @match.value2 %>);

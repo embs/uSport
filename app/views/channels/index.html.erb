@@ -1,7 +1,4 @@
-<% content_for :load_javascript_before_application do %>
-  <%= javascript_include_tag 'landing' %>
-  <%= javascript_include_tag 'channels' %>
-<% end %>
+<% content_for(:include_js) { 'channels' } %>
 
 <% content_for :left_side_bar do %>
   <ul class='well nav nav-list'>

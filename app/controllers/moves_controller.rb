@@ -18,7 +18,8 @@ class MovesController < ApplicationController
   end
 
   def new
-    authorize! :manage, Channel.find(params[:channel_id])
+    @match = Match.find(params[:match_id])
+    authorize! :manage, @match
     @move = Move.new
     @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
       ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
@@ -31,7 +32,6 @@ class MovesController < ApplicationController
     151.times do |n|
       @yards << [n.to_s, n]
     end
-    @match = Match.find(params[:match_id])
   end
 
   def create

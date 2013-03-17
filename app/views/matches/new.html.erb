@@ -1,6 +1,4 @@
-<% content_for :load_javascript_before_application do %>
-  <%= javascript_include_tag 'matches' %>
-<% end %>
+<% content_for(:include_js) { 'matches' } %>
 
 <%= form_for @match, :url => { :action => "create", channel_id: params[:channel_id] } do |f| %>
   <%= f.label :name %>
