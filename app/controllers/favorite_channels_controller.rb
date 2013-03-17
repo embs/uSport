@@ -15,9 +15,14 @@ class FavoriteChannelsController < ApplicationController
   # Favorita um canal para um usuário
   def create
     authorize! :create, UserFavoriteChannel
-    @user_favorite_channel = UserFavoriteChannel.create(user: current_user,
-      channel: Channel.find(params[:channel_id]))
-    flash[:notice] = 'Canal adicionado aos seus favoritos!'
+    channel = Channel.find(params[:channel_id])
+    if current_user.favorite_channels.include?(channel)
+      flash[:notice] = 'O canal já faz parte dos seus favoritos.'
+    else
+      @user_favorite_channel = UserFavoriteChannel.create(user: current_user,
+        channel: channel)
+      flash[:notice] = 'Canal adicionado aos seus favoritos!'
+    end
     redirect_to user_favorite_channels_path(current_user)
   end
 

@@ -1,18 +1,9 @@
+<% content_for(:include_js) { 'channels' } %>
+
 <% content_for :left_side_bar do %>
   <%= render partial: 'shared/leftbar' %>
 <% end %>
 
-<% if @user.favorite_channels.empty? %>
-  <%= @user.first_name %> ainda não possui nenhum canal favorito.
-<% else %>
-  Canais favoritos de <%= @user.first_name %>:
-  <ul>
-    <% @user.favorite_channels.each do |channel| %>
-      <li>
-        <%= channel.name %>
-        <%= link_to 'Remover Favorito', user_favorite_channel_path('x',
-          'x', channel_id: channel), method: :delete %>
-      </li>
-    <% end %>
-  </ul>
+<% @favorites.each_with_index do |channel, counter| %>
+  <%= render partial: 'channels/preview', collection: [channel] %>
 <% end %>

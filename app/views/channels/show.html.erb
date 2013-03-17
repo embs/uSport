@@ -12,16 +12,22 @@
       <dt>Dono do Canal</dt>
       <dd><%= @channel.owner.display_name %></dd>
     </dl>
-    <% if can? :manage, @channel %>
-      <div class="btn-group btn-group-vertical" style="width: 100%;">
+    <div class="btn-group btn-group-vertical" style="width: 100%;">
+      <% if can? :manage, @channel %>
         <%= link_to new_match_path(channel_id: @channel), class: 'btn' do %>
           <i class="icon-desktop"></i> Nova Partida!
         <% end %>
         <%= link_to edit_channel_path(@channel), class: 'btn' do %>
           <i class="icon-cog"></i> Editar Canal
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+      <% if can? :create, UserFavoriteChannel %>
+        <%= link_to user_favorite_channels_path(current_user, channel_id: @channel.id),
+            method: :post, class: 'btn' do %>
+          <i class='icon-heart'></i> Adicionar aos Favoritos
+        <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 
