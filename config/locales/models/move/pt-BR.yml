@@ -4,10 +4,10 @@ pt-BR:
       move: Jogada
     attributes:
       move:
-        kind: Tipo da Jogada
-        team: Time
-        player: Jogador
+        kind: Tipo da Jogada*
+        team: Time*
+        player: Jogador*
         yards: Jardas
-        description: Descrição
+        description: Comentário
         quarter: Quarto
         minute: Tempo
