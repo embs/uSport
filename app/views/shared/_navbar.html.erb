@@ -8,10 +8,16 @@
       </a>
       <%= link_to 'USport', root_path, :class => 'brand' %>
       <div class="nav-collapse collapse">
-        <form class='navbar-search'>
-          <input type="text" class='search-query typeahead search' placeholder='Buscar'>
-        </form>
-
+        <ul class='nav'>
+          <li>
+            <%= link_to 'Transmitir!', (current_user ? new_channel_path : new_user_session_path) %>
+          </li>
+          <li>
+            <form class='navbar-search'>
+              <input type="text" class='search-query typeahead search' placeholder='Buscar'>
+            </form>
+          </li>
+        </ul>
         <ul class="nav pull-right">
           <% if current_user %>
             <li class="dropdown">
