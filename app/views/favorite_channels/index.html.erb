@@ -1,3 +1,7 @@
+<% content_for :left_side_bar do %>
+  <%= render partial: 'shared/leftbar' %>
+<% end %>
+
 <% if @user.favorite_channels.empty? %>
   <%= @user.first_name %> ainda não possui nenhum canal favorito.
 <% else %>
