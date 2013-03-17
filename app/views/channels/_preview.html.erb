@@ -9,7 +9,7 @@
               :'data-placement' => 'top', :'data-original-title' => preview.name) %>
           </th>
           <th colspan="2">
-              <%= preview.name %>
+              <%= preview.name %> <%= show_heart_if_favorite(current_user, preview).html_safe %>
               <p class='muted' style="font-size: 11px">
                 por <%= link_to(preview.owner.display_name,"#") %><span style="padding: 0px 5px">.</span>
                 <%= time_ago_in_words(preview.created_at).gsub('aproximadamente','±')%>

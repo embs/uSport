@@ -1,8 +1,10 @@
+<% content_for(:include_js) { 'channels' } %>
+
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
     <%= image_tag(@channel.avatar(:thumb)) %>
     <h4>
-      <%= @channel.name %>
+      <%= @channel.name %> <%= show_heart_if_favorite(current_user, @channel).html_safe %>
     </h4>
     <dl>
       <% if @channel.description %>
@@ -21,7 +23,7 @@
           <i class="icon-cog"></i> Editar Canal
         <% end %>
       <% end %>
-      <% if can? :create, UserFavoriteChannel %>
+      <% if can?(:create, UserFavoriteChannel) & !@channel.is_favorite_of?(current_user) %>
         <%= link_to user_favorite_channels_path(current_user, channel_id: @channel.id),
             method: :post, class: 'btn' do %>
           <i class='icon-heart'></i> Adicionar aos Favoritos

@@ -14,4 +14,26 @@ describe Channel do
 
   # Validação
   it { should validate_presence_of(:name) }
+
+  describe '.is_favorite_of?' do
+    let(:nice_user) { FactoryGirl.create :user }
+    let(:nasty_user) { FactoryGirl.create :user }
+    let(:channel) { FactoryGirl.create :channel }
+
+    before do
+      UserFavoriteChannel.create(user: nice_user, channel: channel)
+    end
+
+    it 'returns true when user has favorited channel' do
+      channel.is_favorite_of?(nice_user).should be_true
+    end
+
+    it 'returns false when user hasnt favorited channel' do
+      channel.is_favorite_of?(nasty_user).should be_false
+    end
+
+    it 'returns false when nil user is passed' do
+      channel.is_favorite_of?(nil).should be_false
+    end
+  end
 end

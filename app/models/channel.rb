@@ -14,4 +14,9 @@ class Channel < ActiveRecord::Base
 
   # Validação
   validates_presence_of :name
+
+  def is_favorite_of?(user)
+    return false unless user
+    user.favorite_channels.include?(self)
+  end
 end
