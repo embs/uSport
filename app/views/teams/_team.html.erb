@@ -1,0 +1,18 @@
+<div class='well'>
+  <h3>
+    <%= image_tag team.avatar(:thumb), class: 'img-rounded img-polaroid', width: '10%' %>
+    <%= team.name %> (<%= team.abbreviation %>)
+    <%= show_badge_if_official(team).html_safe %>
+  </h3>
+  <legend><%= team.sport_type %></legend>
+  <h4>Jogadores</h4>
+  <div class='row-fluid'>
+    <%= render partial: 'team_player', collection: team.players %>
+  </div>
+  <br />
+  <% if can? :manage, team %>
+    <%= link_to edit_team_path(team), class: 'btn btn-large' do %>
+      <i class="icon-cog"></i> Editar
+    <% end %>
+  <% end %>
+</div>

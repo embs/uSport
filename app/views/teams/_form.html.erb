@@ -1,9 +1,10 @@
 <%= form_for @team do |f| %>
   <legend>Novo Time</legend>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, required: :true %>
   <%= f.label :abbreviation %>
-  <%= f.text_field :abbreviation %>
+  <%= f.text_field :abbreviation, required: :true %>
+  <span class="help-block">No máximo 3 caracteres</span>
   <%= f.label :sport_type %>
   <%= f.select :sport_type,
     options_for_select([["Futebol Americano", "football"]]) %><br />

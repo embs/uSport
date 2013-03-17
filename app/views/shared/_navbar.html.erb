@@ -12,6 +12,13 @@
           <li>
             <%= link_to 'Transmitir!', (current_user ? new_channel_path : new_user_session_path) %>
           </li>
+          <% if can? :create, Team %>
+            <li class="divider-vertical"></li>
+            <li>
+              <%= link_to 'Gerenciar times e jogadores', teams_path %>
+            </li>
+          <% end %>
+          <li class="divider-vertical"></li>
           <li>
             <form class='navbar-search'>
               <input type="text" class='search-query typeahead search' placeholder='Buscar'>

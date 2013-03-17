@@ -13,4 +13,8 @@ class Player < ActiveRecord::Base
     raise Error if splitted.length != 2
     Player.find_by_first_name(splitted[1])
   end
+
+  def display_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end

@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
     @player = Player.create(params[:player])
     if @player.valid?
       flash[:notice] = "Jogador criado!"
-      redirect_to root_path
+      redirect_to teams_path
     else
       flash[:alert] = "Ops! Não foi possível criar o jogador."
       render 'new'
