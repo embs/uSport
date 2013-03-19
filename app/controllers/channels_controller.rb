@@ -4,10 +4,6 @@ class ChannelsController < ApplicationController
   def index
     authorize! :show, Channel
     @channels = user_channels_or_all
-    if params[:facebook]
-      flash.now[:notice] = "Ainda não é possível logar com Facebook. Em breve
-        disponibilizaremos essa facilidade aos nossos usuários!"
-    end
   end
 
   def show
