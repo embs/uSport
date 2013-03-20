@@ -1,6 +1,15 @@
 # encoding: utf-8
 class TeamsController < ApplicationController
 
+  def index
+    authorize! :show, Team
+    @teams = Team.all
+    if params[:user_id]
+      flash.now[:notice] = "Em breve você poderá navegar entre times filtrando
+        apenas aqueles que você pode moderar. Aguarde!"
+    end
+  end
+
   def show
     authorize! :show, Team
     @team = Team.find(params[:id])
@@ -16,7 +25,7 @@ class TeamsController < ApplicationController
     authorize! :create, @team
     if @team.save
       flash[:notice] = 'Time criado!'
-      redirect_to root_path
+      redirect_to teams_path
     else
       flash.now[:error] = 'Ops! Não foi possível criar o time.'
       render 'edit'

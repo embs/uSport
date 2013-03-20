@@ -15,13 +15,13 @@
       <%= link_to match_move_path(move.match, move),
         class: 'btn' do %>
         <i class="icon-comment"></i> Comentar Jogada
-      <% end %>
+      <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
     <% end %>
     <% if can? :manage, move %>
       <%= link_to edit_match_move_path(move.match, move),
         class: 'btn' do %>
         <i class="icon-cog"></i> Editar Jogada
-      <% end %>
+      <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
       <%= link_to match_move_path(move.match, move),
         method: :delete, class: 'btn btn-danger' do %>
         <i class="icon-trash icon-white"></i> Remover Jogada

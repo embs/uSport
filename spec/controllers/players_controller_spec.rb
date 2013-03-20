@@ -56,7 +56,7 @@ describe PlayersController do
 
         it { response.should be_redirect }
 
-        it { response.should redirect_to(root_path) }
+        it { response.should redirect_to(teams_path) }
 
         it { should set_the_flash[:notice].to("Jogador criado!") }
       end # context 'with valid parameters'

@@ -6,7 +6,7 @@ USport::Application.routes.draw do
 
   resources :channels
 
-  resources :teams, :except => :index
+  resources :teams
 
   resources :players, :only => [:index, :new, :create, :show]
 

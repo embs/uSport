@@ -1,10 +1,10 @@
 pt-BR:
   activerecord:
     models:
-      player: "Jogador"
+      player: Jogador
     attributes:
       player:
-        first_name: "Nome"
-        last_name: "Sobrenome"
-        number: "Número"
-        team: "Time"
+        first_name: Nome*
+        last_name: Sobrenome*
+        number: Número*
+        team: Time*
