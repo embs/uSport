@@ -98,8 +98,13 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     authorize! :manage, @move
     @move.destroy
-    flash[:notice] = 'A jogada foi removida.'
-    redirect_to match_path(@move.match)
+    respond_to do |format|
+      format.html do
+        flash[:notice] = 'A jogada foi removida.'
+        redirect_to match_path(@move.match)
+      end
+      format.js
+    end
   end
 
   private
