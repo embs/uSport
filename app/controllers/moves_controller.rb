@@ -53,6 +53,7 @@ class MovesController < ApplicationController
       @match.value2 = @match.value2 + points
     end
     @match.save
+    flash[:notice] = "Jogada criada!" if @move.valid?
 
     respond_to do |format|
       format.html { render 'create.js.erb' }
