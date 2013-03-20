@@ -22,7 +22,7 @@ describe User do
   it { should validate_presence_of :email }
   it { should validate_presence_of :username }
   it { should validate_uniqueness_of :username }
-  it { should validate_uniqueness_of :email }
+  it { User.observers.disable(:all) { should validate_uniqueness_of(:email) } }
 
   describe '#create_with_omniauth' do
     before do
