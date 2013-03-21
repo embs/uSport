@@ -1,14 +1,21 @@
-
 <div class = "well">
-
-  <div class = "row-fluid"> 
-
+  <div class = "row-fluid">
     <div class= "span4"></div>
     <div class= "span8">
-      <h4> Nome: <%= @player.first_name  %>  <%= @player.last_name  %> </h4>
-      <h4> Número: <%= @player.number  %> </h4> 
-      <h4> Time: <%= Team.find(@player.team_id).name  %> </h4> 
-       <%= image_tag Team.find(@player.team_id).avatar(:thumb) %>
+      <h4>Nome: <%= @player.display_name %></h4>
+      <h4>Número: <%= @player.number %></h4>
+      <h4>Time: <%= @player.team.name %></h4>
+      <%= image_tag @player.team.avatar(:thumb) %><br />
+      <% if can? :manage, @player %>
+        <%= link_to edit_player_path(@player),
+          class: 'btn' do %>
+          <i class="icon-cog"></i> Editar Jogador
+        <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
+        <%= link_to player_path(@player),
+          method: :delete, class: 'btn btn-danger' do %>
+          <i class="icon-trash icon-white"></i> Remover Jogador
+        <% end %>
+      <% end %>
     </div>
-  </div> 
+  </div>
 </div>
