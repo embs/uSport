@@ -161,5 +161,50 @@ describe MatchesController do
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
+  end # describe 'POST create' do
+
+  describe 'GET edit' do
+    let(:match) { FactoryGirl.create(:football_match, channel: channel) }
+
+    before do
+      controller.stub(current_user: channels_owner)
+      get :edit, id: match
+    end
+
+    it { response.should be_success }
+
+    it { should render_template(:edit) }
+
+    it { assigns[:match].should == match }
+  end # describe 'GET edit'
+
+  describe 'POST update' do
+    let(:match) { FactoryGirl.create(:football_match, channel: channel) }
+    let(:new_team1) { FactoryGirl.create(:team) }
+    let(:new_team2) { FactoryGirl.create(:team) }
+
+    before do
+      controller.stub(current_user: channels_owner)
+      post :update, { id: match, football_match: {
+        name: 'Novo nome pra esse match',
+        teams_ids: [new_team1.id, new_team2.id]
+      } }
+    end
+
+    it { response.should be_redirect }
+
+    it { should set_the_flash[:notice].to('Partida atualizada!') }
+
+    it 'updates match name' do
+      Match.last.name.should == 'Novo nome pra esse match'
+    end
+
+    it { should redirect_to(match_path(match)) }
+
+    it 'updates teams' do
+      match = Match.last
+      match.teams.should include(new_team1)
+      match.teams.should include(new_team2)
+    end
   end
 end
