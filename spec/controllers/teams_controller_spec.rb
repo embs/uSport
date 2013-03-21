@@ -49,7 +49,7 @@ describe TeamsController do
         get :new, :locale => 'pt-BR'
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -116,7 +116,7 @@ describe TeamsController do
         post :create, valid_params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -143,7 +143,7 @@ describe TeamsController do
         get :edit, :locale => 'pt-BR', :id => team.id
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end
@@ -200,7 +200,7 @@ describe TeamsController do
         post :update, valid_params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -233,7 +233,7 @@ describe TeamsController do
         post :destroy, :locale => 'pt-BR', :id => team.id
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'

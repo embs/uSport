@@ -25,7 +25,7 @@ class MatchesController < ApplicationController
   end
 
   def new
-    authorize! :manage, Channel.find(params[:channel_id])
+    authorize! :manage, Channel.find_by_id(params[:channel_id]) || current_user.try(:channels).try(:first)
     @match = FootballMatch.new #FIXME Por enquanto, apenas partidas desse tipo
     authorize! :create, Match
     @teams = Team.all # necessário para formulário de criação

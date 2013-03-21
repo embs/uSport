@@ -75,7 +75,7 @@ describe ChannelsController do
         get :new, :locale => 'pt-BR', :user_id => user.id
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -136,7 +136,7 @@ describe ChannelsController do
         post :create, valid_params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -181,7 +181,7 @@ describe ChannelsController do
         get :edit, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -258,7 +258,7 @@ describe ChannelsController do
         post :update, common_params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -307,7 +307,7 @@ describe ChannelsController do
         post :destroy, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'

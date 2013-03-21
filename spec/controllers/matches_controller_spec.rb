@@ -38,7 +38,7 @@ describe MatchesController do
         get :new, :locale => 'pt-BR', :user_id => user.id, :channel_id => channel.id
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end
@@ -157,7 +157,7 @@ describe MatchesController do
         post :create, valid_params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'

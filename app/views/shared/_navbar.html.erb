@@ -10,7 +10,7 @@
       <div class="nav-collapse collapse">
         <ul class='nav'>
           <li>
-            <%= link_to 'Transmitir!', (current_user ? new_match_path(channel_id: current_user.channels.first) : new_user_session_path) %>
+            <%= link_to 'Transmitir!', new_match_path(channel_id: current_user.try(:channels).try(:first)) %>
           </li>
           <% if can? :create, Team %>
             <li class="divider-vertical"></li>

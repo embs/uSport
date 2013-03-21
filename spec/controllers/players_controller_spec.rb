@@ -27,6 +27,8 @@ describe PlayersController do
       it { should set_the_flash[:alert] }
 
       it { should_not render_template(:new) }
+
+      it { should redirect_to(new_user_session_path) }
     end
   end
 
@@ -92,6 +94,8 @@ describe PlayersController do
       it { should set_the_flash[:alert] }
 
       it { response.should be_redirect }
+
+      it { response.should redirect_to(new_user_session_path) }
     end # context 'when not logged'
   end # describe 'POST create'
 
