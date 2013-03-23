@@ -118,7 +118,14 @@
     </div>
   </div>
 <% if can? :manege, @match %>
-  <%= link_to 'Nova Jogada', new_match_move_path(@match), class: 'btn hidden-desktop' %>
+  
+  <a class="btn hidden-desktop" data-target=".new-move-collapse" data-toggle="collapse">
+    Nova Jogada
+  </a>
+  <div class="new-move-collapse collapse">
+    <%= render partial: 'moves/form', locals: { action: 'create', remote: 'true' } %>
+  </div>
+
 <% end %>
 <% if @moves.empty? %> <%# Mensagens para quando a partida não possui jogadas %>
   <div class='alert alert-info'>
