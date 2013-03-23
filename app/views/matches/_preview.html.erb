@@ -14,7 +14,7 @@
               <p><%=preview.name%></p>
               <p class="muted" style="font-size: 11px">
                 por <%= link_to(preview.channel.owner.display_name,"#") %><span style="padding: 0px 5px">.</span>
-                <%= time_ago_in_words(preview.created_at).gsub('aproximadamente','±')%>
+                <%= time_ago_in_words(preview.created_at, include_seconds=true).gsub('aproximadamente','±')%>
               </p>
             </th>
           </tr>

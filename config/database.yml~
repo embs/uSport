@@ -1,0 +1,16 @@
+development:
+  adapter: postgresql
+  encoding: utf-8
+  database: usport_development
+  pool: 5
+  username: ubuntu
+  password:
+
+test:
+  adapter: postgresql
+  encoding: utf-8
+  database: usport_test
+  pool: 5
+  username: ubuntu
+  password:
+

@@ -117,7 +117,9 @@
       </table>
     </div>
   </div>
-<%= link_to 'Nova Jogada', new_match_move_path(@match), class: 'btn hidden-desktop' %>
+<% if can? :manege, @match %>
+  <%= link_to 'Nova Jogada', new_match_move_path(@match), class: 'btn hidden-desktop' %>
+<% end %>
 <% if @moves.empty? %> <%# Mensagens para quando a partida não possui jogadas %>
   <div class='alert alert-info'>
     <% if @match.date <= Time.now # transmissão já deveria ter começado %>
