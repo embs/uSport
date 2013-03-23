@@ -1,4 +1,4 @@
-$('#moves').append("<%= j render(@moves, show_comment_button: :true) %>");
+$('#moves').append("<%= j render(@moves, show_comment_button: :true, show_edition_buttons: :true) %>");
 $('#show-more').replaceWith("<%= j (link_to_next_page(@moves, 'Mostrar mais...',
   rel: 'next', remote: true, class: 'btn', id: 'show-more')) %>")
 <% if @moves.last_page? %>

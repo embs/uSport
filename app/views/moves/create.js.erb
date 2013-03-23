@@ -1,7 +1,9 @@
 <%# Publica jogada para todos espectadores da partida %>
 <% publish_to new_match_move_path(@match) do %>
-  $('#moves').prepend("<%= j render(@move, show_comment_button: :true) %>");
+  $('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: nil) %>");
   $('#team1-score').html(<%= @match.value1 %>);
   $('#team2-score').html(<%= @match.value2 %>);
 <% end %>
+$("#<%= @move.id %>").remove();
+$('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
 window.location.pathname = '<%= "#{new_match_move_path(@match).to_s}" %>';

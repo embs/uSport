@@ -4,7 +4,7 @@
 <table class="table table-striped">
   <tbody id='moves'>
     <%= render partial: 'move', collection: [@move],
-      locals: { show_comment_button: nil } %>
+      locals: { show_comment_button: nil, show_edition_buttons: 'true' } %>
   </tbody>
 </table>
 <%= link_to match_path(@move.match), class: 'btn' do %>

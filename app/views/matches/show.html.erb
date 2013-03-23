@@ -142,7 +142,7 @@
       </thead>
       <tbody id='moves'>
         <%= render partial: 'moves/move', collection: @moves,
-          locals: { show_comment_button: 'true' } %>
+          locals: { show_comment_button: 'true', show_edition_buttons: 'true' } %>
       </tbody>
     </table>
     <%= link_to_unless(@moves.last_page?, "Mostrar mais...",
