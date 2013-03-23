@@ -6,4 +6,4 @@
 <% end %>
 $("#<%= @move.id %>").remove();
 $('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
-window.location.pathname = '<%= "#{new_match_move_path(@match).to_s}" %>';
+//window.location.pathname = '<%= "#{new_match_move_path(@match).to_s}" %>';
