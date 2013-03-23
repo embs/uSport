@@ -8,7 +8,7 @@ USport::Application.routes.draw do
 
   resources :teams
 
-  resources :players, except: :index
+  resources :players
 
   resources :users, :only => [:index, :edit, :update] do
     resources :favorite_channels, only: [:index, :create, :destroy]
