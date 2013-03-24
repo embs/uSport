@@ -9,7 +9,9 @@
     <ul class="inline">
       <li><a href="#"><i class="icon-thumbs-up"></i></a></li><span>.</span>
       <li><a href="#"><i class="icon-comment"></i></a></li><span>.</span>
-      <li class="text-right muted"><%= l move.created_at, :format => :long %></li>
+      <li class ="text-right muted" data-toggle="tooltip" title="<%= l move.created_at, format: :long %>" >
+        <%= time_ago_in_words(move.created_at, include_seconds = true).gsub("aproximadamente", "±") %> atrás
+      </li>
     </ul>
     <% if show_comment_button %>
       <%= link_to match_move_path(move.match, move),
@@ -17,13 +19,13 @@
         <i class="icon-comment"></i> Comentar Jogada
       <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
     <% end %>
-    <% if can? :manage, move %>
+    <% if (can? :manage, move) && show_edition_buttons %>
       <%= link_to edit_match_move_path(move.match, move),
         class: 'btn' do %>
         <i class="icon-cog"></i> Editar Jogada
       <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
       <%= link_to match_move_path(move.match, move),
-        method: :delete, class: 'btn btn-danger' do %>
+        method: :delete, remote: :true, class: 'btn btn-danger' do %>
         <i class="icon-trash icon-white"></i> Remover Jogada
       <% end %>
     <% end %>

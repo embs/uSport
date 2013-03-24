@@ -4,5 +4,9 @@ FactoryGirl.define do
     type "FootballMatch"
     date Time.now
     channel { FactoryGirl.create :channel }
+
+    before(:create) do |match|
+      2.times { match.teams << FactoryGirl.create(:team) }
+    end
   end
 end

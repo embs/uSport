@@ -53,6 +53,7 @@ class MovesController < ApplicationController
       @match.value2 = @match.value2 + points
     end
     @match.save
+    flash[:notice] = "Jogada criada!" if @move.valid?
 
     respond_to do |format|
       format.html { render 'create.js.erb' }
@@ -98,8 +99,13 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     authorize! :manage, @move
     @move.destroy
-    flash[:notice] = 'A jogada foi removida.'
-    redirect_to match_path(@move.match)
+    respond_to do |format|
+      format.html do
+        flash[:notice] = 'A jogada foi removida.'
+        redirect_to match_path(@move.match)
+      end
+      format.js
+    end
   end
 
   private

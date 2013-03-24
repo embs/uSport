@@ -2,31 +2,6 @@
 class MatchesController < ApplicationController
   layout :choose_layout
 
-  def new
-    authorize! :manage, Channel.find(params[:channel_id])
-    @match = FootballMatch.new #FIXME Por enquanto, apenas partidas desse tipo
-    authorize! :create, Match
-    @teams = Team.all
-  end
-
-  def create
-    channel = Channel.find(params[:channel_id])
-    authorize! :manage, channel
-    teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
-    @teams = Team.all
-    @match = FootballMatch.new(params[:football_match]) do |m|
-      m.teams << Team.find(teams) if teams
-      m.channel = channel
-    end
-    if @match.save
-      flash[:notice] = 'Partida criada!'
-      redirect_to match_path(@match)
-    else
-      flash.now[:alert] = 'Ops! Não foi possível criar a partida.'
-      render 'new'
-    end
-  end
-
   def show
     @match = Match.find(params[:id])
     authorize! :show, @match
@@ -47,6 +22,52 @@ class MatchesController < ApplicationController
         @yards << [n.to_s, n]
       end
     end
+  end
+
+  def new
+    authorize! :manage, Channel.find_by_id(params[:channel_id]) || current_user.try(:channels).try(:first)
+    @match = FootballMatch.new #FIXME Por enquanto, apenas partidas desse tipo
+    authorize! :create, Match
+    @teams = Team.all # necessário para formulário de criação
+  end
+
+  def create
+    channel = Channel.find(params[:channel_id])
+    authorize! :manage, channel
+    teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
+    @teams = Team.all
+    @match = FootballMatch.new(params[:football_match]) do |m|
+      m.teams << Team.find(teams) if teams
+      m.channel = channel
+    end
+    if @match.save
+      flash[:notice] = 'Partida criada!'
+      redirect_to match_path(@match)
+    else
+      flash.now[:alert] = 'Ops! Não foi possível criar a partida.'
+      render 'new'
+    end
+  end
+
+  def edit
+    @match = Match.find(params[:id])
+    @teams = Team.all # necessário para formulário de edição
+    authorize! :manage, @match
+  end
+
+  def update
+    match = Match.find(params[:id])
+    authorize! :manage, match
+    teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
+    match.update_attributes(params[:football_match])
+    match.teams = Team.find(teams) if teams
+    if match.save
+      flash[:notice] = 'Partida atualizada!'
+    else
+      flash[:error] = 'Ops! Não foi possível atualizar a partida.'
+    end
+
+    redirect_to match_path(match)
   end
 
   def score

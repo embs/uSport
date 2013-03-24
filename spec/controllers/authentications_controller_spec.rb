@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe AuthenticationsController do
@@ -15,11 +16,50 @@ describe AuthenticationsController do
         }.to change(User, :count).by(1)
       end
 
+      it 'creates a new authentication' do
+        expect {
+          post :create
+        }.to change(Authentication, :count).by(1)
+      end
+
       it 'signs user in' do
         post :create
         subject.current_user.should_not be_nil
       end
-    end
+
+      it 'sets the flash[:notice]' do
+        post :create
+        should set_the_flash[:notice].to("Você entrou com a sua conta do Facebook.")
+      end
+
+      it 'redirects the user' do
+        post :create
+        response.should be_redirect
+      end
+
+      context 'but there is already an account with associated email' do
+        before do
+          FactoryGirl.create(:user, email: request.env['omniauth.auth']['info']['email'])
+        end
+
+        it 'does not create a new user' do
+          expect {
+            post :create
+          }.to change(User, :count).by(0)
+        end
+
+        it 'creates a new authentication' do
+          expect {
+            post :create
+          }.to change(Authentication, :count).by(1)
+        end
+
+        it 'logs user in' do
+          post :create
+          controller.current_user.should_not be_nil
+        end
+      end # context 'but there is already an account with associated email'
+    end # context 'when authentication does not exist'
 
     context 'when authentication does exist' do
       let(:user) { FactoryGirl.create(:user) }
@@ -40,6 +80,6 @@ describe AuthenticationsController do
         post :create
         subject.current_user.should == user
       end
-    end
+    end # context 'when authentication does exist'
   end
 end

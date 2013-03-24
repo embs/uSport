@@ -1,3 +1,4 @@
 <div style='float: left; margin-right: 15px;'>
-  <b><%= team_player.display_name %></b>, #<%= team_player.number %>
+  <b><%= link_to team_player.display_name, player_path(team_player) %></b>,
+  #<%= team_player.number %>
 </div>

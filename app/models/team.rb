@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
   # Getters & Setters
-  attr_accessible :name, :abbreviation, :players, :sport_type, :avatar
+  attr_accessible :name, :abbreviation, :players, :sport_type, :avatar, :is_official
 
   # Associações
   has_many :players

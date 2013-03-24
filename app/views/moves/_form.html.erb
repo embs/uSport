@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 </script>
-<%= form_for @move, url: { action: action }, remote: remote, autocomplete: :off do |f| %>
+<%= form_for @move, url: match_moves_path(@match || @move.match), remote: remote, autocomplete: :off do |f| %>
   <legend>Nova Jogada</legend>
 
   <div>
@@ -42,5 +42,5 @@
     <%= f.label :description %>
     <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
   </div>
-  <%= f.submit class: "btn" %>
+  <%= f.submit nil, onclick: "$('html, body').animate({ scrollTop: 0 });" , :'data-target' => ".new-move-collapse", :'data-toggle' => "collapse", class: "btn" %>
 <% end %>

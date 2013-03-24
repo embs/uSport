@@ -59,7 +59,7 @@ describe MovesController do
         get :edit, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -108,7 +108,7 @@ describe MovesController do
         post :update, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end
@@ -163,7 +163,7 @@ describe MovesController do
         post :destroy, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
 
@@ -178,20 +178,45 @@ describe MovesController do
       context 'as channels owner' do
         before do
           controller.stub(:current_user => move.match.channel.owner)
-          post :destroy, params
         end
 
-        it 'destroys the move' do
-          expect {
-            Move.find(move.id)
-          }.to raise_error(ActiveRecord::RecordNotFound)
+        context 'via html' do
+          before do
+            post :destroy, params
+          end
+
+          it 'destroys the move' do
+            expect {
+              Move.find(move.id)
+            }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+
+          it { response.should be_redirect }
+
+          it { assigns[:move].should == move }
+
+          it { should set_the_flash[:notice].to('A jogada foi removida.') }
         end
 
-        it { response.should be_redirect }
+        context 'via js' do
+          before do
+            post :destroy, params.merge(format: :js)
+          end
 
-        it { assigns[:move].should == move }
+          it 'destroys the move' do
+            expect {
+              Move.find(move.id)
+            }.to raise_error(ActiveRecord::RecordNotFound)
+          end
 
-        it { should set_the_flash[:notice].to('A jogada foi removida.') }
+          it { response.should be_success }
+
+          it { assigns[:move].should == move }
+
+          it { should_not set_the_flash[:notice].to('A jogada foi removida.') }
+
+          it { should render_template(:destroy) }
+        end
       end
 
       context 'as an user other than the channels owner' do
