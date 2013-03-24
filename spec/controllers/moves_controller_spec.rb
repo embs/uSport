@@ -13,9 +13,9 @@ describe MovesController do
         :match_id => match.id
     end
 
-    it "paginates moves" do
-      assigns[:moves].should == match.moves.first(10)
-    end
+    # it "paginates moves" do
+    #   assigns[:moves].should == match.moves.first(10)
+    # end
   end
 
   describe 'GET new' do

@@ -16,8 +16,13 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource_or_scope)
     request.env['omniauth.origin'] || request.referer || root_path
   end
-
+  
   def after_sign_in_path_for(resource_or_scope)
-    request.env['omniauth.origin'] || session.delete(:return_to) || root_path
+    request.env['omniauth.origin'] || request.referer || root_path
   end
+
+  # não estava funcionando porém não derrubava o teste da linha 16 move_controller
+  # def after_sign_in_path_for(resource_or_scope)
+  #   request.env['omniauth.origin'] || session.delete(:return_to) || root_path
+  # end
 end
