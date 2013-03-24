@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe Player do
+  # Atributos
+  it { should respond_to(:position) }
+  
   # Associações
-  it { should belong_to (:team) }
+  it { should belong_to(:team) }
   it { should have_many(:moves) }
 
   # Validações
