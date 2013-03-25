@@ -22,6 +22,7 @@ class MatchesController < ApplicationController
         @yards << [n.to_s, n]
       end
     end
+    session[:return_to] = request.fullpath if !current_user
   end
 
   def new
