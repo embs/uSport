@@ -47,7 +47,7 @@
                   <%= f.text_field :player, class: 'typeahead player',
                     autocomplete: 'off', required: 'true' %>
                   <%= f.label :yards %>
-                  <%= f.select :yards, options_for_select(many_yards) %>
+                  <%= f.select :yards, options_for_select(many_yards, selected: "0") %>
                   <%= f.label :description %>
                   <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
                   <%= f.submit :class => "btn" %>
@@ -103,7 +103,7 @@
     </div>
   </div>
 <% if can? :manege, @match %>
-  
+
   <a class="btn hidden-desktop" data-target=".new-move-collapse" data-toggle="collapse">
     Nova Jogada
   </a>

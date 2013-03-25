@@ -44,6 +44,30 @@ describe MovesController do
     it { should render_template(:new) }
   end
 
+  describe 'POST create' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:channel) { FactoryGirl.create(:channel, owner: user) }
+    let(:match) { FactoryGirl.create(:match, channel: channel) }
+    let(:team) { FactoryGirl.create(:team) }
+    let(:player) { FactoryGirl.create(:player, first_name: 'Jogador', team: team) }
+
+    before do
+      controller.stub(current_user: user)
+      post :create, user_id: match.channel.owner, channel_id: match.channel,
+        match_id: match, move: { player: "##{player.number} #{player.first_name}",
+          team: team.id, kind: 'touchdown', yards: -50
+        }, format: :js
+    end
+
+    it 'creates new move' do
+      Move.last.should_not be_nil
+    end
+
+    it 'creates move with negative yards' do
+      Move.last.yards.should < 0
+    end
+  end
+
   describe 'GET edit' do
     let(:move) { FactoryGirl.create(:move) }
     let(:params) do

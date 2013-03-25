@@ -29,7 +29,7 @@ class MovesController < ApplicationController
       @minutes << [(n+1).to_s, (n+1)]
     end
     @yards = []
-    151.times do |n|
+    (-50..50).to_a.each do |n|
       @yards << [n.to_s, n]
     end
   end

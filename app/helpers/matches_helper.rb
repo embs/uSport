@@ -1,7 +1,7 @@
 module MatchesHelper
   def many_yards
     yards = []
-    151.times do |n|
+    (-50..50).to_a.each do |n|
       yards << [n.to_s, n]
     end
 
