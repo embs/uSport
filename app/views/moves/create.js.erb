@@ -4,6 +4,7 @@
   $('#team1-score').html(<%= @match.value1 %>);
   $('#team2-score').html(<%= @match.value2 %>);
 <% end %>
+$('#new_move input[type=text], textarea').val("");; // reseta o formulário de nova jogada
 $("#<%= @move.id %>").remove();
 $('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
 //window.location.pathname = '<%= "#{new_match_move_path(@match).to_s}" %>';
