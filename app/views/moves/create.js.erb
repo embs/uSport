@@ -1,13 +1,10 @@
-<%# j render => escape_javascript render %>
+<%# Publica jogada para todos espectadores da partida %>
 <% publish_to new_match_move_path(@match) do %>
-  $('#moves').prepend("<%= j render(@move, show_comment_button: :true) %>");
+  $('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: nil) %>");
   $('#team1-score').html(<%= @match.value1 %>);
   $('#team2-score').html(<%= @match.value2 %>);
 <% end %>
-<% if request.xhr? %> <%# Se a request tiver formato js, reinicia o formulário %>
-  $('#new_move')[0].reset();
-<% else request.xhr? %> <%# Se não, redireciona para view de new move %>
-  <script>
-    window.location.pathname = '<%= "#{new_move_path(@match).to_s}" %>';
-  </script>
-<% end %>
+$('#new_move input[type=text], textarea').val("");; // reseta o formulário de nova jogada
+$("#<%= @move.id %>").remove();
+$('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
+//window.location.pathname = '<%= "#{new_match_move_path(@match).to_s}" %>';

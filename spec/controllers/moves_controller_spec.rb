@@ -44,6 +44,30 @@ describe MovesController do
     it { should render_template(:new) }
   end
 
+  describe 'POST create' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:channel) { FactoryGirl.create(:channel, owner: user) }
+    let(:match) { FactoryGirl.create(:match, channel: channel) }
+    let(:team) { FactoryGirl.create(:team) }
+    let(:player) { FactoryGirl.create(:player, first_name: 'Jogador', team: team) }
+
+    before do
+      controller.stub(current_user: user)
+      post :create, user_id: match.channel.owner, channel_id: match.channel,
+        match_id: match, move: { player: "##{player.number} #{player.first_name}",
+          team: team.id, kind: 'touchdown', yards: -50
+        }, format: :js
+    end
+
+    it 'creates new move' do
+      Move.last.should_not be_nil
+    end
+
+    it 'creates move with negative yards' do
+      Move.last.yards.should < 0
+    end
+  end
+
   describe 'GET edit' do
     let(:move) { FactoryGirl.create(:move) }
     let(:params) do
@@ -59,7 +83,7 @@ describe MovesController do
         get :edit, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end # context 'when not logged'
@@ -108,7 +132,7 @@ describe MovesController do
         post :update, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end
@@ -163,7 +187,7 @@ describe MovesController do
         post :destroy, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
 
@@ -178,20 +202,45 @@ describe MovesController do
       context 'as channels owner' do
         before do
           controller.stub(:current_user => move.match.channel.owner)
-          post :destroy, params
         end
 
-        it 'destroys the move' do
-          expect {
-            Move.find(move.id)
-          }.to raise_error(ActiveRecord::RecordNotFound)
+        context 'via html' do
+          before do
+            post :destroy, params
+          end
+
+          it 'destroys the move' do
+            expect {
+              Move.find(move.id)
+            }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+
+          it { response.should be_redirect }
+
+          it { assigns[:move].should == move }
+
+          it { should set_the_flash[:notice].to('A jogada foi removida.') }
         end
 
-        it { response.should be_redirect }
+        context 'via js' do
+          before do
+            post :destroy, params.merge(format: :js)
+          end
 
-        it { assigns[:move].should == move }
+          it 'destroys the move' do
+            expect {
+              Move.find(move.id)
+            }.to raise_error(ActiveRecord::RecordNotFound)
+          end
 
-        it { should set_the_flash[:notice].to('A jogada foi removida.') }
+          it { response.should be_success }
+
+          it { assigns[:move].should == move }
+
+          it { should_not set_the_flash[:notice].to('A jogada foi removida.') }
+
+          it { should render_template(:destroy) }
+        end
       end
 
       context 'as an user other than the channels owner' do

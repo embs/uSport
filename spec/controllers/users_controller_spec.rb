@@ -78,7 +78,7 @@ describe UsersController do
         post :update, params
       end
 
-      it { response.should redirect_to(root_path) }
+      it { response.should redirect_to(new_user_session_path) }
 
       it { should set_the_flash[:alert] }
     end

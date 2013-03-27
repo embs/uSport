@@ -128,6 +128,9 @@ e faço o push pro repositório remoto com `git push origin user-url-refactor`;
 5. Através da interface [gráfica do Github](https://github.com/carlosecmacedo/quince),
 crie um novo Pull Request informando que quer dar merge das mudanças contidas no
 branch user-url-refactor para o branch master;
+6. Aguarde revisão de outros colaboradores até que não haja ressalvas quanto ao merge;
+7. Tudo certo, o merge é feito (por você ou por outro colaborador) e o branch é removido
+(se não houver outras modificações a ser pushadas para ele);
 
 ### O jeito "vai assim mesmo"
 1. Implemente;

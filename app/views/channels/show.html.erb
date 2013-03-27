@@ -33,6 +33,12 @@
   </div>
 <% end %>
 
+<div class="btn span12 hidden-desktop">
+  
+    <%=link_to "Nova Partida", new_match_path(channel_id: @channel) %> 
+  
+</div>
+
 <h2>Partidas</h2>
 <% if @channel.matches.length == 0 %>
   Esse canal ainda não transmitiu nenhuma partida

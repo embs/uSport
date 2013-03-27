@@ -21,6 +21,7 @@ describe 'Player ability' do
 
   context 'when logged' do
     let(:user) { FactoryGirl.create(:user) }
+    let(:player) { FactoryGirl.create :player }
     subject { Ability.new(user) }
 
     it 'user is able to create a player' do
@@ -28,11 +29,11 @@ describe 'Player ability' do
     end
 
     it 'user is able to manage any player' do
-      subject.should be_able_to(:manage, Player)
+      subject.should be_able_to(:manage, player)
     end
 
     it 'user is able to see any player' do
-      subject.should be_able_to(:show, Player)
+      subject.should be_able_to(:show, player)
     end
   end
 end

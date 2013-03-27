@@ -23,58 +23,43 @@
 <% end %>
 
 <% if can? :create, @move %>
-      <div class="well hidden-tablet hidden-phone">
-        <table class='table'>
-
-          <thead>
-            <tr class='hidden-tablet hidden-phone'>
-              <td>
-                <%#FIXME Pensar num jeito de refatorar esse .each %>
-                <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle',
-                  'therun', 'turnover', 'time', 'touchdown', 'fieldgoal', 'thepass'].each do |kind| %>
-                  <div class='dropdown' style='float: left; padding: 5px;'>
-                    <%= link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do %>
-                      <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
-                        style: 'width: 80px; height: 80px') %>
-                    <% end %>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                      <li>
-                        <div style='padding: 15px;'>
-                          <%#TODO Transformar formulário abaixo em uma partial %>
-                          <h3><%= kind.capitalize %>!</h3>
-                          <%= form_for Move.new, url: { match_id: @match, action: 'create', controller: 'moves' },
-                            :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
-                            <%= f.hidden_field :kind, value: kind %>
-                            <%= f.label :team %>
-                            <%= f.select :team,
-                              options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
-                            <%= f.label :player %>
-                            <%= f.text_field :player, class: 'typeahead player',
-                              autocomplete: 'off', required: 'true' %>
-                            <%= f.label :yards %>
-                            <%= f.select :yards, options_for_select(many_yards) %>
-                            <%= f.label :description %>
-                            <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
-                            <%= f.submit :class => "btn" %>
-                          <% end %>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
+  <div class="well hidden-tablet hidden-phone">
+    <div class='row-fluid'>
+      <%#FIXME Pensar num jeito de refatorar esse .each %>
+      <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle', 'therun', 'turnover', 'time', 'touchdown', 'fieldgoal', 'thepass'].each do |kind| %>
+        <div class='dropdown' style='float: left; padding: 5px;'>
+          <%= link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do %>
+            <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
+              style: 'width: 80px; height: 80px') %>
+          <% end %>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li>
+              <div style='padding: 15px;'>
+                <%#TODO Transformar formulário abaixo em uma partial %>
+                <h3><%= kind.capitalize %>!</h3>
+                <%= form_for Move.new, url: { match_id: @match, action: 'create', controller: 'moves' },
+                  :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
+                  <%= f.hidden_field :kind, value: kind %>
+                  <%= f.label :team %>
+                  <%= f.select :team,
+                    options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
+                  <%= f.label :player %>
+                  <%= f.text_field :player, class: 'typeahead player',
+                    autocomplete: 'off', required: 'true' %>
+                  <%= f.label :yards %>
+                  <%= f.select :yards, options_for_select(many_yards, selected: "0") %>
+                  <%= f.label :description %>
+                  <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
+                  <%= f.submit :class => "btn" %>
                 <% end %>
-              </td>
-            </tr>
-            <tr class='hidden-desktop'>
-              <td>
-                <%= render :partial => 'new_move' %>
-              </td>
-            </tr>
-          </thead>
-
-        </table>
-        <%#FIXME Tableless? Que é que é isso? %>
-      </div>
-  <% end %>
+              </div>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
   <div class=" well">
     <div class="visible-desktop">
@@ -117,7 +102,16 @@
       </table>
     </div>
   </div>
-<%= link_to 'Nova Jogada', new_match_move_path(@match), class: 'btn hidden-desktop' %>
+<% if can? :manege, @match %>
+
+  <a class="btn hidden-desktop" data-target=".new-move-collapse" data-toggle="collapse">
+    Nova Jogada
+  </a>
+  <div class="new-move-collapse collapse">
+    <%= render partial: 'moves/form', locals: { action: 'create', remote: 'true' } %>
+  </div>
+
+<% end %>
 <% if @moves.empty? %> <%# Mensagens para quando a partida não possui jogadas %>
   <div class='alert alert-info'>
     <% if @match.date <= Time.now # transmissão já deveria ter começado %>
@@ -140,7 +134,7 @@
       </thead>
       <tbody id='moves'>
         <%= render partial: 'moves/move', collection: @moves,
-          locals: { show_comment_button: 'true' } %>
+          locals: { show_comment_button: 'true', show_edition_buttons: 'true' } %>
       </tbody>
     </table>
     <%= link_to_unless(@moves.last_page?, "Mostrar mais...",
