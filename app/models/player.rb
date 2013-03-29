@@ -10,8 +10,12 @@ class Player < ActiveRecord::Base
   # => <#Player first_name: Zagalo>
   def self.find_by_text_input(input)
     splitted = input.split
-    raise Error if splitted.length != 2
-    Player.find_by_first_name(splitted[1])
+    splitted.shift()
+    splitted = splitted.join(" ")
+    
+    # depois verificar se a gente vai limitar o tamanho e recolocar o raise error abaixo
+    # raise Error if splitted.length != 2
+    Player.find_by_first_name(splitted)
   end
 
   def display_name
