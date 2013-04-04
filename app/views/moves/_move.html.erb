@@ -1,8 +1,18 @@
 <tr id="<%=move.id%>">
-  <td width="40px">
+  <% # imagem do time e tempo e quarto da jogada %> 
+  <td width="70px">
     <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
       style: 'height: 40px; width: 40px;') %>
+      <% temp ='' %>
+      <% if move.quarter %>
+        <% temp = move.quarter.to_s() + "º" %>
+      <% end %>
+      <% if move.minute %>
+        <% temp = temp.to_s() + " " + move.minute.to_s() + "'"%>
+      <% end %>
+      <h3><%=temp%><h3>   
   </td>
+
   <td>
     <p><b><%= move.message %></b></p>
     <p><%= move.description %></p>
