@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username
-  validates_uniqueness_of :username, :email
+  validates_uniqueness_of :username
 
   def self.create_with_omniauth(auth)
     User.create do |user|
