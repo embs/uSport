@@ -2,13 +2,13 @@
   <%= f.label :first_name %>
   <%= f.text_field :first_name, required: :true %>
   <%= f.label :last_name %>
-  <%= f.text_field :last_name, required: :true %>
+  <%= f.text_field :last_name %>
   <%= f.label :position %>
   <%= f.select :position,
     options_for_select([["CB", 0], ["DL", 1], ["FB", 2], ["LB", 3], ["OL", 4],
     ["QB", 5], ["RB", 6], ["WR", 7], ["Flash", 8], ["Safety", 9]]) %>
   <%= f.label :number %>
-  <%= f.text_field :number, required: :true %>
+  <%= f.text_field :number %>
   <span class="help-block">Somente números</span>
   <%= f.label :team %>
   <%= f.select :team_id, options_for_select(Team.all.collect { |t| [t.name, t.id] }) %>
