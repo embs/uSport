@@ -12,9 +12,10 @@ class Player < ActiveRecord::Base
     splitted = input.split
     splitted.shift()
     splitted = splitted.join(" ")
-    
-    # depois verificar se a gente vai limitar o tamanho e recolocar o raise error abaixo
-    # raise Error if splitted.length != 2
+
+    # Levanta exceção se não houver no mínimo duas strings (#n nome)
+    raise 'Invalid input text for player identification' if splitted.length < 2
+
     Player.find_by_first_name(splitted)
   end
 
