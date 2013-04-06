@@ -49,7 +49,8 @@ ActiveRecord::Schema.define(:version => 20130311053822) do
 
   create_table "matches", :force => true do |t|
     t.string   "type"
-    t.datetime "date"
+    t.date     "date"
+    t.time     "time"
     t.string   "place"
     t.string   "name"
     t.integer  "channel_id"

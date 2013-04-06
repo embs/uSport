@@ -1,12 +1,16 @@
+
 <%= form_for @match, :url => { :action => action, channel_id: params[:channel_id] } do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name, :placeholder => "Nome da partida" %><br />
+
   <%= f.label :date %>
-  <div class='input-append'>
-    <%= f.text_field :date, :readonly => 'readonly', :id => 'match_date',
-      :value => Date.today.strftime('%d/%m/%Y') %>
-    <span class="add-on"><i class="icon-calendar"></i></span>
+  <div class="input-append date" data-date-format="dd-mm-yyyy" data-date= <%= Date.today.strftime('%d-%m-%Y') %> >
+    <%= f.text_field :date, :id => "date-field", :readonly => "", :value => Date.today.strftime('%d-%m-%Y'), :size => "16", :'data-date-format' => "dd-mm-yyyy" %>
+    <span class="add-on">
+      <i class="icon-calendar"></i>
+    </span>
   </div>
+
   <%= f.label :hour %>
   <%= f.time_select :date %><br />
   <%= f.label :place %>
