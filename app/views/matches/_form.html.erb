@@ -1,7 +1,12 @@
 
 <%= form_for @match, :url => { :action => action, channel_id: params[:channel_id] } do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name, :placeholder => "Nome da partida" %><br />
+  <%= '<div class="control-group error">'.html_safe if @match.errors.messages[:name].first %>
+    <div class="controls">
+      <%= f.text_field :name, :placeholder => "Nome da partida" %>
+      <span class="help-inline"><%= @match.errors.messages[:name].first %></span>
+    </div>
+  <%= '</div>'.html_safe if @match.errors.messages[:name].first %>
 
   <%= f.label :date %>
   <div class="input-append date" data-date-format="dd-mm-yyyy" data-date= <%= Date.today.strftime('%d-%m-%Y') %> >
@@ -17,9 +22,13 @@
   <%= f.text_field :place %>
   <%= f.label :type %>
   <%= f.select :type, options_for_select([["Futebol Americano", "FootballMatch"]]) %><br />
-  <%= f.label :team1 %>
-  <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
-  <%= f.label :team2 %>
-  <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
+  <%= '<div class="control-group error">'.html_safe if @match.errors.messages[:teams].first %>
+    <%= f.label :team1 %>
+    <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
+    <span class="help-inline">não pode ser o mesmo que time 2</span>
+    <%= f.label :team2 %>
+    <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
+    <span class="help-inline">não pode ser o mesmo que time 1</span>
+  <%= '</div>'.html_safe if @match.errors.messages[:teams].first %>
   <%= f.submit nil, class: 'btn' %>
 <% end %>
