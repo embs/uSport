@@ -39,7 +39,7 @@ class Move < ActiveRecord::Base
     when "touchdown"
       "O jogador correu #{self.yards} jardas até a endzone! 6 pontos para o(s) #{self.team.name}!"
     when "fieldgoal"
-      "3 pontos o(s) #{self.team.name}!"
+      "3 pontos para o(s) #{self.team.name}!"
     when "pass"
       "Passe de QB para WR para um ganho de #{self.yards} jardas."
     when "sack"
