@@ -97,7 +97,17 @@ class MovesController < ApplicationController
 
   def destroy
     @move = Move.find(params[:id])
+    team = @move.team
+    @match = @move.match
+    points = find_points(@move.kind)
     authorize! :manage, @move
+    # Atualiza o placar da partida
+    if team == @match.teams[0]
+      @match.value1 = @match.value1 - points
+    else
+      @match.value2 = @match.value2 - points
+    end
+    @match.save
     @move.destroy
     respond_to do |format|
       format.html do
