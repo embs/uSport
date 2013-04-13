@@ -17,7 +17,7 @@
     <h4>Partidas</h4>
     <ul class="nav nav-list">
       <% @match.channel.matches.each do |m| %>
-        <li><%= link_to m.name, match_path(m) %></li>
+        <li class = <%= "active" if m.id == @match.id %> ><%= link_to m.name, match_path(m) %></li>
       <% end %>
     </ul>
   </div>
