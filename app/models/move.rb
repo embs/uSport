@@ -42,6 +42,10 @@ class Move < ActiveRecord::Base
       "3 pontos o(s) #{self.team.name}!"
     when "pass"
       "Passe de QB para WR para um ganho de #{self.yards} jardas."
+    when "sack"
+      "O quarterback foi derrubado para uma perda de #{self.yards} jardas."
+    when "interception"
+      "Após passe do quarterback, a bola foi interceptada!"
     end
   end
 end

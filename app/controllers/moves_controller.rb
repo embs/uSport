@@ -21,9 +21,21 @@ class MovesController < ApplicationController
     @match = Match.find(params[:match_id])
     authorize! :manage, @match
     @move = Move.new
-    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
-      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @kinds = [
+      ["Punt", "punt"],
+      ["Extrapoint", "extrapoint"],
+      ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"],
+      ["Fumble", "fumble"],
+      ["Tackle", "tackle"],
+      ["Run", "run"],
+      ["Turnover", "turnover"],
+      ["Time", "time"],
+      ["Touchdown", "touchdown"],
+      ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"],
+      ["Sack", "sack"],
+      ["Interception", "interception"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -77,7 +89,9 @@ class MovesController < ApplicationController
       ["Time", "time"],
       ["Touchdown", "touchdown"],
       ["Fieldgoal", "fieldgoal"],
-      ["Pass", "pass"]
+      ["Pass", "pass"],
+      ["Sack", "sack"],
+      ["Interception", "interception"]
     ]
     @minutes = [["--", 0]]
     15.times do |n|

@@ -101,7 +101,7 @@
     <div class="sc_menu">
       <ul class="sc_menu">
         <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle',
-          'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass'].each do |kind| %>
+          'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass', 'sack', 'interception'].each do |kind| %>
           <li>
             <%= link_to '', class: 'linkModal', role: 'button', :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm", value: kind, title: kind.capitalize do %>
               <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
