@@ -22,13 +22,14 @@
   <%= f.text_field :place %>
   <%= f.label :type %>
   <%= f.select :type, options_for_select([["Futebol Americano", "FootballMatch"]]) %><br />
-  <%= '<div class="control-group error">'.html_safe if @match.errors.messages[:teams].first %>
+  <%= '<div class="control-group error">'.html_safe if @match.errors.messages[:teams].try(:first) %>
     <%= f.label :team1 %>
     <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
     <span class="help-inline">não pode ser o mesmo que time 2</span>
     <%= f.label :team2 %>
     <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
     <span class="help-inline">não pode ser o mesmo que time 1</span>
-  <%= '</div>'.html_safe if @match.errors.messages[:teams].first %>
+  <%= '</div>'.html_safe if @match.errors.messages[:teams].try(:first) %>
+  <br />
   <%= f.submit nil, class: 'btn' %>
 <% end %>
