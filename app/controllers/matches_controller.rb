@@ -41,6 +41,8 @@ class MatchesController < ApplicationController
       m.teams << Team.find(teams) if teams
       m.channel = channel
     end
+    @match.date = @match.date.change(:hour => params[:date][:'time(4i)'].to_i , :min => params[:date][:'time(5i)'].to_i)
+    debugger
     if @match.save
       flash[:notice] = 'Partida criada!'
       redirect_to match_path(@match)
