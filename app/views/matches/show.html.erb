@@ -31,7 +31,7 @@
       /* Add scroll-bars */
       overflow: auto;
     }
-    
+
     ul.sc_menu {
       display: block;
       height: 110px;
@@ -42,18 +42,18 @@
       margin: 0;
       list-style: none;
     }
-    
+
     .sc_menu li {
       display: block;
       float: left;
       padding: 0 4px;
     }
-    
+
     .sc_menu a {
       display: block;
       text-decoration: none;
     }
-    
+
     .sc_menu span {
       /* We want a caption to display on the next line */
       display: block;
@@ -62,7 +62,7 @@
       font-size: 12px;
       color: black;
     }
-    
+
     .sc_menu img {
       width: 80px;
       height: 80px;
@@ -101,7 +101,7 @@
     <div class="sc_menu">
       <ul class="sc_menu">
         <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle',
-          'therun', 'turnover', 'time', 'touchdown', 'fieldgoal', 'thepass'].each do |kind| %>
+          'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass'].each do |kind| %>
           <li>
             <%= link_to '', class: 'linkModal', role: 'button', :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm", value: kind, title: kind.capitalize do %>
               <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
