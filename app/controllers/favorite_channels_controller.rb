@@ -6,6 +6,7 @@ class FavoriteChannelsController < ApplicationController
     authorize! :show, UserFavoriteChannel
     @user = User.find(params[:user_id])
     @favorites = @user.favorite_channels
+    @active_page = "FavoriteChannels"
     if @favorites.empty?
       username = ((current_user && current_user.id == params[:user_id].to_i) ? 'Você' : @user.first_name)
       flash.now[:notice] = "#{username} ainda não possui canais favoritos."
