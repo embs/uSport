@@ -2,12 +2,12 @@
 
 <% content_for :left_side_bar do %>
   <ul class='well nav nav-list'>
-    <li>
+    <li class = <%= "active" if @active_page == "AllTeams" %> >
       <%= link_to '<i class="icon-group"></i> Todos os Times'.html_safe,
         teams_path %>
     </li>
     <% if current_user %>
-      <li>
+      <li class = <%= "active" if @active_page == "UserTeams" %> >
         <%= link_to '<i class="icon-user-md"></i> Meus Times'.html_safe,
           teams_path(user_id: current_user) %>
       </li>

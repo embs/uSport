@@ -4,6 +4,7 @@ class TeamsController < ApplicationController
   def index
     authorize! :show, Team
     @teams = Team.all
+    @active_page = "AllTeams"
     if params[:user_id]
       flash.now[:notice] = "Em breve você poderá navegar entre times filtrando
         apenas aqueles que você pode moderar. Aguarde!"

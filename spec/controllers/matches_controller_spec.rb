@@ -56,9 +56,8 @@ describe MatchesController do
           :name => 'Nova Partida', :type => 'FootballMatch', :date => '29/02/2013',
           :channel_id => channel.id, :teams_ids => [team1.id, team2.id],
           "date(1i)" => match_date[:year], "date(2i)" => match_date[:month],
-          "date(3i)" => match_date[:day], "date(4i)" => match_date[:hour],
-          "date(5i)" => match_date[:min]
-        }
+          "date(3i)" => match_date[:day] },
+          date: { :'time(4i)' => match_date[:hour], :'time(5i)' => match_date[:min] }
       }
     end
 

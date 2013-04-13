@@ -2,6 +2,7 @@
 class LandingController < ApplicationController
 
   def index
+  	@active_page = "Home"
     authorize! :show, Channel
     @channels = Channel.all
     @matches = Match.all
