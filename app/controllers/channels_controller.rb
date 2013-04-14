@@ -33,11 +33,14 @@ class ChannelsController < ApplicationController
   def edit
     @channel = Channel.find(params[:id])
     authorize! :edit, @channel
+
   end
 
   def update
     @channel = Channel.find(params[:id])
     authorize! :edit, @channel
+    user = User.find_by_username(params[:colaborator][:username])
+    UserChannelAssociation.create(user: user, channel: @channel)
     if @channel.update_attributes(params[:channel])
       flash[:notice] = 'Os dados do canal foram atualizados.'
       redirect_to channel_path(@channel.owner, @channel)

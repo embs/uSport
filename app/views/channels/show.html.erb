@@ -43,6 +43,13 @@
 <% if @channel.matches.length == 0 %>
   Esse canal ainda não transmitiu nenhuma partida
 <% end %>
+
+<ul>
+<% @channel.user_channel_associations.each do |uca| %>
+  <li> <%= uca.user.display_name %></li>
+<%end %>
+</ul>
+
 <ul>
   <% @channel.matches.each do |m| %>
     <div class="well">
