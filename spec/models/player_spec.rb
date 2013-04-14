@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Player do
   # Atributos
   it { should respond_to(:position) }
-  
+
   # Associações
   it { should belong_to(:team) }
   it { should have_many(:moves) }
@@ -23,6 +23,20 @@ describe Player do
 
         it 'retrieves players' do
           Player.find_by_text_input("#80 Zagalo").should == @player
+        end
+
+        context 'and has a compounded first name' do
+          before do
+            @player.update_attribute(:first_name, 'Jeferson Zagalo')
+          end
+
+          it 'name should be compounded' do
+            @player.first_name.should == 'Jeferson Zagalo'
+          end
+
+          it 'retrieves players' do
+            Player.find_by_text_input("#80 Jeferson Zagalo").should == @player
+          end
         end
       end
 

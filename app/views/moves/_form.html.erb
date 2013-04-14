@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 </script>
-<%= form_for @move, url: match_moves_path(@match || @move.match), remote: remote, autocomplete: :off do |f| %>
+<%= form_for @move, url: match_move_path(@match || @move.match), remote: remote, autocomplete: :off do |f| %>
   <legend>Nova Jogada</legend>
 
   <div>

@@ -21,9 +21,21 @@ class MovesController < ApplicationController
     @match = Match.find(params[:match_id])
     authorize! :manage, @match
     @move = Move.new
-    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
-      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @kinds = [
+      ["Punt", "punt"],
+      ["Extrapoint", "extrapoint"],
+      ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"],
+      ["Fumble", "fumble"],
+      ["Tackle", "tackle"],
+      ["Run", "run"],
+      ["Turnover", "turnover"],
+      ["Time", "time"],
+      ["Touchdown", "touchdown"],
+      ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"],
+      ["Sack", "sack"],
+      ["Interception", "interception"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -65,9 +77,22 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     @match = @move.match
     authorize! :manage, @move
-    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
-      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @kinds = [
+      ["Punt", "punt"],
+      ["Extrapoint", "extrapoint"],
+      ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"],
+      ["Fumble", "fumble"],
+      ["Tackle", "tackle"],
+      ["Run", "run"],
+      ["Turnover", "turnover"],
+      ["Time", "time"],
+      ["Touchdown", "touchdown"],
+      ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"],
+      ["Sack", "sack"],
+      ["Interception", "interception"]
+    ]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -97,7 +122,17 @@ class MovesController < ApplicationController
 
   def destroy
     @move = Move.find(params[:id])
+    team = @move.team
+    @match = @move.match
+    points = find_points(@move.kind)
     authorize! :manage, @move
+    # Atualiza o placar da partida
+    if team == @match.teams[0]
+      @match.value1 = @match.value1 - points
+    else
+      @match.value2 = @match.value2 - points
+    end
+    @match.save
     @move.destroy
     respond_to do |format|
       format.html do
@@ -112,7 +147,7 @@ class MovesController < ApplicationController
 
   def find_points(move_kind)
     case move_kind
-    when "field-goal-is-good"
+    when "fieldgoal"
       3
     when "touchdown"
       6

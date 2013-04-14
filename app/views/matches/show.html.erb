@@ -1,3 +1,4 @@
+<% content_for (:include_js) { 'matches' } %>
 <%# subscribe_to tem que ser chamado depois de carregar os javascripts %>
 <%# por isso ele é colocado dentro de um content_for %>
 <% content_for :subscribe_to_match do %>
@@ -16,92 +17,145 @@
     <h4>Partidas</h4>
     <ul class="nav nav-list">
       <% @match.channel.matches.each do |m| %>
-        <li><%= link_to m.name, match_path(m) %></li>
+        <li class = <%= "active" if m.id == @match.id %> ><%= link_to m.name, match_path(m) %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
+<style>
+    div.sc_menu {
+      /* Set it so we could calculate the offsetLeft */
+      position: relative;
+      height: 145px;
+      /*width: 500px;*/
+      /* Add scroll-bars */
+      overflow: auto;
+    }
+
+    ul.sc_menu {
+      display: block;
+      height: 110px;
+      /* Max width here, for users without Javascript */
+      width: 1500px;
+      padding: 0px;
+      /* Remove default margin */
+      margin: 0;
+      list-style: none;
+    }
+
+    .sc_menu li {
+      display: block;
+      float: left;
+      padding: 0 4px;
+    }
+
+    .sc_menu a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .sc_menu span {
+      /* We want a caption to display on the next line */
+      display: block;
+      margin-top: 3px;
+      text-align: center;
+      font-size: 12px;
+      color: black;
+    }
+
+    .sc_menu img {
+      width: 80px;
+      height: 80px;
+    }
+  </style>
 
 <% if can? :create, @move %>
-  <div class="well hidden-tablet hidden-phone">
-    <div class='row-fluid'>
-      <%#FIXME Pensar num jeito de refatorar esse .each %>
-      <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle', 'therun', 'turnover', 'time', 'touchdown', 'fieldgoal', 'thepass'].each do |kind| %>
-        <div class='dropdown' style='float: left; padding: 5px;'>
-          <%= link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do %>
-            <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
-              style: 'width: 80px; height: 80px') %>
-          <% end %>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <li>
-              <div style='padding: 15px;'>
-                <%#TODO Transformar formulário abaixo em uma partial %>
-                <h3><%= kind.capitalize %>!</h3>
-                <%= form_for Move.new, url: { match_id: @match, action: 'create', controller: 'moves' },
-                  :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
-                  <%= f.hidden_field :kind, value: kind %>
-                  <%= f.label :team %>
-                  <%= f.select :team,
-                    options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
-                  <%= f.label :player %>
-                  <%= f.text_field :player, class: 'typeahead player',
-                    autocomplete: 'off', required: 'true' %>
-                  <%= f.label :yards %>
-                  <%= f.select :yards, options_for_select(many_yards, selected: "0") %>
-                  <%= f.label :description %>
-                  <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
-                  <%= f.submit :class => "btn" %>
-                <% end %>
-              </div>
-            </li>
-          </ul>
+  <div id="NewMoveForm" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="modalTitle"></h3>
+    </div>
+    <div class='modal-body'>
+      <%#TODO Transformar formulário abaixo em uma partial %>
+      <%= form_for Move.new, url: { match_id: @match, action: 'create', controller: 'moves' },
+        :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
+        <%= f.hidden_field :kind, id: 'kind', value: ''%>
+        <%= f.label :team %>
+        <%= f.select :team,
+          options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
+        <%= f.label :player %>
+        <%= f.text_field :player, class: 'typeahead player',
+          autocomplete: 'off', required: 'true'%>
+        <%= f.label :yards %>
+        <%= f.select :yards, options_for_select(many_yards) %>
+        <%= f.label :description %>
+        <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
+        <div class="modal-fotter">
+          <%= f.submit id:'submit', :class => "btn", :'aria-hidden' => 'true' %>
         </div>
       <% end %>
     </div>
   </div>
-<% end %>
 
-  <div class=" well">
-    <div class="visible-desktop">
-      <div class="row-fluid">
-        <div class="span4">
-          <div class="hidden-phone"><%= @match.teams[0].name %></div>
-          <div class="visible-phone"><%= @match.teams[0].abbreviation %> </div>
-        </div>
-        <div class="span4">
-          <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
-          <%= @match.value1.to_s + " X " + @match.value2.to_s%>
-          <%= image_tag @match.teams[1].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
-        </div>
-        <div class="span4">
-          <div class="hidden-phone"><%= @match.teams[1].name %></div>
-          <div class="visible-phone"><%= @match.teams[1].abbreviation %> </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hidden-desktop">
-      <table class="table" style="margin-bottom: 0px">
-
-        <thead>
-          <tr>
-            <td width="33%" style="text-align: right">
-              <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 50px" %><br />
-              <%= @match.teams[0].abbreviation %>
-            </td>
-            <td width="33%"  style="text-align: center; white-space: nowrap">
-              <h3> <%= @match.value1.to_s + " X " + @match.value2.to_s%> </h3>
-            </td>
-            <td width="33%" style="text-align: left">
-              <%= image_tag @match.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
-              <%= @match.teams[1].abbreviation %>
-            </td>
-          </tr>
-          </thead>
-
-      </table>
+  <div class="well hidden-tablet hidden-phone">
+    <div class="sc_menu">
+      <ul class="sc_menu">
+        <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle',
+          'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass', 'sack', 'interception'].each do |kind| %>
+          <li>
+            <%= link_to '', class: 'linkModal', role: 'button', :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm", value: kind, title: kind.capitalize do %>
+              <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
+                style: 'width: 80px; height: 80px') %>
+              <span><%= kind.capitalize %></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
+<% end %>
+
+<div class=" well">
+  <div class="visible-desktop">
+    <div class="row-fluid">
+      <div class="span4">
+        <div class="hidden-phone"><%= @match.teams[0].name %></div>
+        <div class="visible-phone"><%= @match.teams[0].abbreviation %> </div>
+      </div>
+      <div class="span4">
+        <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
+        <%= @match.value1.to_s + " X " + @match.value2.to_s%>
+        <%= image_tag @match.teams[1].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
+      </div>
+      <div class="span4">
+        <div class="hidden-phone"><%= @match.teams[1].name %></div>
+        <div class="visible-phone"><%= @match.teams[1].abbreviation %> </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden-desktop">
+    <table class="table" style="margin-bottom: 0px">
+
+      <thead>
+        <tr>
+          <td width="33%" style="text-align: right">
+            <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 50px" %><br />
+            <%= @match.teams[0].abbreviation %>
+          </td>
+          <td width="33%"  style="text-align: center; white-space: nowrap">
+            <h3> <%= @match.value1.to_s + " X " + @match.value2.to_s%> </h3>
+          </td>
+          <td width="33%" style="text-align: left">
+            <%= image_tag @match.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
+            <%= @match.teams[1].abbreviation %>
+          </td>
+        </tr>
+        </thead>
+
+    </table>
+  </div>
+</div>
 <% if can? :manege, @match %>
 
   <a class="btn hidden-desktop" data-target=".new-move-collapse" data-toggle="collapse">

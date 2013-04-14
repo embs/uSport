@@ -61,8 +61,10 @@ class ChannelsController < ApplicationController
   # retorna todos os canais se o params[:user_id] não for especificado
   def user_channels_or_all
     if params[:user_id]
+      @active_page = "UserChannels"
       User.find(params[:user_id]).channels
     else
+      @active_page = "Channels"
       Channel.all
     end
   end
