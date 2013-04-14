@@ -6,3 +6,4 @@ pt-BR:
       channel:
         name: "Nome"
         description: "Descrição"
+        users: "Colaboradores"
