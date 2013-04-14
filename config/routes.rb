@@ -16,9 +16,12 @@ USport::Application.routes.draw do
     resources :favorite_channels, only: [:index, :create, :destroy]
   end
 
+  resources :moves
+
   resources :matches, except: :index do
     post :viewers, on: :member
     resources :moves do
+      match 'curtir' => 'moves#vote'
       resources :comments, :only => [:index, :new, :create]
     end
   end

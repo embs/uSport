@@ -165,6 +165,15 @@ class MovesController < ApplicationController
     end
   end
 
+  def vote
+    @move = Move.find(params[:move_id])
+    @move.liked_by current_user
+
+    authorize! :show, Move
+
+    redirect_to match_path(@move.match)
+  end
+
   private
 
   def find_points(move_kind)
