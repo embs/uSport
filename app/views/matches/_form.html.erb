@@ -28,7 +28,7 @@
     <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
     <span class="help-inline">não pode ser o mesmo que time 2</span>
     <%= f.label :team2 %>
-    <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] })) %><br />
+    <%= select_tag('football_match[teams_ids][]', options_for_select(@teams.collect { |t| [t.name, t.id] }, 2)) %><br />
     <span class="help-inline">não pode ser o mesmo que time 1</span>
   <%= '</div>'.html_safe if @match.errors.messages[:teams].try(:first) %>
   <br />
