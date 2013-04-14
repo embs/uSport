@@ -1,9 +1,4 @@
 <% content_for (:include_js) { 'matches' } %>
-<%# subscribe_to tem que ser chamado depois de carregar os javascripts %>
-<%# por isso ele é colocado dentro de um content_for %>
-<% content_for :subscribe_to_match do %>
-  <%= subscribe_to new_match_move_path(@match) %>
-<% end %>
 
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>

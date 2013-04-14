@@ -20,10 +20,6 @@ gem 'paperclip'
 
 gem 'cancan'
 
-gem 'private_pub'
-
-gem 'thin'
-
 gem 'kaminari'
 
 gem 'rack-rewrite'

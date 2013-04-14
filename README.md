@@ -70,13 +70,6 @@ $ rspec spec/controllers/moves_controller_spec.rb # indicando o nome do arquivo
 $ rspec spec/controllers/moves_controller_spec.rb:81
 ```
 
-### [Faye](http://faye.jcoglan.com/)
-O [Faye](http://faye.jcoglan.com/) é o serviço que faz funcionar o tempo real do lance-a-lance.
-Para iniciar a instância do servidor:
-```shell
-$ rackup private_pub.ru -s thin -E production
-```
-
 ## Quick Start
 Vamos supor que você instalou o Linux agora, e que não tem nada do projeto no seu
 PC. A partir dos passos a seguir, é possível dar um quick start no projeto, com o
