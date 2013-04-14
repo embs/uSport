@@ -3,6 +3,11 @@
     <legend>Novo Canal</legend>
     <%= f.label :name %>
     <%= f.text_field :name, :placeholder => "Nome do canal" %>
+    <% unless action == 'create' %>
+      <%= f.label :users %>
+      <%= text_field "collaborator", :username, placeholder: 'Adicionar novo colaborador' %>
+      <span class="help-block">Informe o nome de usuário do novo colaborador</span>
+    <% end %>
     <%= f.label :description %>
     <%= f.text_area :description, :placeholder => "Descrição do canal", :cols => "30", :rows =>"8", :style => "resize: none;" %>
     <%= f.label :avatar %>

@@ -13,6 +13,16 @@
       <% end %>
       <dt>Dono do Canal</dt>
       <dd><%= @channel.owner.display_name %></dd>
+      <% if @channel.user_channel_associations.length > 1 %>
+        <dt>Colaboradores</dt>
+        <dd>
+          <ul>
+            <% @channel.user_channel_associations.each do |uca| %>
+              <li> <%= uca.user.display_name %></li>
+            <%end %>
+          </ul>
+        </dd>
+      <% end %>
     </dl>
     <div class="btn-group btn-group-vertical" style="width: 100%;">
       <% if can? :manage, @channel %>
@@ -34,15 +44,16 @@
 <% end %>
 
 <div class="btn span12 hidden-desktop">
-  
-    <%=link_to "Nova Partida", new_match_path(channel_id: @channel) %> 
-  
+
+    <%=link_to "Nova Partida", new_match_path(channel_id: @channel) %>
+
 </div>
 
 <h2>Partidas</h2>
 <% if @channel.matches.length == 0 %>
   Esse canal ainda não transmitiu nenhuma partida
 <% end %>
+
 <ul>
   <% @channel.matches.each do |m| %>
     <div class="well">

@@ -10,7 +10,7 @@ module MoveAbility
       end
 
       can :manage, Move do |move|
-        move.match.channel.owner == user
+        move.match.channel.owner == user || move.match.channel.users.include?(user)
       end
     end
   end
