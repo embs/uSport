@@ -10,11 +10,15 @@ describe MovesController do
         match.moves << FactoryGirl.create(:move, :match => match)
       end
       get :index, :user_id => match.channel.owner.id, :channel_id => match.channel.id,
-        :match_id => match.id
+        :match_id => match.id, format: :js
     end
 
     it "paginates moves" do
       assigns[:moves].should == match.moves.first(10)
+    end
+
+    it 'responds with js' do
+      response.content_type.should == Mime::JS
     end
   end
 
@@ -42,6 +46,23 @@ describe MovesController do
     it { response.should be_success }
 
     it { should render_template(:new) }
+  end
+
+  describe 'GET show' do
+    let(:match) { FactoryGirl.create(:match) }
+    let(:move) { FactoryGirl.create(:move, match: match) }
+
+    before do
+      get :show, match_id: match, id: move, format: :js
+    end
+
+    it { assigns[:move].should == move }
+
+    it { should render_template(:show) }
+
+    it 'responds with js' do
+      response.content_type.should == Mime::JS
+    end
   end
 
   describe 'POST create' do

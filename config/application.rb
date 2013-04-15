@@ -83,5 +83,12 @@ module USport
 
     # Carrega arquivos de locales dentro de subdiretórios
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # Configurações do Pusher
+    config.pusher = {
+      :app_id => '41803',
+      :key => '5cdac9d39782ff813c3e',
+      :secret => 'c1563fc792fd5fbd7516'
+    }
   end
 end

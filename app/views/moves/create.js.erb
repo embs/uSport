@@ -1,6 +1,6 @@
-<%#TODO Publicar jogada para todos espectadores da partida %>
+console.log('create.js.erb value1: <%= @match.value1 %>, value2: <%= @match.value2 %>')
+<%# Atualiza o placar da partida %>
 $('#team1-score').html(<%= @match.value1 %>);
 $('#team2-score').html(<%= @match.value2 %>);
-$('#new_move input[type=text], textarea').val("");; // reseta o formulário de nova jogada
-$("#<%= @move.id %>").remove();
-$('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
+<%# Reseta o formulário de nova jogada %>
+$('#new_move input[type=text], textarea').val("");

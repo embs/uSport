@@ -1,5 +1,22 @@
 <% content_for (:include_js) { 'matches' } %>
 
+<script>
+  var pusher = new Pusher('<%= Pusher.key %>');
+  var channel = pusher.subscribe('match-<%= @match.id %>');
+  channel.bind('new-move', function(data) {
+    // alert('An event was triggered with message: ' + data.message);
+    $('#team1-score').html(data.val1);
+    $('#team2-score').html(data.val2);
+    // console.log(data);
+    // $('#moves').prepend("<%= j render(Move.last, show_comment_button: :true, show_edition_buttons: true) %>");
+    $.ajax({
+      type: "GET",
+      url: '/matches/<%= @match.id %>/moves/' + data.move,
+      dataType: "script"
+    });
+  });
+</script>
+
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
     <%= image_tag(@match.channel.avatar(:thumb)) %>
@@ -119,7 +136,7 @@
       </div>
       <div class="span4">
         <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
-        <%= @match.value1.to_s + " X " + @match.value2.to_s%>
+        <span id='team1-score'><%= @match.value1.to_s %></span> X <span id='team2-score'><%= @match.value2.to_s %></span>
         <%= image_tag @match.teams[1].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
       </div>
       <div class="span4">

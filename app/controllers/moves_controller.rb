@@ -15,6 +15,11 @@ class MovesController < ApplicationController
   def show
     @move = Move.find(params[:id])
     authorize! :show, @move
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
@@ -66,6 +71,17 @@ class MovesController < ApplicationController
     end
     @match.save
     flash[:notice] = "Jogada criada!" if @move.valid?
+
+    begin
+      Pusher.trigger("match-#{@match.id}", 'new-move',
+        {
+          val1: @match.value1, val2: @match.value2,
+          move: @move.id
+        })
+      #json_response = { :status => 200, :time => time }
+    rescue Pusher::Error => e
+      #json_response = { :status => 500 }
+    end
 
     respond_to do |format|
       format.html { render 'create.js.erb' }
