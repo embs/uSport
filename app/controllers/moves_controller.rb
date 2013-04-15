@@ -78,9 +78,8 @@ class MovesController < ApplicationController
           val1: @match.value1, val2: @match.value2,
           move: @move.id
         })
-      #json_response = { :status => 200, :time => time }
     rescue Pusher::Error => e
-      #json_response = { :status => 500 }
+      #TODO
     end
 
     respond_to do |format|
