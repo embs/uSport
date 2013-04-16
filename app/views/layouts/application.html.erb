@@ -54,6 +54,9 @@
       </script>
     <% end %>
     <script src="http://js.pusher.com/2.0/pusher.min.js"></script>
+    <script type="text/javascript">
+      var pusher = new Pusher('<%= Pusher.key %>');
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -78,5 +81,21 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag (content_for?(:include_js) ? yield(:include_js) : "application") %>
     <%= yield :show_move_comments %><%# Só para move/show %>
+    <% if @matches %>
+      <% @matches.each do |match| %>
+        <script type="text/javascript">
+          var <%= "presenceChannelMatch#{match.id}" %> = pusher.subscribe('presence-match-<%= match.id %>');
+          <%= "presenceChannelMatch#{match.id}" %>.bind('pusher:subscription_succeeded', function() {
+            $('#match-<%= match.id %>-viewers').html(<%= "presenceChannelMatch#{match.id}" %>.members.count);
+          });
+          <%= "presenceChannelMatch#{match.id}" %>.bind('pusher:member_added', function(member) {
+            $('#match-<%= match.id %>-viewers').html(<%= "presenceChannelMatch#{match.id}" %>.members.count - 1);
+          });
+          <%= "presenceChannelMatch#{match.id}" %>.bind('pusher:member_removed', function(member) {
+            $('#match-<%= match.id %>-viewers').html(<%= "presenceChannelMatch#{match.id}" %>.members.count - 1);
+          });
+        </script>
+      <% end %>
+    <% end %>
   </body>
 </html>

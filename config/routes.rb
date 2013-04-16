@@ -30,4 +30,7 @@ USport::Application.routes.draw do
   # Autenticação com Facebook
   match '/auth/:provider/callback' => 'authentications#create'
 
+  # Rota para autenticação de presença do Pusher
+  get '/pusher/auth' => 'matches#auth'
+  post '/pusher/auth' => 'matches#auth'
 end

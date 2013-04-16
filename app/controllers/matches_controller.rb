@@ -1,5 +1,7 @@
 # encoding: utf-8
 class MatchesController < ApplicationController
+  protect_from_forgery :except => :auth # stop rails CSRF protection for this action
+  skip_authorization_check only: [:auth]
   layout :choose_layout
 
   def show
@@ -77,6 +79,13 @@ class MatchesController < ApplicationController
 
   def score
     @match = Match.find(params[:id])
+  end
+
+  def auth
+    response = Pusher[params[:channel_name]].authenticate(params[:socket_id], {
+        user_id: SecureRandom.hex(4) #DISCUSS Solução para usuários não logados
+      })
+    render json: response.stringify_keys!
   end
 
   private
