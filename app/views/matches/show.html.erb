@@ -1,7 +1,6 @@
 <% content_for (:include_js) { 'matches' } %>
 
 <script>
-  // var pusher = new Pusher('<%= Pusher.key %>');
   var presenceChannel = pusher.subscribe('presence-match-<%= @match.id %>');
   var channel = pusher.subscribe('match-<%= @match.id %>');
   channel.bind('new-move', function(data) {
