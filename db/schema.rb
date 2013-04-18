@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311053822) do
+ActiveRecord::Schema.define(:version => 20130417222750) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -53,10 +53,11 @@ ActiveRecord::Schema.define(:version => 20130311053822) do
     t.string   "place"
     t.string   "name"
     t.integer  "channel_id"
-    t.integer  "value1",     :default => 0
-    t.integer  "value2",     :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "value1",        :default => 0
+    t.integer  "value2",        :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "viewers_count", :default => 0
   end
 
   create_table "matches_teams", :id => false, :force => true do |t|

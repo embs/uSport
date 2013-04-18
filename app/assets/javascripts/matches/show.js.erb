@@ -1,0 +1,11 @@
+var presenceChannel = pusher.subscribe('presence-match-' + match_id);
+var channel = pusher.subscribe('match-' + match_id);
+channel.bind('new-move', function(data) {
+  $('#team1-score').html(data.val1);
+  $('#team2-score').html(data.val2);
+  $.ajax({
+    type: "GET",
+    url: '/matches/' + match_id + '/moves/' + data.move,
+    dataType: "script"
+  });
+});

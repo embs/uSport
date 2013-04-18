@@ -15,6 +15,7 @@ USport::Application.routes.draw do
   end
 
   resources :matches, except: :index do
+    post :viewers, on: :member
     resources :moves do
       resources :comments, :only => [:index, :new, :create]
     end

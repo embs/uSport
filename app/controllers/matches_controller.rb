@@ -1,7 +1,7 @@
 # encoding: utf-8
 class MatchesController < ApplicationController
-  protect_from_forgery :except => :auth # stop rails CSRF protection for this action
-  skip_authorization_check only: [:auth]
+  protect_from_forgery :except => [:auth, :viewers] # stop rails CSRF protection for this action
+  skip_authorization_check only: [:auth, :viewers]
   layout :choose_layout
 
   def show
@@ -88,6 +88,19 @@ class MatchesController < ApplicationController
     render json: response.stringify_keys!
   end
 
+  def viewers
+    webhook = Pusher.webhook(request)
+    if webhook.valid?
+      webhook.events.each do |event|
+        match = Match.find(event["channel"].rpartition('-').last)
+        count = parse_count_from_json(Pusher.get("/channels/#{event['channel']}",
+          info: 'user_count'))
+        match.update_attribute(:viewers_count, count)
+      end
+    end
+    render nothing: true
+  end
+
   private
 
   def choose_layout
@@ -95,6 +108,14 @@ class MatchesController < ApplicationController
       "clean"
     else
       "application"
+    end
+  end
+
+  def parse_count_from_json(response)
+    if response[:occupied]
+      response[:user_count]
+    else
+      0
     end
   end
 

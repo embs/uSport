@@ -222,4 +222,18 @@ describe MatchesController do
       auth_response.should have_key('auth')
     end
   end
+
+  describe 'POST viewers' do
+    let(:match) { FactoryGirl.create :match }
+
+    before do
+      params = {
+        "time_ms"=>1366250868561, "events"=>[{"channel"=>"presence-match-1", "user_id"=>"4864c1f4", "name"=>"member_removed"}],
+        "id"=>"1", "match"=>{}
+      }
+      post :viewers, params
+    end
+
+    it 'updates match viewers counter'
+  end
 end

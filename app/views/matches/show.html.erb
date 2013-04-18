@@ -1,17 +1,7 @@
 <% content_for (:include_js) { 'matches' } %>
 
 <script>
-  var presenceChannel = pusher.subscribe('presence-match-<%= @match.id %>');
-  var channel = pusher.subscribe('match-<%= @match.id %>');
-  channel.bind('new-move', function(data) {
-    $('#team1-score').html(data.val1);
-    $('#team2-score').html(data.val2);
-    $.ajax({
-      type: "GET",
-      url: '/matches/<%= @match.id %>/moves/' + data.move,
-      dataType: "script"
-    });
-  });
+  var match_id = '<%= @match.id %>'
 </script>
 
 <% content_for :left_side_bar do %>

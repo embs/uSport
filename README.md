@@ -70,6 +70,12 @@ $ rspec spec/controllers/moves_controller_spec.rb # indicando o nome do arquivo
 $ rspec spec/controllers/moves_controller_spec.rb:81
 ```
 
+## Pusher
+### Ativar WebHooks no ambiente de desenvolvimento
+```ruby
+#TODO
+```
+
 ## Quick Start
 Vamos supor que você instalou o Linux agora, e que não tem nada do projeto no seu
 PC. A partir dos passos a seguir, é possível dar um quick start no projeto, com o

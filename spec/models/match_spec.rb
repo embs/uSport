@@ -13,6 +13,7 @@ describe Match do
   it { should respond_to :teams }
   it { should respond_to :channel }
   it { should respond_to :place }
+  it { should respond_to :viewers_count }
 
   # Associações
   it { should have_many :moves }
