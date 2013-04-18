@@ -49,7 +49,7 @@ USport::Application.configure do
   config.assets.precompile += %w( landing.js matches.js channels.js bootstrap.css bootstrap-responsive.css )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
@@ -75,4 +75,7 @@ USport::Application.configure do
       #   friends_likes, friends_status, offline_access'}
     }
   }
+
+  # Configuração do ActionMailer para o Heroku
+  config.action_mailer.default_url_options = { host: 'herokuapp.com' }
 end

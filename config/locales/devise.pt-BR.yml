@@ -16,11 +16,11 @@ pt-BR:
       unconfirmed: "Você precisa confirmar sua conta antes de continuar."
     mailer:
       confirmation_instructions:
-        subject: "Instruções de Confirmação"
+        subject: "[USport] Instruções de Confirmação"
       reset_password_instructions:
-        subject: "Instruções para Nova Senha"
+        subject: "[USport] Instruções para Nova Senha"
       unlock_instructions:
-        subject: "Instruções para Desbloqueio"
+        subject: "[USport] Instruções para Desbloqueio"
     omniauth_callbacks:
       failure: "Não foi possível entrar com %{kind} por que \"%{reason}\"."
       success: "Parabéns! Você entrou com sua conta do %{kind}."
