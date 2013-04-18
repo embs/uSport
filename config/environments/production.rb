@@ -77,5 +77,5 @@ USport::Application.configure do
   }
 
   # Configuração do ActionMailer para o Heroku
-  config.action_mailer.default_url_options = { host: 'herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'www.usport.com.br' }
 end
