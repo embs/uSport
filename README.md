@@ -76,6 +76,17 @@ $ rspec spec/controllers/moves_controller_spec.rb:81
 #TODO
 ```
 
+## Delayed::Job
+[Delayed::Job](https://github.com/collectiveidea/delayed_job) é a biblioteca utilizada para
+realizar ações em background -- de modo que elas não impactem na performance do servidor da
+aplicação ao responder a requisições de clientes.
+
+### Fazendo com que delayed jobs funcionem no ambiente de desenvolvimento
+Para tal, é necessário rodar o Foreman:
+```bash
+$ foreman start
+```
+
 ## Quick Start
 Vamos supor que você instalou o Linux agora, e que não tem nada do projeto no seu
 PC. A partir dos passos a seguir, é possível dar um quick start no projeto, com o
@@ -108,6 +119,40 @@ seguinte comando no terminal:
 git clone git@github.com:carlosecmacedo/quince.git
 ```
 Isto irá criar automaticamente um repositório contendo todos os arquivos do projeto.
+
+## Deploy no Heroku
+O [Heroku](https://www.heroku.com/) é o provedor de infraestrutura que estamos utilizando
+para hostear o uSport. Há várias motivações para a escolha desse provedor -- no entanto,
+a principal é que eles oferecem um bom plano gratuito.
+
+### Enviando código pro Heroku (também chamado fazer / dar deploy)
+Antes de mais nada, você precisa estar entre os colaboradores da aplicação usport no Heroku.
+Se você não faz parte dessa seleta lista de desenvolvedores, contate um dos atuais
+colaboradores (atualmente, Diogo, Matheus ou Romero) e peça para que ele o adicione como
+colaborador. Depois disso, basta adicionar o repositório remoto à sua lista de repositórios
+do git, assim:
+```bash
+$ git remote add heroku git@heroku.com:usport.git
+```
+Depois é só dar um push comum:
+```bash
+$ git push heroku master
+```
+
+### Delayed::Job no Heroku
+Se você não sabe o que é Delayed::Job, leia [esta seção](https://github.com/carlosecmacedo/quince#delayedjob)
+
+Para que os 'delayed jobs' funcionem adequadamente no Heroku, é necessário configurar um
+worker. Isso é feito da seguinte maneira:
+```bash
+$ heroku ps:scale worker=1
+```
+Também é possível iniciar o worker através do toolbelt do Heroku (caso haja algum problema na
+inicialização automática) assim:
+```bash
+$ heroku run bundle exec rake jobs:work
+```
+Para mais informações, consulte o [artigo do Heroku sobre Delayed::Job](https://devcenter.heroku.com/articles/delayed-job)
 
 ## Como Colaborar
 ### O jeito certo
