@@ -5,6 +5,13 @@
     <%= f.text_field :name, :placeholder => "Nome do canal" %>
     <% unless action == 'create' %>
       <%= f.label :users %>
+      <dd>
+        <ul>
+          <% @channel.user_channel_associations.each do |uca| %>
+            <li> <%= uca.user.display_name %></li>
+          <%end %>
+        </ul>
+      </dd>
       <%= text_field "collaborator", :username, placeholder: 'Adicionar novo colaborador' %>
       <span class="help-block">Informe o nome de usuário do novo colaborador</span>
     <% end %>

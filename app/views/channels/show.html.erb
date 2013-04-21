@@ -18,7 +18,13 @@
         <dd>
           <ul>
             <% @channel.user_channel_associations.each do |uca| %>
-              <li> <%= uca.user.display_name %></li>
+              <li><%= uca.user.display_name %> 
+                <% if uca.user.id != @channel.user_id %>
+                 <%= link_to channel_remove_cooperator_path(uca.channel.id, uca.id) do %>
+                   <i class="icon-trash"></i>
+                 <% end %>  
+                <% end %>
+              </li>
             <%end %>
           </ul>
         </dd>

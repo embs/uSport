@@ -44,9 +44,17 @@ class ChannelsController < ApplicationController
         flash.now[:error] = 'Ops! Não encontramos o colaborador que você tentou adicionar.'
         render 'edit' and return
       end
-      UserChannelAssociation.create(user: user, channel: @channel)
+
+      if user != current_user
+        associations = UserChannelAssociation.where("channel_id LIKE #{@channel.id} AND user_id LIKE #{user.id}")
+
+        if associations.count == 0
+          UserChannelAssociation.create(user: user, channel: @channel)
+        end
+      end
+
     end
-    if @channel.update_attributes(params[:channel])
+    if @channel.update_attributes(params[:channel]) 
       flash[:notice] = 'Os dados do canal foram atualizados.'
       redirect_to channel_path(@channel)
     else
@@ -61,6 +69,15 @@ class ChannelsController < ApplicationController
     @channel.destroy
     flash[:notice] = 'O canal foi removido.'
     redirect_to root_path
+  end
+
+  def remove_cooperator
+
+    @cooperator = UserChannelAssociation.find(params[:id])
+    authorize! :edit, @cooperator.channel
+    @cooperator.destroy
+    flash[:notice] = 'Colaborador removido com sucesso.'
+    redirect_to channel_path(@cooperator.channel)
   end
 
   private
