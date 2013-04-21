@@ -165,19 +165,7 @@
   </div>
 
 <% end %>
-<% if @moves.empty? %> <%# Mensagens para quando a partida não possui jogadas %>
-  <div class='alert alert-info'>
-    <% if @match.date <= Time.now # transmissão já deveria ter começado %>
-      A partida já deveria ter começado mas ainda nenhum lance foi adicionado. Talvez
-      <%= @match.channel.owner.first_name %>, o dono do canal, esteja atrasado.
-    <% else %>
-      <strong>Oi, <%= current_user.try(:first_name) || 'torcedor(a)' %></strong>.
-      Que bom que você veio acompanhar esta partida! Ela está programada para começar
-      <%= l @match.date, format: :short %>h. Mas fique ligado! Novos lances podem
-      surgir mesmo antes do início da partida.
-    <% end %>
-  </div>
-<% else %> <%# Lance a Lance, exibido quando há ao menos uma jogada %>
+
   <div class="well">
     <table class="table table-striped">
       <thead>
@@ -186,8 +174,26 @@
         </tr>
       </thead>
       <tbody id='moves'>
-        <%= render partial: 'moves/move', collection: @moves,
-          locals: { show_comment_button: 'true', show_edition_buttons: 'true' } %>
+        <% if @moves.empty? %> <%# Mensagens para quando a partida não possui jogadas %>
+          <tr>
+            <td>
+              <div class='alert alert-info' id="empty-message">
+                <% if @match.date <= Time.now # transmissão já deveria ter começado %>
+                  A partida já deveria ter começado mas ainda nenhum lance foi adicionado. Talvez
+                  <%= @match.channel.owner.first_name %>, o dono do canal, esteja atrasado.
+                <% else %>
+                  <strong>Oi, <%= current_user.try(:first_name) || 'torcedor(a)' %></strong>.
+                  Que bom que você veio acompanhar esta partida! Ela está programada para começar
+                  <%= l @match.date, format: :short %>h. Mas fique ligado! Novos lances podem
+                  surgir mesmo antes do início da partida.
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% else %>
+          <%= render partial: 'moves/move', collection: @moves,
+            locals: { show_comment_button: 'true', show_edition_buttons: 'true' } %>
+        <% end %>
       </tbody>
     </table>
     <%= link_to_unless(@moves.last_page?, "Mostrar mais...",
@@ -197,4 +203,4 @@
       <%= name = '' %> <%# # passa um bloco que apaga o 'Mostrar mais...' %>
     <% end %>
   </div>
-<% end %>
+
