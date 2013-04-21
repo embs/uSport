@@ -1,0 +1,17 @@
+<%= form_for Move.new, url: { match_id: @match, action: 'create', controller: 'moves' },
+  :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
+  <%= f.hidden_field :kind, id: 'kind', value: ''%>
+  <%= f.label :team %>
+  <%= f.select :team,
+    options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
+  <%= f.label :player %>
+  <%= f.text_field :player, class: 'typeahead player',
+    autocomplete: 'off', required: 'true'%>
+  <%= f.label :yards %>
+  <%= f.text_field :yards %>
+  <%= f.label :description %>
+  <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
+  <div class="modal-fotter">
+    <%= f.submit id:'submit', :class => "btn", :'aria-hidden' => 'true' %>
+  </div>
+<% end %>

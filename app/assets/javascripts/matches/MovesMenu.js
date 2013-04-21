@@ -3,7 +3,7 @@ $(function(){
 	var div = $('div.sc_menu'),
 		ul = $('ul.sc_menu'),
 		ulPadding = 15;
-	
+
 	//Get menu width
 	var divWidth = div.width();
 
@@ -12,9 +12,9 @@ $(function(){
 		divWidth = div.width();
 	});
 
-	//Remove scrollbars	
+	//Remove scrollbars
 	div.css({overflow: 'hidden'});
-	
+
 	//Find last image container
 	var lastLi = ul.find('li:last-child');
 
@@ -36,6 +36,40 @@ $(function(){
 		//Sets the title of the modal
 		var title = $(this).attr('title');
 		$('#modalTitle').html(title);
+
+		// Adiciona seletor de tipo de touchdown quando o tipo é touchdown
+		if(kind == 'touchdown') {
+			$('#touchdown-kind').show();
+			$('#team').show();
+			$('#player').show();
+			$('#yards').show();
+			$('#description').show();
+			$('#game-over').hide();
+		}
+		else if (kind == 'end') {
+			$('#touchdown-kind').hide();
+			$('#team').hide();
+			$('#player').hide();
+			$('#yards').hide();
+			$('#description').hide();
+			$('#game-over').show();
+		}
+		else if (kind == 'comment') {
+			$('#touchdown-kind').hide();
+			$('#team').hide();
+			$('#player').hide();
+			$('#yards').hide();
+			$('#description').show();
+			$('#game-over').hide();
+		}
+		else {
+			$('#touchdown-kind').hide();
+			$('#team').show();
+			$('#player').show();
+			$('#yards').show();
+			$('#description').show();
+			$('#game-over').hide();
+		}
 	});
 
 	$('#submit').click(function(e){

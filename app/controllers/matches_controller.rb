@@ -12,9 +12,12 @@ class MatchesController < ApplicationController
     # Daqui para baixo são setadas as variáveis utilizadas para criação de move
     @move = Move.new(:match => @match)
     if can?(:create, @move)
-      @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
-        ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-        ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+      @kinds = [["Punt", "punt"], ["Extrapoint", "extrapoint"], ["Touchdown", "touchdown"],
+        ["Kickoff", "kickoff"], ["Field Goal", "fieldgoal"],
+        ["Fumble", "fumble"], ["Interceptação", "interceptation"], ["Falta", "penalty"],
+        ["Sack", "sack"], ["Fim de jogo", "end"],
+        ["Tempo", "time"], ["Turnover", "turnover"], ["Comentário", "comment"],
+        ["Passe", "pass"], ["Corrida", "run"]]
       @minutes = [["--", 0]]
       15.times do |n|
         @minutes << [(n+1).to_s, (n+1)]

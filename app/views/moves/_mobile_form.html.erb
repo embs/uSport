@@ -1,9 +1,7 @@
-<script type="text/javascript">
-
-</script>
+<!--script type="text/javascript">
+  <%# embs: Não sei pra quê esse script vazio %>
+</script-->
 <%= form_for @move, url: match_move_path(@match || @move.match), remote: remote, autocomplete: :off do |f| %>
-  <legend>Nova Jogada</legend>
-
   <div>
     <%= f.label :quarter %>
     <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
