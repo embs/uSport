@@ -21,7 +21,7 @@ USport::Application.routes.draw do
   resources :matches, except: :index do
     post :viewers, on: :member
     resources :moves do
-      match 'curtir' => 'moves#vote'
+      match 'like' => 'moves#vote'
       resources :comments, :only => [:index, :new, :create]
     end
   end
