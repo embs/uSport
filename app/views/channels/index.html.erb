@@ -4,17 +4,19 @@
   <%= render partial: 'shared/leftbar' %>
 <% end %>
 
-<% if current_user && current_user.id == params[:user_id].to_i %>
-  <%# Página de visualização de canais de usuário sendo visualizada pelo dono %>
-  <% if @channels.empty? # usuário não tem canal nenhum %>
-    Você ainda não possui um canal.
-    <%= link_to "Crie agora!", new_channel_path(user_id: current_user) %>
-  <% end %>
-<% else %>
-  <%# Página de visualização de canais de usuário sendo visualizada não pelo dono %>
-  <% if @channels.empty? # usuário não tem canal nenhum %>
-    O usuário ainda não possui nenhum canal.
-  <% end %>
+<% if @channels.empty? # usuário não tem canal nenhum %>
+  <div class='alert alert-info' id="empty-message">
+    <% if current_user && current_user.id == params[:user_id].to_i %>
+      <%# Página de visualização de canais de usuário sendo visualizada pelo dono %>
+      Você ainda não possui um canal.
+      <%= link_to "Crie agora!", new_channel_path(user_id: current_user) %>
+    <% elsif params[:user_id] %>
+      <%# Página de visualização de canais de usuário sendo visualizada não pelo dono %>
+      O usuário ainda não possui nenhum canal.
+    <% else %>
+      Nada pra ver aqui. :(
+    <% end %>
+  </div>
 <% end %>
 
 <% @channels.each_with_index do |channel, counter| %>
