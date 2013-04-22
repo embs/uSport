@@ -98,7 +98,9 @@ $(function(){
 
 	$('#submit').click(function(e){
 		e.preventDefault();
-		$('#NewMoveForm').modal('hide');
+		if(($('#player input').attr('required') == 'required') & ($('#player input').val().length == 0)) {
+			$('#player input').focus();
+		}
 		$('#NewMoveForm form').submit();
 	});
 });

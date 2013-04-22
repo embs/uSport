@@ -60,6 +60,10 @@ class MovesController < ApplicationController
     params[:move].delete(:player)
     @match = Match.find(params[:match_id])
     points = find_points(params[:move][:kind])
+    unless player
+      authorize! :manave, Move.new(match: @match)
+      render js: "$('#player input').val(''); $('#player input').attr('placeholder', 'Informe um jogador válido'); $('#player input').focus();" and return
+    end
     @move = Move.create(params[:move]) do |move|
       move.player = player
       move.team = team
@@ -74,7 +78,6 @@ class MovesController < ApplicationController
       @match.value2 = @match.value2 + points
     end
     @match.save
-    flash[:notice] = "Jogada criada!" if @move.valid?
 
     begin
       Pusher.trigger("match-#{@match.id}", 'new-move',

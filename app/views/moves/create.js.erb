@@ -3,3 +3,5 @@ $('#team1-score').html(<%= @match.value1 %>);
 $('#team2-score').html(<%= @match.value2 %>);
 <%# Reseta o formulário de nova jogada %>
 $('#new_move input[type=text], textarea').val("");
+<%# Esconde o modal %>
+$('#NewMoveForm').modal('hide');
