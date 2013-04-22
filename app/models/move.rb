@@ -13,7 +13,14 @@ class Move < ActiveRecord::Base
   validates_presence_of :kind, :match #, :player
 
   def main
-    "#{self.kind.capitalize}, #{self.player.try(:first_name)} (##{self.player.try(:number)})!"
+    case self.kind
+    when 'comment'
+      "Comentário do transmissor"
+    when 'end'
+      "Fim de partida"
+    else
+      "#{self.kind.capitalize}, #{self.player.try(:first_name)} (##{self.player.try(:number)})!"
+    end
   end
 
   def message

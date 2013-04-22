@@ -36,7 +36,8 @@ class MovesController < ApplicationController
       ["Run", "run"],
       ["Turnover", "turnover"],
       ["Time", "time"],
-      ["Touchdown", "touchdown"],
+      ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
+      ["Touchdown (Passe)", "touchdown-pass"],
       ["Fieldgoal", "fieldgoal"],
       ["Pass", "pass"],
       ["Sack", "sack"],
@@ -52,8 +53,11 @@ class MovesController < ApplicationController
   end
 
   def create
-    player = Player.find_by_text_input(params[:move].delete(:player))
     team = Team.find(params[:move].delete(:team))
+    unless params[:move][:kind] == 'comment' || params[:move][:kind] == 'end'
+      player = team.find_player_by_text_input(params[:move][:player])
+    end
+    params[:move].delete(:player)
     @match = Match.find(params[:match_id])
     points = find_points(params[:move][:kind])
     @move = Move.create(params[:move]) do |move|

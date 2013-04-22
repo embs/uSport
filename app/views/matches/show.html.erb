@@ -80,8 +80,8 @@
         :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
         <%= f.hidden_field :kind, id: 'kind', value: ''%>
         <div id='touchdown-kind' style="display: none;">
-          <%= f.label :kind, "Touchdown de:", diasplay: 'hidden' %>
-          <%= f.select :kind,
+          <%= label :touchdown_kind, "Touchdown de:", diasplay: 'hidden' %>
+          <%= select :touchdown, :kind,
             options_for_select([["Corrida", "touchdown-run"], ["Passe", "touchdown-pass"],
               ["Retorno", "touchdown-return"]]) %>
         </div>
@@ -94,6 +94,7 @@
           <%= f.label :player %>
           <%= f.text_field :player, class: 'typeahead player',
             autocomplete: 'off', required: 'true'%>
+          <span class="help-block">Ex.: #35 Terrence Cody</span>
         </div>
         <div id='yards' style="display: none;">
           <%= f.label :yards %>

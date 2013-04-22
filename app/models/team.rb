@@ -13,4 +13,11 @@ class Team < ActiveRecord::Base
   validates_presence_of :name, :abbreviation, :sport_type
   validates_inclusion_of :is_official, in: [true, false]
   validates_length_of :abbreviation, maximum: 3
+
+  def find_player_by_text_input(input)
+    splitted = input.split
+    number = splitted.shift.parameterize
+
+    self.players.where(number: number.to_i).first
+  end
 end
