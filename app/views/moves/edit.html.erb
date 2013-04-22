@@ -1,1 +1,2 @@
-<%= render partial: 'form', locals: { action: 'update', remote: nil } %>
+<%= render partial: 'mobile_form', locals: { action: 'update', remote: nil,
+  path: match_move_path(@move.match, @move) } %>

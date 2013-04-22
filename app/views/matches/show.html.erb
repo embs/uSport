@@ -180,7 +180,8 @@
     Nova Jogada
   </a>
   <div class="new-move-collapse collapse">
-    <%= render partial: 'moves/mobile_form', locals: { action: 'create', remote: 'true' } %>
+    <%= render partial: 'moves/mobile_form', locals: { action: 'create', remote: 'true',
+            path: match_moves_path(@match) } %>
   </div>
 
 <% end %>
