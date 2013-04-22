@@ -32,7 +32,7 @@
             <li class="dropdown">
               <%= link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown' do %>
               <%= current_user.first_name %>
-              <% if current_user.avatar.exists? %>
+              <% if current_user.avatar(:mini) %>
                 <%= image_tag(current_user.avatar(:mini)) %>
               <% else %>
                 <i class="icon-large icon-user"></i>

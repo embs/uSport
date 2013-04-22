@@ -17,8 +17,9 @@ class User < ActiveRecord::Base
            source: :channel
   has_many :comments
   has_many :authentications, dependent: :destroy
-  has_attached_file :avatar, styles: { :thumb => ["128x128#", :png],
-    mini: ["27x27#", :png] }, default_url: nil
+  has_attached_file :avatar, storage: :dropbox,
+    dropbox_credentials: "#{Rails.root}/config/dropbox.yml", default_url: nil,
+    styles: { :thumb => ["128x128#", :png], mini: ["27x27#", :png] }
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username
