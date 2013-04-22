@@ -46,6 +46,7 @@ $(function(){
 			$('#player').show();
 			$('#player input').attr('required', 'required');
 			$('#yards').show();
+			$('#quarter').show();
 			$('#description').show();
 			$('#move_description').attr('placeholder',
 				'Você pode descrever esse lance aqui');
@@ -58,6 +59,7 @@ $(function(){
 			$('#player').hide();
 			$('#player input').removeAttr('required');
 			$('#yards').hide();
+			$('#quarter').hide();
 			$('#description').show();
 			$('#move_description').attr('placeholder',
 				'Se quiser, comente o fim da partida aqui');
@@ -70,6 +72,7 @@ $(function(){
 			$('#player').hide();
 			$('#player input').removeAttr('required');
 			$('#yards').hide();
+			$('#quarter').hide();
 			$('#description').show();
 			$('#move_description').attr('placeholder',
 				'Você pode descrever esse lance aqui');
@@ -82,6 +85,7 @@ $(function(){
 			$('#player').show();
 			$('#player input').attr('required', 'required');
 			$('#yards').show();
+			$('#quarter').show();
 			$('#description').show();
 			$('#move_description').attr('placeholder',
 				'Você pode descrever esse lance aqui');

@@ -100,6 +100,11 @@
           <%= f.label :yards %>
           <%= f.number_field :yards %>
         </div>
+        <div id='quarter' style="display: none;">
+          <%= f.label :quarter %>
+          <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
+          ["Second", 2], ["Third", 3], ["Fourth", 4]]) %>
+        </div>
         <div id='description' style="display: none;">
           <%= f.label :description %>
           <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
