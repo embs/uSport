@@ -101,7 +101,9 @@ $(function(){
 		if(($('#player input').attr('required') == 'required') & ($('#player input').val().length == 0)) {
 			$('#player input').focus();
 		}
-		$('#NewMoveForm form').submit();
+		else {
+			$('#NewMoveForm form').submit();
+		}
 	});
 });
 
