@@ -10,10 +10,17 @@ class Move < ActiveRecord::Base
   has_many :comments
 
   # Validações
-  validates_presence_of :kind, :match, :player
+  validates_presence_of :kind, :match #, :player
 
   def main
-    "#{self.kind.capitalize}, #{self.player.first_name} (##{self.player.number})!"
+    case self.kind
+    when 'comment'
+      "Comentário do transmissor"
+    when 'end'
+      "Fim de partida"
+    else
+      "#{self.kind.capitalize}, #{self.player.try(:first_name)} (##{self.player.try(:number)})!"
+    end
   end
 
   def message
@@ -28,16 +35,18 @@ class Move < ActiveRecord::Base
       "A partida é iniciada!"
     when "fumble"
       "O jogador deixou a bola cair."
-    when "tackle"
-
     when "run"
       "O jogador teve um ganho de #{self.yards} jardas."
     when "turnover"
 
     when "time"
 
-    when "touchdown"
+    when "touchdown-run"
       "O jogador correu #{self.yards} jardas até a endzone! 6 pontos para o(s) #{self.team.name}!"
+    when "touchdown-pass"
+
+    when "touchdown-return"
+
     when "fieldgoal"
       "3 pontos para o(s) #{self.team.name}!"
     when "pass"
@@ -46,6 +55,10 @@ class Move < ActiveRecord::Base
       "O quarterback foi derrubado para uma perda de #{self.yards} jardas."
     when "interception"
       "Após passe do quarterback, a bola foi interceptada!"
+    when "comment"
+
+    when "end"
+
     end
   end
 end

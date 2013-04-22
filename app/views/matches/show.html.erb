@@ -35,7 +35,7 @@
       display: block;
       height: 110px;
       /* Max width here, for users without Javascript */
-      width: 1500px;
+      width: 1600px;
       padding: 0px;
       /* Remove default margin */
       margin: 0;
@@ -79,18 +79,36 @@
       <%= form_for Move.new, url: { match_id: @match, action: 'create', controller: 'moves' },
         :html => { autocomplete: 'off' }, remote: 'true' do |f| %>
         <%= f.hidden_field :kind, id: 'kind', value: ''%>
-        <%= f.label :team %>
-        <%= f.select :team,
-          options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
-        <%= f.label :player %>
-        <%= f.text_field :player, class: 'typeahead player',
-          autocomplete: 'off', required: 'true'%>
-        <%= f.label :yards %>
-        <%= f.text_field :yards %>
-        <%= f.label :description %>
-        <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
+        <div id='touchdown-kind' style="display: none;">
+          <%= label :touchdown_kind, "Touchdown de:", diasplay: 'hidden' %>
+          <%= select :touchdown, :kind,
+            options_for_select([["Corrida", "touchdown-run"], ["Passe", "touchdown-pass"],
+              ["Retorno", "touchdown-return"]]) %>
+        </div>
+        <div id='team' style="display: none;">
+          <%= f.label :team %>
+          <%= f.select :team,
+            options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
+        </div>
+        <div id='player' style="display: none;">
+          <%= f.label :player %>
+          <%= f.text_field :player, class: 'typeahead player',
+            autocomplete: 'off', required: 'true'%>
+          <span class="help-block">Ex.: #35 Terrence Cody</span>
+        </div>
+        <div id='yards' style="display: none;">
+          <%= f.label :yards %>
+          <%= f.text_field :yards %>
+        </div>
+        <div id='description' style="display: none;">
+          <%= f.label :description %>
+          <%= f.text_area :description, cols: "30", rows: "8", style: "resize: none;" %>
+        </div>
+        <div id='game-over' style="display: none;">
+          Confirmar fim de jogo?
+        </div>
         <div class="modal-fotter">
-          <%= f.submit id:'submit', :class => "btn", :'aria-hidden' => 'true' %>
+          <%= f.submit id: 'submit', class: 'btn', :'aria-hidden' => 'true' %>
         </div>
       <% end %>
     </div>
@@ -99,8 +117,9 @@
   <div class="well hidden-tablet hidden-phone">
     <div class="sc_menu">
       <ul class="sc_menu">
-        <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble', 'tackle',
-          'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass', 'sack', 'interception'].each do |kind| %>
+        <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble',
+          'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass', 'sack',
+          'interception', 'end', 'comment'].each do |kind| %>
           <li>
             <%= link_to '', class: 'linkModal', role: 'button', :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm", value: kind, title: kind.capitalize do %>
               <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
@@ -161,7 +180,7 @@
     Nova Jogada
   </a>
   <div class="new-move-collapse collapse">
-    <%= render partial: 'moves/form', locals: { action: 'create', remote: 'true' } %>
+    <%= render partial: 'moves/mobile_form', locals: { action: 'create', remote: 'true' } %>
   </div>
 
 <% end %>
