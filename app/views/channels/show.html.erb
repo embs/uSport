@@ -18,11 +18,12 @@
         <dd>
           <ul>
             <% @channel.user_channel_associations.each do |uca| %>
-              <li><%= uca.user.display_name %> 
-                <% if uca.user.id != @channel.user_id %>
-                 <%= link_to channel_remove_cooperator_path(uca.channel.id, uca.id) do %>
+              <li id='collaborator-<%= uca.id %>'><%= uca.user.display_name %>
+                <% if can? :manage, uca %>
+                 <%= link_to user_channel_association_path(uca), method: :delete, remote: :true,
+                  confirm: 'Tem certeza que deseja remover esse colaborador?' do %>
                    <i class="icon-trash"></i>
-                 <% end %>  
+                 <% end %>
                 <% end %>
               </li>
             <%end %>

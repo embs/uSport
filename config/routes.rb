@@ -4,9 +4,9 @@ USport::Application.routes.draw do
 
   root to: "landing#index"
 
-  resources :channels do
-    match 'remove_channel_cooperator/:id' => 'channels#remove_cooperator', as: "remove_cooperator"
-  end
+  resources :channels
+
+  resources :user_channel_associations, only: :destroy
 
   resources :teams
 
