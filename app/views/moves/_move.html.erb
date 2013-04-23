@@ -1,5 +1,5 @@
 <tr id="<%=move.id%>">
- <td width="40px">
+  <td width="40px">
     <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
       style: 'height: 40px; width: 40px;') %>
       <% if move.quarter && move.quarter !=0 %>
@@ -19,17 +19,17 @@
     <% if show_comment_button %>
       <%= link_to match_move_path(move.match, move),
         class: 'btn' do %>
-        <i class="icon-comment"></i> Comentar Jogada
+        <i class="icon-comment"></i> Comentar
       <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
     <% end %>
     <% if (can? :manage, move) && show_edition_buttons %>
       <%= link_to edit_match_move_path(move.match, move),
         class: 'btn' do %>
-        <i class="icon-cog"></i> Editar Jogada
+        <i class="icon-cog"></i> Editar
       <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
       <%= link_to match_move_path(move.match, move),
         method: :delete, remote: :true, class: 'btn btn-danger' do %>
-        <i class="icon-trash icon-white"></i> Remover Jogada
+        <i class="icon-trash icon-white"></i> Remover
       <% end %>
     <% end %>
   </td>
