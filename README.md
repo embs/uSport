@@ -1,4 +1,4 @@
-# USport
+# uSport
 Aplicativo para a disciplina de Projetão do Centro de Informática.
 
 ## Descrição do projeto

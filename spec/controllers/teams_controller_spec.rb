@@ -59,7 +59,7 @@ describe TeamsController do
     let(:common_params) { { :locale => 'pt-BR' } }
     let(:valid_params) do
       { team: {
-        name: 'USport Team', sport_type: 'football', abbreviation: 'US'
+        name: 'uSport Team', sport_type: 'football', abbreviation: 'US'
       } }.merge(common_params)
     end
 
@@ -74,7 +74,7 @@ describe TeamsController do
         end
 
         it 'creates team' do
-          Team.last.name.should == 'USport Team'
+          Team.last.name.should == 'uSport Team'
         end
 
         it { assigns[:team].should_not be_nil }
@@ -154,7 +154,7 @@ describe TeamsController do
     let(:common_params) { { :locale => 'pt-BR' } }
     let(:valid_params) do
       {
-        :team => { :name => 'USport Team', :sport_type => 'football' }, :id => team.id
+        :team => { :name => 'uSport Team', :sport_type => 'football' }, :id => team.id
       }.merge(common_params)
     end
 
