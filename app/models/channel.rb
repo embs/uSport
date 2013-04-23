@@ -10,7 +10,11 @@ class Channel < ActiveRecord::Base
   has_many :matches
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_attached_file :avatar, styles: { :thumb => ["128x128#", :png] },
-    default_url: "avatars/channel/missing.gif"
+    default_url: "avatars/missing.gif",
+    storage: :dropbox, dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
+    dropbox_options: {
+      path: Proc.new { |style| "channels/#{id}/#{style}/#{avatar.original_filename}" }
+    }
 
   # Validação
   validates_presence_of :name

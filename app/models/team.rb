@@ -7,8 +7,11 @@ class Team < ActiveRecord::Base
   has_many :moves
   has_and_belongs_to_many :matches
   has_attached_file :avatar, :styles => { thumb: ["128x128#", :png] },
-    default_url: "avatars/team/missing.gif",
-    storage: :dropbox, dropbox_credentials: "#{Rails.root}/config/dropbox.yml"
+    default_url: "avatars/missing.gif",
+    storage: :dropbox, dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
+    dropbox_options: {
+      path: Proc.new { |style| "teams/#{id}/#{style}/#{avatar.original_filename}" }
+    }
 
   # Validações
   validates_presence_of :name, :abbreviation, :sport_type

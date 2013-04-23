@@ -1,6 +1,23 @@
-app_key: "egja9ayflexpwih"
-app_secret: "4a6l52i81rjmapt"
-access_token: "xmacx2ir9v9ame1"
-access_token_secret: "rpt9d661apn9o0h"
-user_id: "165223915"
-access_type: "dropbox"
+development:
+  app_key: "2qwcidga8cfqcc2"
+  app_secret: "x7dt5v49j0898c2"
+  access_token: "8rbzz6c5ksart17"
+  access_token_secret: "3jmk20hhgmn8cim"
+  user_id: "165223915"
+  access_type: "app_folder"
+
+test:
+  app_key: "2qwcidga8cfqcc2"
+  app_secret: "x7dt5v49j0898c2"
+  access_token: "8rbzz6c5ksart17"
+  access_token_secret: "3jmk20hhgmn8cim"
+  user_id: "165223915"
+  access_type: "app_folder"
+
+production:
+  app_key: "891jexhn0c2ua4f"
+  app_secret: "vrtajclel3ehca4"
+  access_token: "r53rq1ucgh0vokp"
+  access_token_secret: "low7f7zvgyrynj3"
+  user_id: "165223915"
+  access_type: "app_folder"

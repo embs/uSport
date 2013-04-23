@@ -18,8 +18,12 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :authentications, dependent: :destroy
   has_attached_file :avatar, storage: :dropbox,
-    dropbox_credentials: "#{Rails.root}/config/dropbox.yml", default_url: nil,
-    styles: { :thumb => ["128x128#", :png], mini: ["27x27#", :png] }
+    dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
+    default_url: "avatars/missing.gif",
+    styles: { :thumb => ["128x128#", :png], mini: ["27x27#", :png] },
+    dropbox_options: {
+      path: Proc.new { |style| "users/#{id}/#{style}/#{avatar.original_filename}" }
+    }
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username
