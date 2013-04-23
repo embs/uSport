@@ -2,7 +2,7 @@
   <%= f.label :first_name %>
   <%= f.text_field :first_name, required: :true %>
   <%= f.label :last_name %>
-  <%= f.text_field :last_name, required: :true %>
+  <%= f.text_field :last_name %>
   <%= f.label :position %>
   <%= f.select :position,
     options_for_select([["Cornerback", 0], ["Defensive Line", 1], ["Full Back", 2],
@@ -10,7 +10,7 @@
       ["Wide Receiver", 7], ["Tight End", 8], ["Safety", 9], ["Center", 10], ["Kicker", 11], ["Punter", 12]],
       [@player.try(:position)]) %>
   <%= f.label :number %>
-  <%= f.text_field :number, required: :true %>
+  <%= f.text_field :number %>
   <span class="help-block">Somente números</span>
   <%= f.label :team %>
   <%= f.select :team_id, options_for_select(Team.all.collect { |t| [t.name, t.id] },
