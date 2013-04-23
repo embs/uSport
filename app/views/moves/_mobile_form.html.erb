@@ -1,22 +1,20 @@
-<!--script type="text/javascript">
-  <%# embs: Não sei pra quê esse script vazio %>
-</script-->
 <%= form_for @move, url: path, remote: remote, autocomplete: :off do |f| %>
   <div>
     <%= f.label :quarter %>
     <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
-    ["Second", 2], ["Third", 3], ["Fourth", 4]]) %>
+    ["Second", 2], ["Third", 3], ["Fourth", 4]], @move.quarter) %>
   </div>
 
   <div>
     <%= f.label :kind %>
-    <%= f.select :kind, options_for_select(@kinds) %>
+    <%= f.select :kind, options_for_select(@kinds, @move.kind) %>
   </div>
 
   <div>
     <%= f.label :team %>
     <%= f.select :team,
-      options_for_select(@match.teams.collect { |t| [t.name, t.id] }) %>
+      options_for_select(@match.teams.collect { |t| [t.name, t.id] },
+        @move.team.try(:id)) %>
   </div>
 
   <div>
@@ -26,7 +24,7 @@
 
   <div >
     <%= f.label :minute %>
-    <%= f.select :minute, options_for_select(@minutes) %>
+    <%= f.select :minute, options_for_select(@minutes, @move.minute) %>
   </div>
 
   <div>
