@@ -203,24 +203,61 @@ describe ChannelsController do
           { :channel => { :name => 'Some new name' } }.merge(common_params)
         end
 
-        before do
-          post :update, valid_params
-        end
-
-        it { should set_the_flash[:notice].to('Os dados do canal foram atualizados.') }
-
-        it 'returns http success' do
-          response.should be_redirect
-        end
-
-        it { should redirect_to(channel_path(channel.owner, channel)) }
-
-        it 'updates_channel' do
-          c = Channel.find(channel.id) # Carrega o canal atualizado
-          valid_params[:channel].each do |attr_name, attr_value|
-            c.send(attr_name).should == attr_value
+        context 'which does not have collaborator key' do
+          before do
+            post :update, valid_params
           end
-        end
+
+          it { should set_the_flash[:notice].to('Os dados do canal foram atualizados.') }
+
+          it 'returns http success' do
+            response.should be_redirect
+          end
+
+          it { should redirect_to(channel_path(channel)) }
+
+          it 'updates_channel' do
+            c = Channel.find(channel.id) # Carrega o canal atualizado
+            valid_params[:channel].each do |attr_name, attr_value|
+              c.send(attr_name).should == attr_value
+            end
+          end
+        end # context 'which does not have collaborator key' do
+
+        context 'which does have collaborator key' do
+
+          context 'and key is a valid username' do
+            let(:collaborator) { FactoryGirl.create(:user) }
+
+            before do
+              valid_params.merge!( collaborator: { username: collaborator.username })
+              post :update, valid_params
+            end
+
+            it 'creates UserChannelAssociation' do
+              UserChannelAssociation.find_by_user_id_and_channel_id(collaborator,
+                channel).should_not be_nil
+            end
+
+            it 'associates channel and user' do
+              channel.users.should include(collaborator)
+            end
+          end # context 'and key is a valid username'
+
+          context 'and key is not a valid username' do
+            before do
+              valid_params.merge!( collaborator: { username: 'scarface' })
+              post :update, valid_params
+            end
+
+            it 'sets the flash error message' do
+              should set_the_flash[:error].to(
+              'Ops! Não encontramos o colaborador que você tentou adicionar.').now
+            end
+
+            it { should render_template(:edit) }
+          end # context 'and key is not a valid username'
+        end # context 'which does have collaborator key'
       end # context 'with valid params'
 
       context 'with invalid params' do

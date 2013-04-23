@@ -4,7 +4,14 @@
   <%= render partial: 'shared/leftbar' %>
 <% end %>
 
-<div class="thumbnails">
+<% if @matches.empty? %>
+  <div class='alert alert-info' id="empty-message">
+    Nada pra ver aqui. :(
+  </div>
+<% else %>
+  <div class="thumbnails">
     <%= render :partial => 'matches/preview', :collection => @matches %>
-</div>
+  </div>
+<% end %>
+
 </div>

@@ -3,7 +3,7 @@ class Ability
 
   include ChannelAbility
   include UserAbility
-  # include UserChannelAssociationAbility
+  include UserChannelAssociationAbility
   include CommentAbility
   include MatchAbility
   include MoveAbility

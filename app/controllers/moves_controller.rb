@@ -15,15 +15,33 @@ class MovesController < ApplicationController
   def show
     @move = Move.find(params[:id])
     authorize! :show, @move
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
     @match = Match.find(params[:match_id])
     authorize! :manage, @match
     @move = Move.new
-    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
-      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @kinds = [
+      ["Punt", "punt"],
+      ["Extrapoint", "extrapoint"],
+      ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"],
+      ["Fumble", "fumble"],
+      ["Tackle", "tackle"],
+      ["Run", "run"],
+      ["Turnover", "turnover"],
+      ["Time", "time"],
+      ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
+      ["Touchdown (Passe)", "touchdown-pass"],
+      ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"],
+      ["Sack", "sack"],
+      ["Interception", "interception"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -35,10 +53,17 @@ class MovesController < ApplicationController
   end
 
   def create
-    player = Player.find_by_text_input(params[:move].delete(:player))
     team = Team.find(params[:move].delete(:team))
+    unless params[:move][:kind] == 'comment' || params[:move][:kind] == 'end'
+      player = team.find_player_by_text_input(params[:move][:player])
+    end
+    params[:move].delete(:player)
     @match = Match.find(params[:match_id])
     points = find_points(params[:move][:kind])
+    unless player
+      authorize! :manave, Move.new(match: @match)
+      render js: "$('#player input').val(''); $('#player input').attr('placeholder', 'Informe um jogador válido'); $('#player input').focus();" and return
+    end
     @move = Move.create(params[:move]) do |move|
       move.player = player
       move.team = team
@@ -53,7 +78,16 @@ class MovesController < ApplicationController
       @match.value2 = @match.value2 + points
     end
     @match.save
-    flash[:notice] = "Jogada criada!" if @move.valid?
+
+    begin
+      Pusher.trigger("match-#{@match.id}", 'new-move',
+        {
+          val1: @match.value1, val2: @match.value2,
+          move: @move.id
+        })
+    rescue Pusher::Error => e
+      #TODO
+    end
 
     respond_to do |format|
       format.html { render 'create.js.erb' }
@@ -65,9 +99,22 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     @match = @move.match
     authorize! :manage, @move
-    @kinds = [["Punt", "punt"], ["Touchdown", "touchdown"],
-      ["Kickoff", "kickoff"], ["Field Goal is Good", "field-goal-is-good"],
-      ["Fumble", "fumble"], ["Interceptação", "interceptation"]]
+    @kinds = [
+      ["Punt", "punt"],
+      ["Extrapoint", "extrapoint"],
+      ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"],
+      ["Fumble", "fumble"],
+      ["Tackle", "tackle"],
+      ["Run", "run"],
+      ["Turnover", "turnover"],
+      ["Time", "time"],
+      ["Touchdown", "touchdown"],
+      ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"],
+      ["Sack", "sack"],
+      ["Interception", "interception"]
+    ]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -97,7 +144,17 @@ class MovesController < ApplicationController
 
   def destroy
     @move = Move.find(params[:id])
+    team = @move.team
+    @match = @move.match
+    points = find_points(@move.kind)
     authorize! :manage, @move
+    # Atualiza o placar da partida
+    if team == @match.teams[0]
+      @match.value1 = @match.value1 - points
+    else
+      @match.value2 = @match.value2 - points
+    end
+    @match.save
     @move.destroy
     respond_to do |format|
       format.html do
@@ -112,7 +169,7 @@ class MovesController < ApplicationController
 
   def find_points(move_kind)
     case move_kind
-    when "field-goal-is-good"
+    when "fieldgoal"
       3
     when "touchdown"
       6

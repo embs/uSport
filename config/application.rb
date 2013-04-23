@@ -40,7 +40,7 @@ module USport
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
@@ -83,5 +83,27 @@ module USport
 
     # Carrega arquivos de locales dentro de subdiretórios
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # Configurações do Pusher
+    config.pusher = {
+      :app_id => '41803',
+      :key => '5cdac9d39782ff813c3e',
+      :secret => 'c1563fc792fd5fbd7516'
+    }
+
+    # Configurações de e-mail do ActionMailer
+    ActionMailer::Base.smtp_settings = {
+      address: "smtp.gmail.com",
+      port: 587,
+      authentication: :plain,
+      domain: 'quinceminds@gmail.com',
+      user_name: 'quinceminds@gmail.com',
+      password: 'xadrez2012',
+    }
+
+    # Algumas configurações (a mais) do action_mailer
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.default charset: 'utf-8'
   end
 end

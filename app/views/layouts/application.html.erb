@@ -19,7 +19,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", media: "all" %>
-    <%= stylesheet_link_tag "bootstrap", media: "all" %>
+    <%#= stylesheet_link_tag "bootstrap", media: "all" %>
     <%= stylesheet_link_tag "bootstrap-responsive", media: "all" %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
@@ -41,6 +41,22 @@
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+    <% unless Rails.env != 'production' %>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-39914252-1', 'usport.com.br');
+        ga('send', 'pageview');
+
+      </script>
+    <% end %>
+    <script src="http://js.pusher.com/2.0/pusher.min.js"></script>
+    <script type="text/javascript">
+      var pusher = new Pusher('<%= Pusher.key %>');
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -64,7 +80,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag (content_for?(:include_js) ? yield(:include_js) : "application") %>
-    <%= yield :subscribe_to_match %><%# Só para matches/show %>
     <%= yield :show_move_comments %><%# Só para move/show %>
   </body>
 </html>

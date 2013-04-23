@@ -3,6 +3,23 @@
     <legend>Novo Canal</legend>
     <%= f.label :name %>
     <%= f.text_field :name, :placeholder => "Nome do canal" %>
+    <% unless action == 'create' %>
+      <%= f.label :users %>
+      <ul>
+        <% @channel.user_channel_associations.each do |uca| %>
+          <li id='collaborator-<%= uca.id %>'><%= uca.user.display_name %>
+            <% if can? :manage, uca %>
+             <%= link_to user_channel_association_path(uca), method: :delete, remote: :true,
+              confirm: 'Tem certeza que deseja remover esse colaborador?' do %>
+               <i class="icon-trash"></i>
+             <% end %>
+            <% end %>
+          </li>
+        <%end %>
+      </ul>
+      <%= text_field "collaborator", :username, placeholder: 'Adicionar novo colaborador' %>
+      <span class="help-block">Informe o nome de usuário do novo colaborador</span>
+    <% end %>
     <%= f.label :description %>
     <%= f.text_area :description, :placeholder => "Descrição do canal", :cols => "30", :rows =>"8", :style => "resize: none;" %>
     <%= f.label :avatar %>

@@ -33,6 +33,16 @@ describe User do
     it 'creates a valid user' do
       User.create_with_omniauth(@omniauth_auth).should be_valid
     end
+
+    context 'when username already exists' do
+      before do
+        FactoryGirl.create(:user, username: 'mikemyers')
+      end
+
+      it 'creates a valid user' do
+        User.create_with_omniauth(@omniauth_auth).should be_valid
+      end
+    end
   end
 
   describe '.display_name' do

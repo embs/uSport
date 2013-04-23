@@ -10,8 +10,13 @@ class Player < ActiveRecord::Base
   # => <#Player first_name: Zagalo>
   def self.find_by_text_input(input)
     splitted = input.split
-    raise Error if splitted.length != 2
-    Player.find_by_first_name(splitted[1])
+    splitted.shift()
+    splitted = splitted.join(" ")
+
+    # Levanta exceção se não houver no mínimo duas strings (#n nome)
+    raise 'Invalid input text for player identification' if splitted.length < 2
+
+    Player.find_by_first_name(splitted)
   end
 
   def display_name

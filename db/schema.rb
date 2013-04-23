@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311053822) do
+ActiveRecord::Schema.define(:version => 20130419215811) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -47,16 +47,33 @@ ActiveRecord::Schema.define(:version => 20130311053822) do
   add_index "comments", ["move_id"], :name => "index_comments_on_move_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "matches", :force => true do |t|
     t.string   "type"
     t.datetime "date"
     t.string   "place"
     t.string   "name"
     t.integer  "channel_id"
-    t.integer  "value1",     :default => 0
-    t.integer  "value2",     :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "value1",        :default => 0
+    t.integer  "value2",        :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "viewers_count", :default => 0
   end
 
   create_table "matches_teams", :id => false, :force => true do |t|

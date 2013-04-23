@@ -56,9 +56,8 @@ describe MatchesController do
           :name => 'Nova Partida', :type => 'FootballMatch', :date => '29/02/2013',
           :channel_id => channel.id, :teams_ids => [team1.id, team2.id],
           "date(1i)" => match_date[:year], "date(2i)" => match_date[:month],
-          "date(3i)" => match_date[:day], "date(4i)" => match_date[:hour],
-          "date(5i)" => match_date[:min]
-        }
+          "date(3i)" => match_date[:day] },
+          date: { :'time(4i)' => match_date[:hour], :'time(5i)' => match_date[:min] }
       }
     end
 
@@ -206,5 +205,35 @@ describe MatchesController do
       match.teams.should include(new_team1)
       match.teams.should include(new_team2)
     end
+  end
+
+  describe 'POST auth' do
+    let(:match) { FactoryGirl.create :match }
+
+    before do
+      post :auth, channel_name: "presence-match-#{match.id}",
+        socket_id: '123.45678', user_id: SecureRandom.hex(4)
+    end
+
+    it { response.should be_success }
+
+    it 'should retrieve an auth key' do
+      auth_response = JSON.parse(response.body)
+      auth_response.should have_key('auth')
+    end
+  end
+
+  describe 'POST viewers' do
+    let(:match) { FactoryGirl.create :match }
+
+    before do
+      params = {
+        "time_ms"=>1366250868561, "events"=>[{"channel"=>"presence-match-1", "user_id"=>"4864c1f4", "name"=>"member_removed"}],
+        "id"=>"1", "match"=>{}
+      }
+      post :viewers, params
+    end
+
+    it 'updates match viewers counter'
   end
 end

@@ -38,9 +38,17 @@ class ChannelsController < ApplicationController
   def update
     @channel = Channel.find(params[:id])
     authorize! :edit, @channel
+    if params[:collaborator] # cria nova UserChannelAssociation se for necessário
+      user = User.find_by_username(params[:collaborator][:username])
+      unless user
+        flash.now[:error] = 'Ops! Não encontramos o colaborador que você tentou adicionar.'
+        render 'edit' and return
+      end
+      UserChannelAssociation.create(user: user, channel: @channel)
+    end
     if @channel.update_attributes(params[:channel])
       flash[:notice] = 'Os dados do canal foram atualizados.'
-      redirect_to channel_path(@channel.owner, @channel)
+      redirect_to channel_path(@channel)
     else
       flash.now[:error] = 'Ops! Não foi possível atualizar o canal.'
       render 'edit'
@@ -61,8 +69,10 @@ class ChannelsController < ApplicationController
   # retorna todos os canais se o params[:user_id] não for especificado
   def user_channels_or_all
     if params[:user_id]
+      @active_page = "UserChannels"
       User.find(params[:user_id]).channels
     else
+      @active_page = "Channels"
       Channel.all
     end
   end

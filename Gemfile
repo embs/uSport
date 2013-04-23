@@ -20,11 +20,15 @@ gem 'paperclip'
 
 gem 'cancan'
 
-gem 'private_pub'
-
-gem 'thin'
-
 gem 'kaminari'
+
+gem 'rack-rewrite'
+
+gem 'pusher'
+
+gem 'delayed_job_active_record'
+
+gem 'paperclip-dropbox'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'

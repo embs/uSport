@@ -6,15 +6,18 @@ USport::Application.routes.draw do
 
   resources :channels
 
+  resources :user_channel_associations, only: :destroy
+
   resources :teams
 
   resources :players
 
-  resources :users, :only => [:index, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update] do
     resources :favorite_channels, only: [:index, :create, :destroy]
   end
 
   resources :matches, except: :index do
+    post :viewers, on: :member
     resources :moves do
       resources :comments, :only => [:index, :new, :create]
     end
@@ -30,4 +33,7 @@ USport::Application.routes.draw do
   # Autenticação com Facebook
   match '/auth/:provider/callback' => 'authentications#create'
 
+  # Rota para autenticação de presença do Pusher
+  get '/pusher/auth' => 'matches#auth'
+  post '/pusher/auth' => 'matches#auth'
 end

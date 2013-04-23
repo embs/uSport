@@ -1,10 +1,7 @@
-<%# Publica jogada para todos espectadores da partida %>
-<% publish_to new_match_move_path(@match) do %>
-  $('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: nil) %>");
-  $('#team1-score').html(<%= @match.value1 %>);
-  $('#team2-score').html(<%= @match.value2 %>);
-<% end %>
-$('#new_move input[type=text], textarea').val("");; // reseta o formulário de nova jogada
-$("#<%= @move.id %>").remove();
-$('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
-//window.location.pathname = '<%= "#{new_match_move_path(@match).to_s}" %>';
+<%# Atualiza o placar da partida %>
+$('#team1-score').html(<%= @match.value1 %>);
+$('#team2-score').html(<%= @match.value2 %>);
+<%# Reseta o formulário de nova jogada %>
+$('#new_move input[type=text], textarea').val("");
+<%# Esconde o modal %>
+$('#NewMoveForm').modal('hide');
