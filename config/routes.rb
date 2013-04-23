@@ -12,7 +12,7 @@ USport::Application.routes.draw do
 
   resources :players
 
-  resources :users, :only => [:index, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update] do
     resources :favorite_channels, only: [:index, :create, :destroy]
   end
 

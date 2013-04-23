@@ -6,6 +6,20 @@ describe UsersController do
   describe 'GET index' do
   end
 
+  describe 'GET show' do
+    before do
+      get :show, id: user
+    end
+
+    it { assigns[:user].should == user }
+
+    it { response.should be_redirect }
+
+    it { should set_the_flash }
+
+    it { should redirect_to(root_path) }
+  end
+
   describe 'GET edit' do
     before do
       controller.stub(:current_user => user)

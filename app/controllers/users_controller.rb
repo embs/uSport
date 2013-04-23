@@ -1,3 +1,4 @@
+# encoding: utf-8
 class UsersController < ApplicationController
 
   def index
@@ -8,6 +9,14 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render :json => selected.collect(&:first_name) }
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    authorize! :show, @user
+    flash[:notice] = 'Estamos preparando a seção do perfil de usuário. Aguarde!'
+
+    redirect_to root_path
   end
 
   def edit
