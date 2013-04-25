@@ -14,7 +14,10 @@ describe User do
   it { should have_many :comments }
   it { should have_many :authentications }
   it { should have_attached_file(:avatar) }
+  it { should have_many(:user_favorite_channels) }
   it { should have_many(:favorite_channels).through(:user_favorite_channels) }
+  it { should have_many(:user_team_associations) }
+  it { should have_many(:teams).through(:user_team_associations) }
 
   # Validações
   it { should validate_presence_of :first_name }

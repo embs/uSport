@@ -20,7 +20,7 @@ describe TeamsController do
     let(:team) { FactoryGirl.create(:team) }
 
     before do
-      get :show, :id => team.id
+      get :show, id: team.id
     end
 
     it { assigns[:team].should == Team.find(team.id) }
@@ -33,8 +33,8 @@ describe TeamsController do
   describe 'GET new' do
     context 'when logged' do
       before do
-        controller.stub(:current_user => user)
-        get :new, :locale => 'pt-BR'
+        controller.stub(current_user: user)
+        get :new
       end
 
       it { assigns[:team].should_not be_nil } #FIXME verificar o problema com Team.new
@@ -46,7 +46,7 @@ describe TeamsController do
 
     context 'when not logged' do
       before do
-        get :new, :locale => 'pt-BR'
+        get :new
       end
 
       it { response.should redirect_to(new_user_session_path) }
@@ -56,16 +56,15 @@ describe TeamsController do
   end
 
   describe 'POST create' do
-    let(:common_params) { { :locale => 'pt-BR' } }
     let(:valid_params) do
-      { team: {
-        name: 'uSport Team', sport_type: 'football', abbreviation: 'US'
-      } }.merge(common_params)
+      {
+        team: { name: 'uSport Team', sport_type: 'football', abbreviation: 'US' }
+      }
     end
 
     context 'when logged' do
       before do
-        controller.stub(:current_user => user)
+        controller.stub(current_user: user)
       end
 
       context 'with valid params' do
@@ -75,6 +74,19 @@ describe TeamsController do
 
         it 'creates team' do
           Team.last.name.should == 'uSport Team'
+        end
+
+        it 'creates association between the team and its creator' do
+          uta = UserTeamAssociation.find_by_user_id_and_team_id(user.id, Team.last.id)
+          uta.should_not be_nil
+        end
+
+        it 'associates user to the team' do
+          user.teams.should include(Team.last)
+        end
+
+        it 'associates team to the user' do
+          Team.last.users.should include(user)
         end
 
         it { assigns[:team].should_not be_nil }
@@ -89,8 +101,8 @@ describe TeamsController do
       context 'with invalid params' do
         let(:invalid_params) do
           {
-            :team => { :name => '', :sport_type => 'football' }
-          }.merge(common_params)
+            team: { name: '', sport_type: 'football' }
+          }
         end
 
         before do
@@ -126,21 +138,25 @@ describe TeamsController do
     let(:team) { FactoryGirl.create(:team) }
 
     context 'when logged' do
-      before do
-        controller.stub(:current_user => user)
-        get :edit, :locale => 'pt-BR', :id => team.id
+
+      context 'as an associated' do
+        before do
+          controller.stub(current_user: user)
+          UserTeamAssociation.create(user: user, team: team, role: :manager)
+          get :edit, id: team.id
+        end
+
+        it { assigns[:team].should_not be_nil }
+
+        it { response.should be_success }
+
+        it { should render_template(:edit) }
       end
-
-      it { assigns[:team].should_not be_nil }
-
-      it { response.should be_success }
-
-      it { should render_template(:edit) }
     end
 
     context 'when not logged' do
       before do
-        get :edit, :locale => 'pt-BR', :id => team.id
+        get :edit, id: team.id
       end
 
       it { response.should redirect_to(new_user_session_path) }
@@ -151,48 +167,50 @@ describe TeamsController do
 
   describe 'POST update' do
     let(:team) { FactoryGirl.create(:team) }
-    let(:common_params) { { :locale => 'pt-BR' } }
     let(:valid_params) do
       {
-        :team => { :name => 'uSport Team', :sport_type => 'football' }, :id => team.id
-      }.merge(common_params)
+        team: { name: 'uSport Team', sport_type: 'football' }, id: team.id
+      }
     end
 
     context 'when logged' do
-      before do
-        controller.stub(:current_user => user)
-      end
 
-      context 'with valid params' do
+      context 'as an associated' do
         before do
-          post :update, valid_params
+          controller.stub(current_user: user)
+          UserTeamAssociation.create(user: user, team: team, role: :manager)
         end
 
-        it { should set_the_flash[:notice].to('Time atualizado!') }
+        context 'with valid params' do
+          before do
+            post :update, valid_params
+          end
 
-        it { response.should be_redirect }
+          it { should set_the_flash[:notice].to('Time atualizado!') }
 
-        it { should redirect_to(root_path) }
-      end # context 'with valid params'
+          it { response.should be_redirect }
 
-      context 'with invalid params' do
-        let(:invalid_params) do
-          {
-            :team => { :name => '', :sport_type => 'football' },
-            :id => team.id
-          }.merge(common_params)
-        end
+          it { should redirect_to(root_path) }
+        end # context 'with valid params'
 
-        before do
-          post :update, invalid_params
-        end
+        context 'with invalid params' do
+          let(:invalid_params) do
+            {
+              team: { name: '', sport_type: 'football' }, id: team.id
+            }
+          end
 
-        it { should set_the_flash[:error].to('Ops! Não foi possível atualizar o time.').now }
+          before do
+            post :update, invalid_params
+          end
 
-        it { response.should be_success }
+          it { should set_the_flash[:error].to('Ops! Não foi possível atualizar o time.').now }
 
-        it { should render_template(:edit) }
-      end # context 'with invalid params'
+          it { response.should be_success }
+
+          it { should render_template(:edit) }
+        end # context 'with invalid params'
+      end # context 'as an associated'
     end # context 'when logged'
 
     context 'when not logged' do
@@ -210,27 +228,31 @@ describe TeamsController do
     let(:team) { FactoryGirl.create(:team) }
 
     context 'when logged' do
-      before do
-        controller.stub(:current_user => user)
-        post :destroy, :locale => 'pt-BR', :id => team.id
-      end
 
-      it 'destroys the team' do
-        expect {
-          Team.find(team.id)
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
+      context 'as an associated' do
+        before do
+          controller.stub(current_user: user)
+          UserTeamAssociation.create(user: user, team: team, role: :manager)
+          post :destroy, id: team.id
+        end
 
-      it { should set_the_flash[:notice].to('Time removido!') }
+        it 'destroys the team' do
+          expect {
+            Team.find(team.id)
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
 
-      it { response.should be_redirect }
+        it { should set_the_flash[:notice].to('Time removido!') }
 
-      it { should redirect_to(root_path) }
+        it { response.should be_redirect }
+
+        it { should redirect_to(root_path) }
+      end # context 'as an associated'
     end # context 'when logged'
 
     context 'when not logged' do
       before do
-        post :destroy, :locale => 'pt-BR', :id => team.id
+        post :destroy, id: team.id
       end
 
       it { response.should redirect_to(new_user_session_path) }

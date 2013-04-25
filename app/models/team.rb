@@ -3,6 +3,8 @@ class Team < ActiveRecord::Base
   attr_accessible :name, :abbreviation, :players, :sport_type, :avatar, :is_official
 
   # Associações
+  has_many :users, through: :user_team_associations
+  has_many :user_team_associations, dependent: :destroy
   has_many :players
   has_many :moves
   has_and_belongs_to_many :matches

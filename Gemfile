@@ -30,6 +30,8 @@ gem 'delayed_job_active_record'
 
 gem 'paperclip-dropbox'
 
+gem 'enumerize'
+
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'

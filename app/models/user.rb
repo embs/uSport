@@ -9,12 +9,18 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :first_name, :last_name, :username, :avatar
 
-  # Associações
+  # Associações com canais
   has_many :user_channel_associations, dependent: :destroy
   has_many :channels, through: :user_channel_associations
   has_many :user_favorite_channels, dependent: :destroy
   has_many :favorite_channels, through: :user_favorite_channels,
            source: :channel
+
+  # Associações com times
+  has_many :user_team_associations, dependent: :destroy
+  has_many :teams, through: :user_team_associations
+
+  # Associações diversas
   has_many :comments
   has_many :authentications, dependent: :destroy
   has_attached_file :avatar, storage: :dropbox,

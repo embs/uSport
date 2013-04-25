@@ -25,6 +25,7 @@ class TeamsController < ApplicationController
     @team = Team.new(params[:team])
     authorize! :create, @team
     if @team.save
+      UserTeamAssociation.create(user: current_user, team: @team, role: :owner)
       flash[:notice] = 'Time criado!'
       redirect_to teams_path
     else

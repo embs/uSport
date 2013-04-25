@@ -65,6 +65,8 @@ GEM
     diff-lcs (1.2.1)
     dropbox-sdk (1.5.1)
       json
+    enumerize (0.5.1)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -217,6 +219,7 @@ DEPENDENCIES
   debugger
   delayed_job_active_record
   devise
+  enumerize
   factory_girl_rails
   faker
   jquery-rails

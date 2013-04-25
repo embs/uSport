@@ -13,6 +13,8 @@ describe Team do
   it { should have_many(:moves) }
   it { should have_and_belong_to_many :matches }
   it { should have_attached_file(:avatar) }
+  it { should have_many(:user_team_associations) }
+  it { should have_many(:users).through(:user_team_associations) }
 
   # Validações
   it { should validate_presence_of(:name) }
