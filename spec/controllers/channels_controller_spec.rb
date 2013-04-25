@@ -190,7 +190,7 @@ describe ChannelsController do
   describe 'POST update' do
     let(:channel) { FactoryGirl.create(:channel) }
     let(:common_params) do
-      { :locale => 'pt-BR',:user_id => channel.owner.id, :id => channel.id }
+      { user_id: channel.owner.id, id: channel.id }
     end
 
     context 'when logged as channels owner' do
@@ -257,6 +257,28 @@ describe ChannelsController do
 
             it { should render_template(:edit) }
           end # context 'and key is not a valid username'
+
+          context 'and key is an empty string' do
+            before do
+              valid_params.merge!( collaborator: { username: '' })
+              post :update, valid_params
+            end
+
+            it { should set_the_flash[:notice].to('Os dados do canal foram atualizados.') }
+
+            it 'returns http success' do
+              response.should be_redirect
+            end
+
+            it { should redirect_to(channel_path(channel)) }
+
+            it 'updates_channel' do
+              c = Channel.find(channel.id) # Carrega o canal atualizado
+              valid_params[:channel].each do |attr_name, attr_value|
+                c.send(attr_name).should == attr_value
+              end
+            end
+          end # context 'and key is an empty string'
         end # context 'which does have collaborator key'
       end # context 'with valid params'
 
