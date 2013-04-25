@@ -45,7 +45,11 @@ describe 'Team ability' do
         UserTeamAssociation.create(user: team_owner, team: team, role: :owner)
       end
 
-      it 'is able to manage his team' do
+      it 'is able to edit his team' do
+        subject.should be_able_to(:edit, team)
+      end
+
+      it 'is able to manage (which includes deletetion of) his team' do
         subject.should be_able_to(:manage, team)
       end
     end
@@ -57,8 +61,12 @@ describe 'Team ability' do
         UserTeamAssociation.create(user: team_manager, team: team, role: :manager)
       end
 
-      it 'is able to manage the team' do
-        subject.should be_able_to(:manage, team)
+      it 'is able to edit the team' do
+        subject.should be_able_to(:edit, team)
+      end
+
+      it 'is not able to manage (which includes deletetion of) the team' do
+        subject.should_not be_able_to(:manage, team)
       end
     end
   end

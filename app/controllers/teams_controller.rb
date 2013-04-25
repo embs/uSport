@@ -36,12 +36,12 @@ class TeamsController < ApplicationController
 
   def edit
     @team = Team.find(params[:id])
-    authorize! :manage, @team
+    authorize! :edit, @team
   end
 
   def update
     @team = Team.find(params[:id])
-    authorize! :manage, @team
+    authorize! :edit, @team
     if @team.update_attributes(params[:team])
       flash[:notice] = 'Time atualizado!'
       redirect_to root_path
@@ -56,6 +56,6 @@ class TeamsController < ApplicationController
     authorize! :manage, @team
     @team.destroy
     flash[:notice] = 'Time removido!'
-    redirect_to root_path
+    redirect_to :back
   end
 end

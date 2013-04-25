@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20130425005101) do
   create_table "user_team_associations", :force => true do |t|
     t.integer  "user_id"
     t.integer  "team_id"
+    t.string   "role"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

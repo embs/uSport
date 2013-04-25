@@ -228,11 +228,14 @@ describe TeamsController do
     let(:team) { FactoryGirl.create(:team) }
 
     context 'when logged' do
+      before do
+        request.env['HTTP_REFERER'] = 'back' # necessário para o redirect_to :back
+        controller.stub(current_user: user)
+      end
 
-      context 'as an associated' do
+      context 'as the team owner' do
         before do
-          controller.stub(current_user: user)
-          UserTeamAssociation.create(user: user, team: team, role: :manager)
+          UserTeamAssociation.create(user: user, team: team, role: :owner)
           post :destroy, id: team.id
         end
 
@@ -246,7 +249,24 @@ describe TeamsController do
 
         it { response.should be_redirect }
 
-        it { should redirect_to(root_path) }
+        it { should redirect_to('back') }
+      end # context 'as an associated'
+
+      context 'as an associated' do
+        before do
+          UserTeamAssociation.create(user: user, team: team, role: :manager)
+          post :destroy, id: team.id
+        end
+
+        it 'does not destroy the team' do
+          expect {
+            Team.find(team.id)
+          }.to_not raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it { response.should be_redirect }
+
+        it { should set_the_flash[:alert] }
       end # context 'as an associated'
     end # context 'when logged'
 

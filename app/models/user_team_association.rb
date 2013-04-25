@@ -9,4 +9,7 @@ class UserTeamAssociation < ActiveRecord::Base
   # Associações
   belongs_to :user
   belongs_to :team
+
+  # Validações
+  validates_presence_of :user, :team, :role
 end
