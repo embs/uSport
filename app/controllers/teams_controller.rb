@@ -3,12 +3,7 @@ class TeamsController < ApplicationController
 
   def index
     authorize! :show, Team
-    @teams = Team.all
-    @active_page = "AllTeams"
-    if params[:user_id]
-      flash.now[:notice] = "Em breve você poderá navegar entre times filtrando
-        apenas aqueles que você pode moderar. Aguarde!"
-    end
+    @teams = user_teams_or_all
   end
 
   def show
@@ -44,7 +39,7 @@ class TeamsController < ApplicationController
     authorize! :edit, @team
     if @team.update_attributes(params[:team])
       flash[:notice] = 'Time atualizado!'
-      redirect_to root_path
+      redirect_to teams_path
     else
       flash.now[:error] = 'Ops! Não foi possível atualizar o time.'
       render 'edit'
@@ -57,5 +52,19 @@ class TeamsController < ApplicationController
     @team.destroy
     flash[:notice] = 'Time removido!'
     redirect_to :back
+  end
+
+  private
+
+  # Retorna somente os times de um usuário especificado por params[:user_id] ou
+  # retorna todos os times se o params[:user_id] não for especificado
+  def user_teams_or_all
+    if params[:user_id]
+      @active_page = "UserTeams"
+      User.find(params[:user_id]).teams
+    else
+      @active_page = "AllTeams"
+      Team.all
+    end
   end
 end

@@ -5,15 +5,30 @@ describe TeamsController do
   let(:user) { FactoryGirl.create(:user) }
 
   describe 'GET index' do
-    before do
-      get :index
+
+    context 'for specific user teams' do
+      before do
+        get :index, user_id: user.id
+      end
+
+      it { assigns[:teams].should == user.teams }
+
+      it { response.should be_success }
+
+      it { should render_template(:index) }
+    end # context 'for specific user channels'
+
+    context 'for all teams' do
+      before do
+        get :index
+      end
+
+      it { assigns[:teams].should_not be_nil }
+
+      it { response.should be_success }
+
+      it { should render_template(:index) }
     end
-
-    it { assigns[:teams].should_not be_nil }
-
-    it { response.should be_success }
-
-    it { should render_template(:index) }
   end
 
   describe 'GET show' do
@@ -190,7 +205,7 @@ describe TeamsController do
 
           it { response.should be_redirect }
 
-          it { should redirect_to(root_path) }
+          it { should redirect_to(teams_path) }
         end # context 'with valid params'
 
         context 'with invalid params' do
