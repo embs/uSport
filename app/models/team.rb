@@ -12,8 +12,7 @@ class Team < ActiveRecord::Base
     default_url: "avatars/missing.gif",
     storage: :dropbox, dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
     dropbox_options: {
-      path: Proc.new { |style| "teams/#{id}/#{style}/#{avatar.original_filename}" },
-      unique_filename: true
+      path: Proc.new { |style| "teams/#{id}/#{style}/#{avatar.original_filename}" }
     }
 
   # Validações
