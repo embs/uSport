@@ -26,8 +26,10 @@
               </td>
               <td style="text-align: left">
                 <%= preview.matches.last.moves.last.kind %>,
-                #<%= preview.matches.last.moves.last.player.number %>
-                <%= preview.matches.last.moves.last.player.first_name %><br />
+                <% unless ['comment', 'end'].include? preview.matches.last.moves.last.kind %>
+                  #<%= preview.matches.last.moves.last.player.number %>
+                  <%= preview.matches.last.moves.last.player.first_name %><br />
+                <% end %>
                 <%= preview.matches.last.moves.last.description %><br />
                 X <i class="icon-thumbs-up"></i>
                 Y <i class="icon-comment"></i>
