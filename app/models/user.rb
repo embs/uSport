@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
     default_url: "avatars/missing.gif",
     styles: { :thumb => ["128x128#", :png], mini: ["27x27#", :png] },
     dropbox_options: {
-      path: Proc.new { |style| "users/#{id}/#{style}/#{avatar.original_filename}" }
+      path: Proc.new { |style| "users/#{id}/#{style}/#{avatar.original_filename}" },
+      unique_filename: true
     }
 
   # Validações
