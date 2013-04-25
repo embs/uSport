@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe MovesController do
@@ -72,22 +73,47 @@ describe MovesController do
     let(:team) { FactoryGirl.create(:team) }
     let(:player) { FactoryGirl.create(:player, first_name: 'Jogador', team: team) }
 
-    before do
-      controller.stub(current_user: user)
-      post :create, user_id: match.channel.owner, channel_id: match.channel,
-        match_id: match, move: { player: "##{player.number} #{player.first_name}",
-          team: team.id, kind: 'touchdown', yards: -50
-        }, format: :js
-    end
+    context 'a touchdown' do
+      before do
+        controller.stub(current_user: user)
+        post :create, user_id: match.channel.owner, channel_id: match.channel,
+          match_id: match, move: { player: "##{player.number} #{player.first_name}",
+            team: team.id, kind: 'touchdown', yards: -50
+          }, format: :js
+      end
 
-    it 'creates new move' do
-      Move.last.should_not be_nil
-    end
+      it 'creates new move' do
+        Move.last.should_not be_nil
+      end
 
-    it 'creates move with negative yards' do
-      Move.last.yards.should < 0
-    end
-  end
+      it 'creates move with negative yards' do
+        Move.last.yards.should < 0
+      end
+    end # context 'a touchdown'
+
+    context 'a comment' do
+      before do
+        controller.stub(current_user: user)
+        post :create, user_id: match.channel.owner, channel_id: match.channel,
+          match_id: match, move: { player: '',
+            team: team.id, kind: 'comment', yards: '', quarter: '0',
+            description: 'Esta é uma jogada de comentário'
+          }, format: :js
+      end
+
+      it 'creates new move' do
+        Move.last.should_not be_nil
+      end
+
+      it 'creates move with comment kind' do
+        Move.last.kind.should == 'comment'
+      end
+
+      it 'creates move with negative yards' do
+        Move.last.description.should == 'Esta é uma jogada de comentário'
+      end
+    end # context 'a comment'
+  end # describe 'POST create'
 
   describe 'GET edit' do
     let(:move) { FactoryGirl.create(:move) }

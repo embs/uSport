@@ -54,16 +54,16 @@ class MovesController < ApplicationController
 
   def create
     team = Team.find(params[:move].delete(:team))
+    @match = Match.find(params[:match_id])
     unless params[:move][:kind] == 'comment' || params[:move][:kind] == 'end'
       player = team.find_player_by_text_input(params[:move][:player])
+      authorize! :manage, Move.new(match: @match)
+      unless player
+        render js: "$('#player input').val(''); $('#player input').attr('placeholder', 'Informe um jogador válido'); $('#player input').focus();" and return
+      end
     end
     params[:move].delete(:player)
-    @match = Match.find(params[:match_id])
     points = find_points(params[:move][:kind])
-    unless player
-      authorize! :manave, Move.new(match: @match)
-      render js: "$('#player input').val(''); $('#player input').attr('placeholder', 'Informe um jogador válido'); $('#player input').focus();" and return
-    end
     @move = Move.create(params[:move]) do |move|
       move.player = player
       move.team = team
