@@ -18,6 +18,8 @@ class Move < ActiveRecord::Base
       "Comentário do transmissor"
     when 'end'
       "Fim de partida"
+    when 'time'
+      "Timeout!"
     else
       "#{self.kind.capitalize}, #{self.player.try(:first_name)} (##{self.player.try(:number)})!"
     end
@@ -40,7 +42,7 @@ class Move < ActiveRecord::Base
     when "turnover"
 
     when "time"
-
+      "Pedido de tempo dos #{self.team.name}"
     when "touchdown-run"
       "O jogador correu #{self.yards} jardas até a endzone! 6 pontos para o(s) #{self.team.name}!"
     when "touchdown-pass"

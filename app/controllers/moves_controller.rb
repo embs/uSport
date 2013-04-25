@@ -55,7 +55,7 @@ class MovesController < ApplicationController
   def create
     team = Team.find(params[:move].delete(:team))
     @match = Match.find(params[:match_id])
-    unless params[:move][:kind] == 'comment' || params[:move][:kind] == 'end'
+    unless ['comment', 'end', 'time'].include?(params[:move][:kind])
       player = team.find_player_by_text_input(params[:move][:player])
       authorize! :manage, Move.new(match: @match)
       unless player
@@ -113,7 +113,8 @@ class MovesController < ApplicationController
       ["Fieldgoal", "fieldgoal"],
       ["Pass", "pass"],
       ["Sack", "sack"],
-      ["Interception", "interception"]
+      ["Interception", "interception"],
+      ["Comentário", "comment"]
     ]
     @minutes = [["--", 0]]
     15.times do |n|
@@ -128,11 +129,13 @@ class MovesController < ApplicationController
   def update
     @move = Move.find(params[:id])
     authorize! :manage, @move
-    team = Team.find(params[:move].delete(:team))
-    player = Player.find_by_text_input(params[:move].delete(:player))
+    team = Team.find(params[:move].delete(:team)) if params[:move][:team]
+    if params[:move][:player]
+      player = Player.find_by_text_input(params[:move].delete(:player))
+    end
     @move.update_attributes(params[:move])
-    @move.player = player
-    @move.team = team
+    @move.player = player if player
+    @move.team = team if team
     if @move.save
       flash[:notice] = 'Jogada atualizada!'
       redirect_to match_path(@move.match)

@@ -79,6 +79,18 @@ $(function(){
 			$('#submit').val('Criar Comentário');
 			$('#game-over').hide();
 		}
+		else if (kind == 'time') {
+			$('#touchdown-kind').hide();
+			$('#team').show();
+			$('#player').hide();
+			$('#player input').removeAttr('required');
+			$('#yards').hide();
+			$('#quarter').hide();
+			$('#description').show();
+			$('#move_description').attr('placeholder',
+				'Você pode descrever esse lance aqui');
+			$('#game-over').hide();
+		}
 		else {
 			$('#touchdown-kind').hide();
 			$('#team').show();
