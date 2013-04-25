@@ -8,6 +8,7 @@ describe User do
   it { should respond_to :username }
   it { should respond_to :channels }
   it { should respond_to :comments }
+  it { should respond_to :role }
 
   # Associações
   it { should have_many(:channels).through(:user_channel_associations) }
@@ -26,6 +27,7 @@ describe User do
   it { should validate_presence_of :username }
   it { should validate_uniqueness_of :username }
   it { User.observers.disable(:all) { should validate_uniqueness_of(:email) } }
+  it { should validate_presence_of :role }
 
   describe '#create_with_omniauth' do
     before do

@@ -18,7 +18,7 @@ class Ability
   protected
 
   def execute_rules(user)
-    # can(:manage, :all) { |obj| obj } if user.try(:is_admin?)
+    can(:manage, :all) { |obj| obj } if user.try(:role).try(:admin?)
 
     methods.select { |m| m =~ /.+_abilities$/ }.each do |m|
       send(m, user)

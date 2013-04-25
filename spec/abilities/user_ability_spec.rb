@@ -23,5 +23,13 @@ describe 'User ability' do
     it 'should not be able to manage another user' do
       subject.should_not be_able_to(:manage, another_user)
     end
+
+    context 'an admin' do
+      before { user.update_attribute(:role, :admin) }
+
+      it 'can manage everything' do
+        subject.should be_able_to :manage, :all
+      end
+    end
   end
 end

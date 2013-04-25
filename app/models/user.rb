@@ -1,13 +1,17 @@
 class User < ActiveRecord::Base
+  extend Enumerize
+
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+    :first_name, :last_name, :username, :avatar
+
+  # Atributos
+  enumerize :role, in: [:admin, :user], default: :user
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :first_name, :last_name, :username, :avatar
 
   # Associações com canais
   has_many :user_channel_associations, dependent: :destroy
@@ -32,7 +36,7 @@ class User < ActiveRecord::Base
     }
 
   # Validações
-  validates_presence_of :first_name, :last_name, :email, :username
+  validates_presence_of :first_name, :last_name, :email, :username, :role
   validates_uniqueness_of :username
 
   def self.create_with_omniauth(auth)

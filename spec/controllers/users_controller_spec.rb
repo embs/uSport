@@ -37,12 +37,12 @@ describe UsersController do
 
   describe 'POST update' do
     let(:params) do
-      { :user => { :first_name => 'Darth' }, :locale => 'pt-BR', :id => user.id }
+      { user: { first_name: 'Darth' }, id: user.id }
     end
 
     context 'when logged as account owner' do
       before do
-        controller.stub(:current_user => user)
+        controller.stub(current_user: user)
       end
 
       context 'with valid fields' do
