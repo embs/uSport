@@ -12,6 +12,19 @@ class Move < ActiveRecord::Base
   # Validações
   validates_presence_of :kind, :match #, :player
 
+  def self.points_for(move_kind)
+    case move_kind
+    when 'touchdown-run', 'touchdown-pass', 'touchdown-return'
+      6
+    when 'fieldgoal'
+      3
+    when 'extrapoint'
+      1
+    else
+      0
+    end
+  end
+
   def main
     case self.kind
     when 'comment'

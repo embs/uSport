@@ -63,7 +63,7 @@ class MovesController < ApplicationController
       end
     end
     params[:move].delete(:player)
-    points = find_points(params[:move][:kind])
+    points = Move.points_for(params[:move][:kind])
     @move = Move.create(params[:move]) do |move|
       move.player = player
       move.team = team
@@ -149,7 +149,7 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     team = @move.team
     @match = @move.match
-    points = find_points(@move.kind)
+    points = Move.points_for(@move.kind)
     authorize! :manage, @move
     # Atualiza o placar da partida
     if team == @match.teams[0]
@@ -167,18 +167,4 @@ class MovesController < ApplicationController
       format.js
     end
   end
-
-  private
-
-  def find_points(move_kind)
-    case move_kind
-    when "fieldgoal"
-      3
-    when "touchdown"
-      6
-    else
-      0
-    end
-  end
-
 end
