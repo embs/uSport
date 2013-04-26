@@ -30,6 +30,13 @@
       :placeholder => 'Nome de usuário desejado' %>
     <span class="help-block">Ex.: mike</span>
 
+    <%= f.label :tos, class: 'checkbox' do %>
+      <%= f.check_box :tos %> Aceito os
+      <%= link_to 'Termos de Serviço', 'http://blog.quince.com.br/tos', target: '_blank' %>
+      do uSport
+    <% end %>
+    <br />
+
     <div><%= f.submit nil, :class => 'btn' %></div>
   </fieldset>
 <% end %>

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   extend Enumerize
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :first_name, :last_name, :username, :avatar
+    :first_name, :last_name, :username, :avatar, :tos
 
   # Atributos
   enumerize :role, in: [:admin, :user], default: :user
@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username, :role
   validates_uniqueness_of :username
+  validates :tos, acceptance: true
 
   def self.create_with_omniauth(auth)
     User.create do |user|
