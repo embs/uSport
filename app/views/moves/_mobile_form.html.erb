@@ -13,7 +13,7 @@
       disabled: true %>
   </div>
 
-  <% unless ['end'].include?(@move.kind) %>
+  <% unless ['end', 'comment'].include?(@move.kind) %>
     <div>
       <%= f.label :team %>
       <%= f.select :team,
