@@ -34,7 +34,7 @@ class Move < ActiveRecord::Base
     when 'time'
       "Timeout!"
     else
-      "#{self.kind.capitalize}, #{self.player.try(:first_name)} (##{self.player.try(:number)})!"
+      "#{self.kind.capitalize}, #{self.player.try(:display_name)} (##{self.player.try(:number)})!"
     end
   end
 
