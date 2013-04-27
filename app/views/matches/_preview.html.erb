@@ -46,7 +46,11 @@
           </tr>
           <tr>
             <td colspan="3">
-              <p><%= preview.place %></p>
+              <% if preview.place? %>
+                <p><%= preview.place %></p>
+              <% else %>
+                <p><%= "--"%><p>
+              <% end %>  
               <p><%= l preview.date, format: :short %></p>
             </td>
           </tr>
