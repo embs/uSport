@@ -1,17 +1,26 @@
 <% content_for(:include_js) { 'landing' } %>
 <div class = "span12 well" >
-  <div class="span4" style ="margin-left: 10px;" >
+  <div class="span4" style ="padding-top:25px;" >
     <%= image_tag 'PvsS.jpg', style: 'width: 330px' %>
-  </div>
-
-  <div class = "span6"  >
-    <p align= "Justify" style = "font-size: 25px; color: rgb(30,30,30); font-family: arial; margin-top: 5px;"> Recife Pirates Vs Scorpions Natal. 
+  </div><br />
+  <div class="span6"  >
+    <p style="font-size: 25px; color: rgb(30,30,30); font-family: arial; margin-top: 5px;">
+      Recife Pirates Vs Scorpions de Natal
+      <legend>Estádio Municipal de Camaragibe, 19h</legend>
     </p>
-    <p align= "Justify" style = "font-size: 18px; color: rgb(30,30,30); font-family: arial;">
-      Hoje à noite os usuários do uSport vão poder transmitir esse grande jogo! Quem estiver no Estádio Municipal de Camaragibe mais tarde pode acessar o site para transmitir a partida e quem estiver em casa pode acessar para acompanhar o lance-a-lance.
+    <p style="font-size: 18px; color: rgb(30,30,30); font-family: arial;">
+      Hoje à noite os fãs de futebol americano vão poder transmitir esse grande
+      jogo! Se você for assistir à partida mais tarde, poderá acessar o uSport e
+      transmitir todos os lances. Mas se você não puder ir, ainda assim poderá
+      acompanhar as transmissões e ficar por dentro de tudo que está rolando no
+      jogo.
     </p>
-    <p align= "Justify" style = "font-size: 18px; color: rgb(30,30,30); font-family: arial;  ">
-      Criar uma partida é muito fácil: basta clicar em “Transmitir”. Se você encontrar alguma dificuldade ou tiver qualquer dúvida / sugestão sobre o uSport, pode mandar para a gente! Nosso endereço de e-mail é contato@quince.com.br
+    <p style="font-size: 18px; color: rgb(30,30,30); font-family: arial;  ">
+      Criar uma partida é muito fácil: basta clicar em
+      <%= link_to 'Transmitir!', new_match_path(channel_id: current_user.try(:channels).try(:first)) %>
+      Se você tiver alguma dificuldade, dúvida ou sugestão sobre o uSport, basta
+      enviar um e-mail para
+      <%= link_to 'contato@quince.com.br', 'mailto:contato@quince.com.br' %>
     </p>
   </div>
 </div>
