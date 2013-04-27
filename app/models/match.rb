@@ -10,4 +10,5 @@ class Match < ActiveRecord::Base
 
   # Validações
   validates_presence_of :date, :name, :channel
+  validates_length_of :name, in: 5..80
 end

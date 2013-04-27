@@ -29,6 +29,7 @@ describe User do
   it { User.observers.disable(:all) { should validate_uniqueness_of(:email) } }
   it { should validate_presence_of :role }
   it { should validate_acceptance_of :tos }
+  it { should ensure_length_of(:username).is_at_least(5).is_at_most(50) }
 
   describe '#create_with_omniauth' do
     before do

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :email, :username, :role
   validates_uniqueness_of :username
   validates :tos, acceptance: true
+  validates_length_of :username, in: 5..50
 
   def self.create_with_omniauth(auth)
     User.create do |user|

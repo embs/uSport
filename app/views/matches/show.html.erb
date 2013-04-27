@@ -7,7 +7,9 @@
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
     <%= image_tag(@match.channel.avatar(:thumb)) %>
-    <h3><%= @match.channel.name %></h3>
+    <h4 title='<%= @match.channel.name %>'>
+      <%= @match.channel.name.truncate(15) %>
+    </h4>
     <ul class="nav nav-list">
       <li>
         <%= link_to 'Página do Canal', channel_path(@match.channel) %>

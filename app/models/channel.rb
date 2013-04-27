@@ -18,6 +18,7 @@ class Channel < ActiveRecord::Base
 
   # Validação
   validates_presence_of :name
+  validates_length_of :name, in: 5..50
 
   def is_favorite_of?(user)
     return false unless user

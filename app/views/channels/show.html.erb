@@ -3,8 +3,9 @@
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
     <%= image_tag(@channel.avatar(:thumb)) %>
-    <h4>
-      <%= @channel.name %> <%= show_heart_if_favorite(current_user, @channel).html_safe %>
+    <h4 title='<%= @channel.name %>'>
+      <%= @channel.name.truncate(15) %>
+      <%= show_heart_if_favorite(current_user, @channel).html_safe %>
     </h4>
     <dl>
       <% if @channel.description %>
