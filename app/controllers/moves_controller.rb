@@ -3,7 +3,8 @@ class MovesController < ApplicationController
 
   # carrega jogadas de uma partida por javascript
   def index
-    @moves = Match.find(params[:match_id]).moves.order('created_at DESC').page(params[:page])
+    @moves = Match.find(params[:match_id]).moves.includes(:team, :match, :player).
+      order('created_at DESC').page(params[:page])
     authorize! :show, Move
     respond_to do |format|
       format.js
