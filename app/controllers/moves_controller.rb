@@ -26,22 +26,13 @@ class MovesController < ApplicationController
     @match = Match.find(params[:match_id])
     authorize! :manage, @match
     @move = Move.new
-    @kinds = [
-      ["Punt", "punt"],
-      ["Extrapoint", "extrapoint"],
-      ["Penalty", "penalty"],
-      ["Kickoff", "kickoff"],
-      ["Fumble", "fumble"],
-      ["Tackle", "tackle"],
-      ["Run", "run"],
-      ["Turnover", "turnover"],
-      ["Time", "time"],
+    @kinds = [["Punt", "punt"], ["Extrapoint", "extrapoint"], ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"], ["Fumble", "fumble"], ["Tackle", "tackle"],
+      ["Run", "run"], ["Turnover", "turnover"], ["Time", "time"],
       ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
-      ["Touchdown (Passe)", "touchdown-pass"],
-      ["Fieldgoal", "fieldgoal"],
-      ["Pass", "pass"],
-      ["Sack", "sack"],
-      ["Interception", "interception"]]
+      ["Touchdown (Passe)", "touchdown-pass"], ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"], ["Sack", "sack"], ["Interception", "interception"],
+      ["Comentário", "comment"], ["Fim de Jogo", "end"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -99,23 +90,13 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     @match = @move.match
     authorize! :manage, @move
-    @kinds = [
-      ["Punt", "punt"],
-      ["Extrapoint", "extrapoint"],
-      ["Penalty", "penalty"],
-      ["Kickoff", "kickoff"],
-      ["Fumble", "fumble"],
-      ["Tackle", "tackle"],
-      ["Run", "run"],
-      ["Turnover", "turnover"],
-      ["Time", "time"],
-      ["Touchdown", "touchdown"],
-      ["Fieldgoal", "fieldgoal"],
-      ["Pass", "pass"],
-      ["Sack", "sack"],
-      ["Interception", "interception"],
-      ["Comentário", "comment"]
-    ]
+    @kinds = [["Punt", "punt"], ["Extrapoint", "extrapoint"], ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"], ["Fumble", "fumble"], ["Tackle", "tackle"],
+      ["Run", "run"], ["Turnover", "turnover"], ["Time", "time"],
+      ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
+      ["Touchdown (Passe)", "touchdown-pass"], ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"], ["Sack", "sack"], ["Interception", "interception"],
+      ["Comentário", "comment"], ["Fim de Jogo", "end"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]

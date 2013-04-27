@@ -9,8 +9,12 @@
 
   <div>
     <%= f.label :kind %>
-    <%= f.select :kind, options_for_select(@kinds, @move.kind), {},
-      disabled: true %>
+    <% if action == 'update' %>
+      <%= f.select :kind, options_for_select(@kinds, @move.kind), {},
+        disabled: true %>
+    <% else %>
+      <%= f.select :kind, options_for_select(@kinds, @move.kind) %>
+    <% end %>
   </div>
 
   <% unless ['end', 'comment'].include?(@move.kind) %>
