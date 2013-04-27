@@ -82,6 +82,18 @@ class MatchesController < ApplicationController
     redirect_to match_path(match)
   end
 
+  def destroy
+    @match = Match.find(params[:id])
+    authorize! :manage, @match
+    if @match.destroy
+      flash[:notice] = 'Partida removida!'
+      redirect_to channel_path(@match.channel)
+    else
+      flash[:error] = 'Ops! Não foi possível remover a partida.'
+      redirect_to match_path(@match)
+    end
+  end
+
   def score
     @match = Match.find(params[:id])
   end

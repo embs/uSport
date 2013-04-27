@@ -67,6 +67,16 @@
     <div class="well">
       <h1>
         <%= link_to m.name, match_path(m)%>
+        <% if can? :manage, m %>
+          <%= link_to edit_match_path(m), class: 'btn', title: 'Editar Partida' do %>
+            <i class="icon-cog"></i>
+          <% end %>
+          <%= link_to match_path(m), class: 'btn btn-danger', title: 'Remover Partida',
+            method: :delete, confirm: 'A remoção da partida não pode ser desfeita.
+            Confirmar remoção?' do %>
+            <i class="icon-trash icon"></i>
+          <% end %>
+        <% end %>
       </h1>
       <%= m.teams[0].name %>
       <%= image_tag m.teams[0].avatar(:thumb) %>

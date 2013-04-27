@@ -207,6 +207,25 @@ describe MatchesController do
     end
   end
 
+  describe 'DELETE destroy' do
+    let(:match) { FactoryGirl.create :match }
+
+    before do
+      controller.stub(current_user: match.channel.owner)
+      delete :destroy, id: match
+    end
+
+    it 'deletes the match' do
+      expect {
+        Match.find(match.id)
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it { response.should be_redirect }
+
+    it { should set_the_flash[:notice] }
+  end
+
   describe 'POST auth' do
     let(:match) { FactoryGirl.create :match }
 
