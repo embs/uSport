@@ -40,7 +40,7 @@ class MatchesController < ApplicationController
   end
 
   def create
-    channel = Channel.find(params[:channel_id])
+    channel = Channel.find(params[:football_match][:channel_id])
     authorize! :manage, channel
     teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
     @teams = Team.all
