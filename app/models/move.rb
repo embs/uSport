@@ -41,33 +41,37 @@ class Move < ActiveRecord::Base
   def message
     case self.kind
     when "punt"
-      "Retorno de #{self.yards} jardas."
+      "Retorno de #{self.yards} jardas." if self.yards
     when "extrapoint"
 
     when "penalty"
 
     when "kickoff"
-      "A partida é iniciada!"
+      "Chute de #{self.yards} jardas." if self.yards
     when "fumble"
       "O jogador deixou a bola cair."
     when "run"
-      "O jogador teve um ganho de #{self.yards} jardas."
+      "O jogador teve um ganho de #{self.yards} jardas." if self.yards
     when "turnover"
 
     when "time"
-      "Pedido de tempo dos #{self.team.name}"
+      "Pedido de tempo dos #{self.team.name}" if self.team
     when "touchdown-run"
-      "O jogador correu #{self.yards} jardas até a endzone! 6 pontos para o(s) #{self.team.name}!"
+      if self.yards
+        "O jogador correu #{self.yards} jardas até a endzone! 6 pontos para o(s) #{self.team.name}!"
+      end
     when "touchdown-pass"
 
     when "touchdown-return"
 
     when "fieldgoal"
-      "3 pontos para o(s) #{self.team.name}!"
+      "3 pontos para o(s) #{self.team.name}!" if self.team
     when "pass"
-      "Passe de QB para WR para um ganho de #{self.yards} jardas."
+      "Passe de QB para WR para um ganho de #{self.yards} jardas." if self.yards
     when "sack"
-      "O quarterback foi derrubado para uma perda de #{self.yards} jardas."
+      if self.yards
+        "O quarterback foi derrubado para uma perda de #{self.yards} jardas."
+      end
     when "interception"
       "Após passe do quarterback, a bola foi interceptada!"
     when "comment"
