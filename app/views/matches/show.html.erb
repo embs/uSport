@@ -23,6 +23,7 @@
     </ul>
   </div>
 <% end %>
+
 <style>
     div.sc_menu {
       /* Set it so we could calculate the offsetLeft */
@@ -69,6 +70,14 @@
       height: 80px;
     }
   </style>
+
+<div id='pusher-warning' class='alert' style='display: none'>
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Atenção!</strong> Estamos buscando uma solução ilimitada para a quantidade
+  de espectadores que recebem atualizações em tempo real. Por enquanto, essa
+  capacidade é limitada e foi ultrapassada. Para visualizar novos lances,
+  por favor, recarregue a página.
+</div>
 
 <% if can? :create, @move %>
   <div id="NewMoveForm" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
