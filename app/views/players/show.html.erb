@@ -5,7 +5,7 @@
       <h4>Nome: <%= @player.display_name %></h4>
       <h4>Número: <%= @player.number %></h4>
       <h4>Time: <%= @player.team.name %></h4>
-      <%= image_tag @player.team.avatar(:thumb) %><br />
+      <%= image_tag @player.team.avatar(:thumb_90) %><br />
       <% if can? :manage, @player %>
         <%= link_to edit_player_path(@player),
           class: 'btn' do %>
