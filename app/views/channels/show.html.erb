@@ -2,7 +2,7 @@
 
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
-    <%= image_tag(@channel.avatar(:thumb)) %>
+    <%= image_tag(@channel.avatar(:thumb_140), class: 'img img-polaroid') %>
     <h4 title='<%= @channel.name %>'>
       <%= @channel.name.truncate(15) %>
       <%= show_heart_if_favorite(current_user, @channel).html_safe %>
@@ -79,11 +79,11 @@
         <% end %>
       </h1>
       <%= m.teams[0].name %>
-      <%= image_tag m.teams[0].avatar(:thumb) %>
+      <%= image_tag m.teams[0].avatar(:thumb_90) %>
       <%= m.value1.to_s %>
       X
       <%= m.value2.to_s %>
-      <%= image_tag m.teams[1].avatar(:thumb) %>
+      <%= image_tag m.teams[1].avatar(:thumb_90) %>
       <%= m.teams[1].name %>
     </div>
   <% end %>

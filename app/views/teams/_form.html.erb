@@ -8,7 +8,7 @@
   <%= f.label :sport_type %>
   <%= f.select :sport_type,
     options_for_select([["Futebol Americano", "football"]]) %><br />
-  <%= image_tag @team.avatar(:thumb) %>
+  <%= image_tag @team.avatar(:thumb_90) %>
   <%= f.file_field :avatar %><br />
   <%= f.submit nil, class: 'btn' %>
 <% end %>

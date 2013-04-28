@@ -105,5 +105,42 @@ module USport
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.default charset: 'utf-8'
+
+    # S3 Credentials
+    if File.exists?("#{Rails.root}/config/s3.yml")
+      config.s3_config = YAML.load_file("#{Rails.root}/config/s3.yml")
+      config.s3_credentials = config.s3_config[Rails.env]
+    end
+
+    config.paperclip = {
+      default_url: "avatars/missing.gif"
+    }
+
+    config.paperclip_user = config.paperclip.merge({
+      styles: {
+        thumb_16: '16x16#',
+        thumb_24: '24x24#',
+        thumb_32: '32x32#',
+        thumb_90: '90x90#',
+        thumb_110: '110x110#'
+      }
+    })
+
+    config.paperclip_channel = config.paperclip.merge({
+      styles: {
+        thumb_32: '32x32#',
+        thumb_90: '90x90#',
+        thumb_140: '140x140#'
+      }
+    })
+
+    config.paperclip_team = config.paperclip.merge({
+      styles: {
+        thumb_24: '24x24#',
+        thumb_32: '32x32#',
+        thumb_90: '90x90#',
+        thumb_110: '110x110#'
+      }
+    })
   end
 end
