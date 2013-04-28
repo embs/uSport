@@ -1,30 +1,5 @@
 <% content_for(:include_js) { 'landing' } %>
-<div class = "span12 well" >
-  <div class="span4" style ="padding-top:25px;" >
-    <%= image_tag 'PvsS.jpg', style: 'width: 330px' %>
-  </div><br />
-  <div class="span6"  >
-    <p style="font-size: 25px; color: rgb(30,30,30); font-family: arial; margin-top: 5px;">
-      Recife Pirates Vs Scorpions de Natal
-      <legend>Estádio Municipal de Camaragibe, 19h</legend>
-    </p>
-    <p style="font-size: 18px; color: rgb(30,30,30); font-family: arial;">
-      Hoje à noite os fãs de futebol americano vão poder transmitir esse grande
-      jogo! Se você for assistir à partida mais tarde, poderá acessar o uSport e
-      transmitir todos os lances. Mas se você não puder ir, ainda assim poderá
-      acompanhar as transmissões e ficar por dentro de tudo que está rolando no
-      jogo.
-    </p>
-    <p style="font-size: 18px; color: rgb(30,30,30); font-family: arial;  ">
-      Criar uma partida é muito fácil: basta clicar em
-      <%= link_to 'Transmitir!', new_match_path %>
-      Com a partida criada, estará pronto para transmití-la.
-      Se tiver alguma dificuldade, dúvida ou sugestão sobre o uSport,
-      envie um e-mail para
-      <%= link_to 'contato@quince.com.br', 'mailto:contato@quince.com.br' %>
-    </p>
-  </div>
-</div>
+
 <% content_for :left_side_bar do %>
   <%= render partial: 'shared/leftbar' %>
 <% end %>
