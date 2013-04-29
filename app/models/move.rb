@@ -18,6 +18,10 @@ class Move < ActiveRecord::Base
       6
     when 'fieldgoal'
       3
+    when 'safety'
+      2
+    when 'two-point-conversion'
+      2
     when 'extrapoint'
       1
     else
@@ -74,6 +78,10 @@ class Move < ActiveRecord::Base
       end
     when "interception"
       "Após passe do quarterback, a bola foi interceptada!"
+    when "safety"
+      "O quarterback foi derrubado dentro da endzone!"
+    when "two-point-conversion"
+      "Após um touchdown, o(s) #{self.team.name} fizeram uma conversão de dois pontos!"
     when "comment"
 
     when "end"

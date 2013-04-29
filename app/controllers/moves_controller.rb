@@ -33,6 +33,7 @@ class MovesController < ApplicationController
       ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
       ["Touchdown (Passe)", "touchdown-pass"], ["Fieldgoal", "fieldgoal"],
       ["Pass", "pass"], ["Sack", "sack"], ["Interception", "interception"],
+      ["Safety", "safety"], ["Two-point conversion", "two-point-conversion"],
       ["Comentário", "comment"], ["Fim de Jogo", "end"]]
     @minutes = [["--", 0]]
     15.times do |n|
@@ -97,6 +98,7 @@ class MovesController < ApplicationController
       ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
       ["Touchdown (Passe)", "touchdown-pass"], ["Fieldgoal", "fieldgoal"],
       ["Pass", "pass"], ["Sack", "sack"], ["Interception", "interception"],
+      ["Safety", "safety"], ["Two-point conversion", "two-point-conversion"],
       ["Comentário", "comment"], ["Fim de Jogo", "end"]]
     @minutes = [["--", 0]]
     15.times do |n|
