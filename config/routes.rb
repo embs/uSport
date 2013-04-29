@@ -37,6 +37,6 @@ USport::Application.routes.draw do
   get '/pusher/auth' => 'matches#auth'
   post '/pusher/auth' => 'matches#auth'
 
-  #Rota para página about, que explica o funcionamento do uSport
+  # Rota para página about, que explica o funcionamento do uSport
   get '/about' => 'landing#about'
 end
