@@ -1,6 +1,7 @@
 # encoding: utf-8
 class LandingController < ApplicationController
-
+ skip_authorization_check
+ 
   def index
   	@active_page = "Home"
     authorize! :show, Channel
