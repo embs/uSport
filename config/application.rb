@@ -106,12 +106,6 @@ module USport
     config.action_mailer.perform_deliveries = true
     config.action_mailer.default charset: 'utf-8'
 
-    # S3 Credentials
-    if File.exists?("#{Rails.root}/config/s3.yml")
-      config.s3_config = YAML.load_file("#{Rails.root}/config/s3.yml")
-      config.s3_credentials = config.s3_config[Rails.env]
-    end
-
     config.paperclip = {
       default_url: "avatars/missing.gif"
     }
