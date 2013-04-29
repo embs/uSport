@@ -15,6 +15,8 @@ pt-BR:
     interception: Interceptação
     end: Fim de Jogo
     comment: Comentário
+    safety: Safety
+    two-point-conversion: 'Conversão de 2 pts'
   unauthorized:
     manage:
       all:  "Você não está autorizado a acessar a página solicitada."

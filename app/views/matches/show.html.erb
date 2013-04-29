@@ -38,7 +38,7 @@
       display: block;
       height: 110px;
       /* Max width here, for users without Javascript */
-      width: 1600px;
+      width: 3000px;
       padding: 0px;
       /* Remove default margin */
       margin: 0;
@@ -139,7 +139,8 @@
           <li>
             <%= link_to '', class: 'linkModal', role: 'button',
               :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm",
-              value: kind, title: "#{t("moves.#{kind}")}" do %>s
+              value: kind, title: "#{t("moves.#{kind}")}" do %>
+              <%= 's' unless kind == 'punt' %>
               <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
                 style: 'width: 80px; height: 80px') %>
               <span><%= "#{t("moves.#{kind}")}" %></span>
