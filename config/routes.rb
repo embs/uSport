@@ -36,4 +36,7 @@ USport::Application.routes.draw do
   # Rota para autenticação de presença do Pusher
   get '/pusher/auth' => 'matches#auth'
   post '/pusher/auth' => 'matches#auth'
+
+  #Rota para página about, que explica o funcionamento do uSport
+  get '/about' => 'landing#about'
 end
