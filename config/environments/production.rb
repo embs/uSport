@@ -78,4 +78,12 @@ USport::Application.configure do
 
   # Configuração do ActionMailer para o Heroku
   config.action_mailer.default_url_options = { host: 'www.usport.com.br' }
+
+  # Configuração do Paperclip no ambiente de produção
+  config.paperclip = {
+    storage: :s3,
+    s3_credentials: config.s3_credentials,
+    path: ":class/:attachment/:id/:style/:basename.:extension",
+    default_url: "avatars/missing.gif"
+  }
 end

@@ -29,7 +29,7 @@
         <tbody>
           <tr>
             <td width="33%" style="text-align: right">
-              <%= image_tag(preview.teams[0].avatar(:thumb), style: "width: 50px",
+              <%= image_tag(preview.teams[0].avatar(:thumb_90), style: "width: 50px",
                 class: 'team-avatar', :'data-toggle' => 'tooltip',
                 :'data-placement' => 'top', :'data-original-title' => preview.teams[0].name) %><br />
               <%= preview.teams[0].abbreviation %>
@@ -38,7 +38,7 @@
               <h3> <%= preview.value1.to_s + " X " + preview.value2.to_s%> </h3>
             </td>
             <td width="33%" style="text-align: left">
-              <%= image_tag(preview.teams[1].avatar(:thumb),  style: "width: 50px",
+              <%= image_tag(preview.teams[1].avatar(:thumb_90),  style: "width: 50px",
                 class: 'team-avatar', :'data-toggle' => 'tooltip',
                 :'data-placement' => 'top', :'data-original-title' => preview.teams[1].name) %><br />
               <%= preview.teams[1].abbreviation %>
@@ -50,7 +50,7 @@
                 <p><%= preview.place %></p>
               <% else %>
                 <p><%= "--"%><p>
-              <% end %>  
+              <% end %>
               <p><%= l preview.date, format: :short %></p>
             </td>
           </tr>

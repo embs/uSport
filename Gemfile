@@ -30,7 +30,7 @@ gem 'pusher_rails'
 
 gem 'delayed_job_active_record'
 
-gem 'paperclip-dropbox'
+gem 'aws-sdk'
 
 gem 'enumerize'
 

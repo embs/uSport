@@ -27,13 +27,7 @@ class User < ActiveRecord::Base
   # Associações diversas
   has_many :comments
   has_many :authentications, dependent: :destroy
-  has_attached_file :avatar, storage: :dropbox,
-    dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
-    default_url: "avatars/missing.gif",
-    styles: { :thumb => ["128x128#", :png], mini: ["27x27#", :png] },
-    dropbox_options: {
-      path: Proc.new { |style| "users/#{id}/#{style}/#{avatar.original_filename}" }
-    }
+  has_attached_file :avatar, USport::Application.config.paperclip_user
 
   # Validações
   validates_presence_of :first_name, :last_name, :email, :username, :role

@@ -6,7 +6,7 @@
 
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
-    <%= image_tag(@match.channel.avatar(:thumb)) %>
+    <%= image_tag(@match.channel.avatar(:thumb_140), class: 'img img-polaroid') %>
     <h4 title='<%= @match.channel.name %>'>
       <%= @match.channel.name.truncate(15) %>
     </h4>
@@ -159,9 +159,9 @@
         <div class="visible-phone"><%= @match.teams[0].abbreviation %> </div>
       </div>
       <div class="span4">
-        <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
+        <%= image_tag @match.teams[0].avatar(:thumb_90), style: "width: 60px; max-width:60px;" %>
         <span id='team1-score'><%= @match.value1.to_s %></span> X <span id='team2-score'><%= @match.value2.to_s %></span>
-        <%= image_tag @match.teams[1].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
+        <%= image_tag @match.teams[1].avatar(:thumb_90), style: "width: 60px; max-width:60px;" %>
       </div>
       <div class="span4">
         <div class="hidden-phone"><%= @match.teams[1].name %></div>
@@ -176,14 +176,14 @@
       <thead>
         <tr>
           <td width="33%" style="text-align: right">
-            <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 50px" %><br />
+            <%= image_tag @match.teams[0].avatar(:thumb_90), style: "width: 50px" %><br />
             <%= @match.teams[0].abbreviation %>
           </td>
           <td width="33%"  style="text-align: center; white-space: nowrap">
             <h3> <%= @match.value1.to_s + " X " + @match.value2.to_s%> </h3>
           </td>
           <td width="33%" style="text-align: left">
-            <%= image_tag @match.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
+            <%= image_tag @match.teams[1].avatar(:thumb_90),  style: "width: 50px" %><br />
             <%= @match.teams[1].abbreviation %>
           </td>
         </tr>

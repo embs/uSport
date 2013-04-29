@@ -49,8 +49,11 @@ USport::Application.configure do
     }
   }
 
-  # Configuração do Paperclip
+  # Configuração do Paperclip para ambiente de desenvolvimento
   Paperclip.options[:command_path] = "/usr/bin/"
+  config.paperclip_user.merge!(config.paperclip)
+  config.paperclip_team.merge!(config.paperclip)
+  config.paperclip_channel.merge!(config.paperclip)
 
   # Configurações do Pusher para o ambiente de desenvolvimento
   config.pusher = {

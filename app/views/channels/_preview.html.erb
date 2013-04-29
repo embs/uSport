@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th style="width: 50px">
-            <%= image_tag(preview.avatar(:thumb), width: '40px',
+            <%= image_tag(preview.avatar(:thumb_90), width: '40px',
               class: 'img-rounded img-polaroid channel-avatar', :'data-toggle' => 'tooltip',
               :'data-placement' => 'top', :'data-original-title' => preview.name) %>
           </th>
@@ -68,13 +68,13 @@
           <td style="text-align: center">
             <% if preview.matches.last%>
               <%#= preview.matches.last.teams[0].name %>
-              <%= image_tag(preview.matches.last.teams[0].avatar(:thumb), width: '25px',
+              <%= image_tag(preview.matches.last.teams[0].avatar(:thumb_90), width: '25px',
                 class: 'channel-avatar', :'data-toggle' => 'tooltip',
                 :'data-placement' => 'top', :'data-original-title' => preview.matches.last.teams[0].name) %>
               <%= preview.matches.last.value1 %>
               X
               <%= preview.matches.last.value2 %>
-              <%= image_tag(preview.matches.last.teams[1].avatar(:thumb), width: '25px',
+              <%= image_tag(preview.matches.last.teams[1].avatar(:thumb_90), width: '25px',
                 class: 'channel-avatar', :'data-toggle' => 'tooltip',
                 :'data-placement' => 'top', :'data-original-title' => preview.matches.last.teams[1].name) %>
             <% else %>
