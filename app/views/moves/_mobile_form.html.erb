@@ -46,6 +46,7 @@
       <% value = "##{@move.player.number} #{@move.player.first_name}" if @move.player %>
       <%= f.text_field :player, class: 'typeahead player', value: value,
         autocomplete: :off, required: :true %>
+      <span class="help-block">Ex.: #35 Terrence Cody</span>
     </div>
   <% end %>
 
