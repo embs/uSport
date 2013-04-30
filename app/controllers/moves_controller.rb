@@ -157,6 +157,8 @@ class MovesController < ApplicationController
     authorize! :show, @move
     @move.liked_by current_user
 
-    redirect_to match_path(@move.match)
+    respond_to do |format|
+      format.js
+    end
   end
 end
