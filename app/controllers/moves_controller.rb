@@ -3,7 +3,8 @@ class MovesController < ApplicationController
 
   # carrega jogadas de uma partida por javascript
   def index
-    @moves = Match.find(params[:match_id]).moves.order('created_at DESC').page(params[:page])
+    @moves = Match.find(params[:match_id]).moves.includes(:team, :match, :player).
+      order('created_at DESC').page(params[:page])
     authorize! :show, Move
     respond_to do |format|
       format.js
@@ -26,22 +27,14 @@ class MovesController < ApplicationController
     @match = Match.find(params[:match_id])
     authorize! :manage, @match
     @move = Move.new
-    @kinds = [
-      ["Punt", "punt"],
-      ["Extrapoint", "extrapoint"],
-      ["Penalty", "penalty"],
-      ["Kickoff", "kickoff"],
-      ["Fumble", "fumble"],
-      ["Tackle", "tackle"],
-      ["Run", "run"],
-      ["Turnover", "turnover"],
-      ["Time", "time"],
+    @kinds = [["Punt", "punt"], ["Extrapoint", "extrapoint"], ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"], ["Fumble", "fumble"], ["Tackle", "tackle"],
+      ["Run", "run"], ["Turnover", "turnover"], ["Time", "time"],
       ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
-      ["Touchdown (Passe)", "touchdown-pass"],
-      ["Fieldgoal", "fieldgoal"],
-      ["Pass", "pass"],
-      ["Sack", "sack"],
-      ["Interception", "interception"]]
+      ["Touchdown (Passe)", "touchdown-pass"], ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"], ["Sack", "sack"], ["Interception", "interception"],
+      ["Safety", "safety"], ["Two-point conversion", "two-point-conversion"],
+      ["Comentário", "comment"], ["Fim de Jogo", "end"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -54,16 +47,16 @@ class MovesController < ApplicationController
 
   def create
     team = Team.find(params[:move].delete(:team))
-    unless params[:move][:kind] == 'comment' || params[:move][:kind] == 'end'
+    @match = Match.find(params[:match_id])
+    unless ['comment', 'end', 'time'].include?(params[:move][:kind])
       player = team.find_player_by_text_input(params[:move][:player])
+      authorize! :manage, Move.new(match: @match)
+      unless player
+        render js: "$('#player input').val(''); $('#player input').attr('placeholder', 'Informe um jogador válido'); $('#player input').focus();" and return
+      end
     end
     params[:move].delete(:player)
-    @match = Match.find(params[:match_id])
-    points = find_points(params[:move][:kind])
-    unless player
-      authorize! :manave, Move.new(match: @match)
-      render js: "$('#player input').val(''); $('#player input').attr('placeholder', 'Informe um jogador válido'); $('#player input').focus();" and return
-    end
+    points = Move.points_for(params[:move][:kind])
     @move = Move.create(params[:move]) do |move|
       move.player = player
       move.team = team
@@ -99,22 +92,14 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     @match = @move.match
     authorize! :manage, @move
-    @kinds = [
-      ["Punt", "punt"],
-      ["Extrapoint", "extrapoint"],
-      ["Penalty", "penalty"],
-      ["Kickoff", "kickoff"],
-      ["Fumble", "fumble"],
-      ["Tackle", "tackle"],
-      ["Run", "run"],
-      ["Turnover", "turnover"],
-      ["Time", "time"],
-      ["Touchdown", "touchdown"],
-      ["Fieldgoal", "fieldgoal"],
-      ["Pass", "pass"],
-      ["Sack", "sack"],
-      ["Interception", "interception"]
-    ]
+    @kinds = [["Punt", "punt"], ["Extrapoint", "extrapoint"], ["Penalty", "penalty"],
+      ["Kickoff", "kickoff"], ["Fumble", "fumble"], ["Tackle", "tackle"],
+      ["Run", "run"], ["Turnover", "turnover"], ["Time", "time"],
+      ["Touchdown (Corrida)", "touchdown-run"], ["Touchdown (Retorno)", "touchdown"],
+      ["Touchdown (Passe)", "touchdown-pass"], ["Fieldgoal", "fieldgoal"],
+      ["Pass", "pass"], ["Sack", "sack"], ["Interception", "interception"],
+      ["Safety", "safety"], ["Two-point conversion", "two-point-conversion"],
+      ["Comentário", "comment"], ["Fim de Jogo", "end"]]
     @minutes = [["--", 0]]
     15.times do |n|
       @minutes << [(n+1).to_s, (n+1)]
@@ -128,11 +113,13 @@ class MovesController < ApplicationController
   def update
     @move = Move.find(params[:id])
     authorize! :manage, @move
-    team = Team.find(params[:move].delete(:team))
-    player = Player.find_by_text_input(params[:move].delete(:player))
+    team = Team.find(params[:move].delete(:team)) if params[:move][:team]
+    if params[:move][:player]
+      player = Player.find_by_text_input(params[:move].delete(:player))
+    end
     @move.update_attributes(params[:move])
-    @move.player = player
-    @move.team = team
+    @move.player = player if player
+    @move.team = team if team
     if @move.save
       flash[:notice] = 'Jogada atualizada!'
       redirect_to match_path(@move.match)
@@ -146,7 +133,7 @@ class MovesController < ApplicationController
     @move = Move.find(params[:id])
     team = @move.team
     @match = @move.match
-    points = find_points(@move.kind)
+    points = Move.points_for(@move.kind)
     authorize! :manage, @move
     # Atualiza o placar da partida
     if team == @match.teams[0]
@@ -167,24 +154,9 @@ class MovesController < ApplicationController
 
   def vote
     @move = Move.find(params[:move_id])
+    authorize! :show, @move
     @move.liked_by current_user
-
-    authorize! :show, Move
 
     redirect_to match_path(@move.match)
   end
-
-  private
-
-  def find_points(move_kind)
-    case move_kind
-    when "fieldgoal"
-      3
-    when "touchdown"
-      6
-    else
-      0
-    end
-  end
-
 end

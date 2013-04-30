@@ -25,6 +25,7 @@ describe Match do
   it { should validate_presence_of :name }
   it { should validate_presence_of :channel }
   it { should_not validate_presence_of :place } # local não é obrigatório
+  it { should ensure_length_of(:name).is_at_least(5).is_at_most(80) }
 
   # Assegura que a criação de novas partidas com times já associados a partidas
   # previamente existentes não desassocia times das partidas antigas - issue #1

@@ -1,38 +1,53 @@
 <%= form_for @move, url: path, remote: remote, autocomplete: :off do |f| %>
-  <div>
-    <%= f.label :quarter %>
-    <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
-    ["Second", 2], ["Third", 3], ["Fourth", 4]], @move.quarter) %>
-  </div>
+  <% unless ['end'].include?(@move.kind) %>
+    <div>
+      <%= f.label :quarter %>
+      <%= f.select :quarter, options_for_select([["--", 0], ["First", 1],
+      ["Second", 2], ["Third", 3], ["Fourth", 4]], @move.quarter) %>
+    </div>
+  <% end %>
 
   <div>
     <%= f.label :kind %>
-    <%= f.select :kind, options_for_select(@kinds, @move.kind) %>
+    <% if action == 'update' %>
+      <%= f.select :kind, options_for_select(@kinds, @move.kind), {},
+        disabled: true %>
+    <% else %>
+      <%= f.select :kind, options_for_select(@kinds, @move.kind) %>
+    <% end %>
   </div>
 
-  <div>
-    <%= f.label :team %>
-    <%= f.select :team,
-      options_for_select(@match.teams.collect { |t| [t.name, t.id] },
-        @move.team.try(:id)) %>
-  </div>
+  <% unless ['end', 'comment'].include?(@move.kind) %>
+    <div>
+      <%= f.label :team %>
+      <%= f.select :team,
+        options_for_select(@match.teams.collect { |t| [t.name, t.id] },
+          @move.team.try(:id)) %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= f.label :yards %>
-    <%= f.number_field :yards %>
-  </div>
+  <% unless ['comment', 'time', 'end'].include?(@move.kind) %>
+    <div>
+      <%= f.label :yards %>
+      <%= f.number_field :yards %>
+    </div>
+  <% end %>
 
-  <div >
-    <%= f.label :minute %>
-    <%= f.select :minute, options_for_select(@minutes, @move.minute) %>
-  </div>
+  <% unless ['end'].include?(@move.kind) %>
+    <div>
+      <%= f.label :minute %>
+      <%= f.select :minute, options_for_select(@minutes, @move.minute) %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= f.label :player %>
-    <% value = "##{@move.player.number} #{@move.player.first_name}" if @move.player %>
-    <%= f.text_field :player, class: 'typeahead player', value: value,
-      autocomplete: :off, required: :true %>
-  </div>
+  <% unless ['comment', 'time', 'end'].include?(@move.kind) %>
+    <div>
+      <%= f.label :player %>
+      <% value = "##{@move.player.number} #{@move.player.first_name}" if @move.player %>
+      <%= f.text_field :player, class: 'typeahead player', value: value,
+        autocomplete: :off, required: :true %>
+    </div>
+  <% end %>
 
   <div>
     <%= f.label :description %>

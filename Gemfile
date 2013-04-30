@@ -26,9 +26,17 @@ gem 'rack-rewrite'
 
 gem 'pusher'
 
+gem 'pusher_rails'
+
 gem 'delayed_job_active_record'
 
-gem 'paperclip-dropbox'
+gem 'aws-sdk'
+
+gem 'enumerize'
+
+group :development do
+  gem 'bullet'
+end
 
 gem 'acts_as_votable'
 

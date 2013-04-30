@@ -1,11 +1,23 @@
-var presenceChannel = pusher.subscribe('presence-match-' + match_id);
-var channel = pusher.subscribe('match-' + match_id);
-channel.bind('new-move', function(data) {
-  $('#team1-score').html(data.val1);
-  $('#team2-score').html(data.val2);
-  $.ajax({
-    type: "GET",
-    url: '/matches/' + match_id + '/moves/' + data.move,
-    dataType: "script"
+if (typeof match_id === 'undefined') { }
+else {
+  var pusher = new Pusher('<%= Pusher.key %>');
+  console.log('watching match ' + match_id)
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) window.console.log(message);
+  };
+  var presenceChannel = pusher.subscribe('presence-match-' + match_id);
+  var channel = pusher.subscribe('match-' + match_id);
+  channel.bind('new-move', function(data) {
+    $('#team1-score').html(data.val1);
+    $('#team2-score').html(data.val2);
+    $.ajax({
+      type: "GET",
+      url: '/matches/' + match_id + '/moves/' + data.move,
+      dataType: "script"
+    });
   });
-});
+  pusher.connection.bind('disconnected', function() {
+    $('#pusher-warning').show();
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
+  });
+}

@@ -1,2 +1,4 @@
-$('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
-$('#empty-message').hide();
+<% unless current_user && current_user == @move.channel.owner %>
+  $('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
+  $('#empty-message').hide();
+<% end %>

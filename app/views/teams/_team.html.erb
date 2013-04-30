@@ -1,6 +1,6 @@
 <div class='well'>
   <h3>
-    <%= image_tag team.avatar(:thumb), class: 'img-rounded img-polaroid', width: '10%' %>
+    <%= image_tag team.avatar(:thumb_90), class: 'img-rounded img-polaroid' %>
     <%= team.name %> (<%= team.abbreviation %>)
     <%= show_badge_if_official(team).html_safe %>
   </h3>
@@ -10,9 +10,15 @@
     <%= render partial: 'team_player', collection: team.players %>
   </div>
   <br />
-  <% if can? :manage, team %>
+  <% if can? :edit, team %>
     <%= link_to edit_team_path(team), class: 'btn btn-large' do %>
       <i class="icon-cog"></i> Editar
+    <% end %>
+  <% end %>
+  <% if can? :manage, team %>
+    <%= link_to team_path(team), class: 'btn btn-large btn-danger',
+      method: :delete, confirm: 'Tem certeza que deseja remover esse time?' do %>
+      <i class="icon-trash"></i> Remover
     <% end %>
   <% end %>
 </div>

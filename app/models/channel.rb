@@ -9,15 +9,11 @@ class Channel < ActiveRecord::Base
   has_many :favorited_users, through: :user_favorite_channels, source: :user
   has_many :matches
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
-  has_attached_file :avatar, styles: { :thumb => ["128x128#", :png] },
-    default_url: "avatars/missing.gif",
-    storage: :dropbox, dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
-    dropbox_options: {
-      path: Proc.new { |style| "channels/#{id}/#{style}/#{avatar.original_filename}" }
-    }
+  has_attached_file :avatar, USport::Application.config.paperclip_channel
 
   # Validação
   validates_presence_of :name
+  validates_length_of :name, in: 5..50
 
   def is_favorite_of?(user)
     return false unless user

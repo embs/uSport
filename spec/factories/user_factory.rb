@@ -7,7 +7,7 @@ FactoryGirl.define do
       "#{n}#{Faker::Internet.free_email}"
     end
     sequence :username do |n|
-      "#{Faker::Internet.user_name}#{n}"
+      "#{Faker::Internet.user_name}12345#{n}"
     end
     password '12345678'
   end

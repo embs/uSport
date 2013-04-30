@@ -3,15 +3,12 @@ class Team < ActiveRecord::Base
   attr_accessible :name, :abbreviation, :players, :sport_type, :avatar, :is_official
 
   # Associações
+  has_many :users, through: :user_team_associations
+  has_many :user_team_associations, dependent: :destroy
   has_many :players
   has_many :moves
   has_and_belongs_to_many :matches
-  has_attached_file :avatar, :styles => { thumb: ["128x128#", :png] },
-    default_url: "avatars/missing.gif",
-    storage: :dropbox, dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
-    dropbox_options: {
-      path: Proc.new { |style| "teams/#{id}/#{style}/#{avatar.original_filename}" }
-    }
+  has_attached_file :avatar, USport::Application.config.paperclip_team
 
   # Validações
   validates_presence_of :name, :abbreviation, :sport_type

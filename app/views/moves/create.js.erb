@@ -1,7 +1,11 @@
+<%# Exibe a jogada na tela do criador %>
+$('#moves').prepend("<%= j render(@move, show_comment_button: :true, show_edition_buttons: true) %>");
+$('#empty-message').hide();
 <%# Atualiza o placar da partida %>
 $('#team1-score').html(<%= @match.value1 %>);
 $('#team2-score').html(<%= @match.value2 %>);
 <%# Reseta o formulário de nova jogada %>
 $('#new_move input[type=text], textarea').val("");
+$('#move_yards').val(0);
 <%# Esconde o modal %>
 $('#NewMoveForm').modal('hide');

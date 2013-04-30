@@ -38,7 +38,8 @@ class ChannelsController < ApplicationController
   def update
     @channel = Channel.find(params[:id])
     authorize! :edit, @channel
-    if params[:collaborator] # cria nova UserChannelAssociation se for necessário
+    # Cria nova UserChannelAssociation se for necessário
+    if params[:collaborator] && !params[:collaborator][:username].empty?
       user = User.find_by_username(params[:collaborator][:username])
       unless user
         flash.now[:error] = 'Ops! Não encontramos o colaborador que você tentou adicionar.'

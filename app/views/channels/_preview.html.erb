@@ -4,12 +4,13 @@
       <thead>
         <tr>
           <th style="width: 50px">
-            <%= image_tag(preview.avatar(:thumb), width: '40px',
+            <%= image_tag(preview.avatar(:thumb_90), width: '40px',
               class: 'img-rounded img-polaroid channel-avatar', :'data-toggle' => 'tooltip',
               :'data-placement' => 'top', :'data-original-title' => preview.name) %>
           </th>
-          <th colspan="2">
-              <%= preview.name %> <%= show_heart_if_favorite(current_user, preview).html_safe %>
+          <th colspan="2" title='<%= preview.name %>'>
+              <%= preview.name.truncate(15) %>
+              <%= show_heart_if_favorite(current_user, preview).html_safe %>
               <p class='muted' style="font-size: 11px">
                 por <%= link_to(preview.owner.display_name,"#") %><span style="padding: 0px 5px">.</span>
                 <%= time_ago_in_words(preview.created_at).gsub('aproximadamente','±')%>
@@ -26,8 +27,10 @@
               </td>
               <td style="text-align: left">
                 <%= preview.matches.last.moves.last.kind %>,
-                #<%= preview.matches.last.moves.last.player.number %>
-                <%= preview.matches.last.moves.last.player.first_name %><br />
+                <% unless ['comment', 'end'].include? preview.matches.last.moves.last.kind %>
+                  #<%= preview.matches.last.moves.last.player.number %>
+                  <%= preview.matches.last.moves.last.player.first_name %><br />
+                <% end %>
                 <%= preview.matches.last.moves.last.description %><br />
                 X <i class="icon-thumbs-up"></i>
                 Y <i class="icon-comment"></i>
@@ -65,13 +68,13 @@
           <td style="text-align: center">
             <% if preview.matches.last%>
               <%#= preview.matches.last.teams[0].name %>
-              <%= image_tag(preview.matches.last.teams[0].avatar(:thumb), width: '25px',
+              <%= image_tag(preview.matches.last.teams[0].avatar(:thumb_90), width: '25px',
                 class: 'channel-avatar', :'data-toggle' => 'tooltip',
                 :'data-placement' => 'top', :'data-original-title' => preview.matches.last.teams[0].name) %>
               <%= preview.matches.last.value1 %>
               X
               <%= preview.matches.last.value2 %>
-              <%= image_tag(preview.matches.last.teams[1].avatar(:thumb), width: '25px',
+              <%= image_tag(preview.matches.last.teams[1].avatar(:thumb_90), width: '25px',
                 class: 'channel-avatar', :'data-toggle' => 'tooltip',
                 :'data-placement' => 'top', :'data-original-title' => preview.matches.last.teams[1].name) %>
             <% else %>

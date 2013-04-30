@@ -1,33 +1,39 @@
 class User < ActiveRecord::Base
+  extend Enumerize
+
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+    :first_name, :last_name, :username, :avatar, :tos
+
+  # Atributos
+  enumerize :role, in: [:admin, :user], default: :user
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :first_name, :last_name, :username, :avatar
-
-  # Associações
+  # Associações com canais
   has_many :user_channel_associations, dependent: :destroy
   has_many :channels, through: :user_channel_associations
   has_many :user_favorite_channels, dependent: :destroy
   has_many :favorite_channels, through: :user_favorite_channels,
            source: :channel
+
+  # Associações com times
+  has_many :user_team_associations, dependent: :destroy
+  has_many :teams, through: :user_team_associations
+
+  # Associações diversas
   has_many :comments
   has_many :authentications, dependent: :destroy
-  has_attached_file :avatar, storage: :dropbox,
-    dropbox_credentials: "#{Rails.root}/config/dropbox.yml",
-    default_url: "avatars/missing.gif",
-    styles: { :thumb => ["128x128#", :png], mini: ["27x27#", :png] },
-    dropbox_options: {
-      path: Proc.new { |style| "users/#{id}/#{style}/#{avatar.original_filename}" }
-    }
+  has_attached_file :avatar, USport::Application.config.paperclip_user
 
   # Validações
-  validates_presence_of :first_name, :last_name, :email, :username
+  validates_presence_of :first_name, :last_name, :email, :username, :role
   validates_uniqueness_of :username
+  validates :tos, acceptance: true
+  validates_length_of :username, in: 5..50
 
   def self.create_with_omniauth(auth)
     User.create do |user|

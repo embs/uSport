@@ -15,4 +15,19 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :comment_move, class: Move do
+    match { FactoryGirl.create(:match) }
+    kind 'comment'
+  end
+
+  factory :time_move, class: Move do
+    match { FactoryGirl.create(:match) }
+    kind 'time'
+  end
+
+  factory :end_move, class: Move do
+    match { FactoryGirl.create(:match) }
+    kind 'end'
+  end
 end

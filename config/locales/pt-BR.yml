@@ -1,4 +1,22 @@
 pt-BR:
+  moves:
+    punt: Punt
+    extrapoint: Extrapoint
+    penalty: Falta
+    kickoff: Kickoff
+    fumble: Fumble
+    run: Corrida
+    turnover: Turnover
+    time: Tempo
+    touchdown: Touchdown
+    fieldgoal: Fieldgoal
+    pass: Passe
+    sack: Sack
+    interception: Interceptação
+    end: Fim de Jogo
+    comment: Comentário
+    safety: Safety
+    two-point-conversion: 'Conversão de 2 pts'
   unauthorized:
     manage:
       all:  "Você não está autorizado a acessar a página solicitada."

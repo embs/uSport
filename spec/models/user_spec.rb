@@ -8,13 +8,17 @@ describe User do
   it { should respond_to :username }
   it { should respond_to :channels }
   it { should respond_to :comments }
+  it { should respond_to :role }
 
   # Associações
   it { should have_many(:channels).through(:user_channel_associations) }
   it { should have_many :comments }
   it { should have_many :authentications }
   it { should have_attached_file(:avatar) }
+  it { should have_many(:user_favorite_channels) }
   it { should have_many(:favorite_channels).through(:user_favorite_channels) }
+  it { should have_many(:user_team_associations) }
+  it { should have_many(:teams).through(:user_team_associations) }
 
   # Validações
   it { should validate_presence_of :first_name }
@@ -23,6 +27,9 @@ describe User do
   it { should validate_presence_of :username }
   it { should validate_uniqueness_of :username }
   it { User.observers.disable(:all) { should validate_uniqueness_of(:email) } }
+  it { should validate_presence_of :role }
+  it { should validate_acceptance_of :tos }
+  it { should ensure_length_of(:username).is_at_least(5).is_at_most(50) }
 
   describe '#create_with_omniauth' do
     before do

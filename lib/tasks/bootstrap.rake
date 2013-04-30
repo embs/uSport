@@ -115,5 +115,5 @@ namespace :bootstrap do
     Player.create(first_name: 'Andy', last_name: 'Lee', number: 4, team: m, position: 'punter')
   end
 
-  task :all => [:environment, :mariners]
+  task all: [:environment, :mariners, :baltimore, :san_francisco]
 end

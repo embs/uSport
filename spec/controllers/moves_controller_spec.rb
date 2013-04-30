@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe MovesController do
@@ -72,22 +73,70 @@ describe MovesController do
     let(:team) { FactoryGirl.create(:team) }
     let(:player) { FactoryGirl.create(:player, first_name: 'Jogador', team: team) }
 
-    before do
-      controller.stub(current_user: user)
-      post :create, user_id: match.channel.owner, channel_id: match.channel,
-        match_id: match, move: { player: "##{player.number} #{player.first_name}",
-          team: team.id, kind: 'touchdown', yards: -50
-        }, format: :js
-    end
+    context 'a touchdown' do
+      before do
+        controller.stub(current_user: user)
+        post :create, user_id: match.channel.owner, channel_id: match.channel,
+          match_id: match, move: { player: "##{player.number} #{player.first_name}",
+            team: team.id, kind: 'touchdown', yards: -50
+          }, format: :js
+      end
 
-    it 'creates new move' do
-      Move.last.should_not be_nil
-    end
+      it 'creates new move' do
+        Move.last.should_not be_nil
+      end
 
-    it 'creates move with negative yards' do
-      Move.last.yards.should < 0
+      it 'creates move with negative yards' do
+        Move.last.yards.should < 0
+      end
+    end # context 'a touchdown'
+
+    context 'a comment' do
+      before do
+        controller.stub(current_user: user)
+        post :create, user_id: match.channel.owner, channel_id: match.channel,
+          match_id: match, move: { player: '',
+            team: team.id, kind: 'comment', yards: '', quarter: '0',
+            description: 'Esta é uma jogada de comentário'
+          }, format: :js
+      end
+
+      it 'creates new move' do
+        Move.last.should_not be_nil
+      end
+
+      it 'creates move with comment kind' do
+        Move.last.kind.should == 'comment'
+      end
+
+      it 'creates move with negative yards' do
+        Move.last.description.should == 'Esta é uma jogada de comentário'
+      end
+    end # context 'a comment'
+
+    context 'a time request' do
+      before do
+        controller.stub(current_user: user)
+        post :create, user_id: match.channel.owner, channel_id: match.channel,
+          match_id: match, move: { player: '',
+            team: team.id, kind: 'time', yards: '', quarter: '0',
+            description: 'Esta é uma jogada de tempo'
+          }, format: :js
+      end
+
+      it 'creates new move' do
+        Move.last.should_not be_nil
+      end
+
+      it 'creates move with comment kind' do
+        Move.last.kind.should == 'time'
+      end
+
+      it 'creates move with negative yards' do
+        Move.last.description.should == 'Esta é uma jogada de tempo'
+      end
     end
-  end
+  end # describe 'POST create'
 
   describe 'GET edit' do
     let(:move) { FactoryGirl.create(:move) }
@@ -137,16 +186,9 @@ describe MovesController do
   end # describe 'GET edit'
 
   describe 'POST update' do
-    let(:move) { FactoryGirl.create(:move, :kind => 'touchdown') }
+    let(:move) { FactoryGirl.create(:move, kind: 'touchdown') }
     let(:player) { FactoryGirl.create(:player) }
-    let(:params) do
-      {
-        :user_id => move.match.channel.owner.id,
-        :channel_id => move.match.channel.id, :match_id => move.match.id,
-        :id => move.id
-      }.merge(move: { kind: 'punt', player: "##{player.number} #{player.first_name}",
-              team: player.team })
-    end
+    let(:params) { { match_id: move.match.id, id: move.id } }
 
     context 'when not logged' do
       before do
@@ -159,26 +201,90 @@ describe MovesController do
     end
 
     context 'when logged' do
+
       context 'as channels owner' do
         before do
-          controller.stub(:current_user => move.match.channel.owner)
-          post :update, params
+          controller.stub(current_user: move.match.channel.owner)
         end
 
-        it 'updates the kind of the move' do
-          Move.find(move.id).kind.should == 'punt'
-        end
+        context 'updating a common move' do
+          before do
+            post :update, params.merge(move: {
+              kind: 'punt', player: "##{player.number} #{player.first_name}",
+              team: player.team.id
+            })
+          end
 
-        it 'updates the player of the move' do
-          Move.find(move.id).player.should == player
-        end
+          it 'updates the kind of the move' do
+            Move.find(move.id).kind.should == 'punt'
+          end
 
-        it { response.should be_redirect }
+          it 'updates the player of the move' do
+            Move.find(move.id).player.should == player
+          end
 
-        it { assigns[:move].should == move }
+          it { response.should be_redirect }
 
-        it { should set_the_flash[:notice].to('Jogada atualizada!') }
-      end
+          it { assigns[:move].should == move }
+
+          it { should set_the_flash[:notice].to('Jogada atualizada!') }
+        end # context 'updating a common move'
+
+        context 'updating a comment move' do
+          let(:move) { FactoryGirl.create(:comment_move) }
+
+          before do
+            post :update, params.merge(move: { description: 'Jogo emocionante!' })
+          end
+
+          it 'updates move description' do
+            Move.find(move.id).description.should == 'Jogo emocionante!'
+          end
+
+          it { response.should be_redirect }
+
+          it { assigns[:move].should == move }
+
+          it { should set_the_flash[:notice].to('Jogada atualizada!') }
+        end # context 'updating a comment move'
+
+        context 'updating a time move' do
+          let(:move) { FactoryGirl.create(:time_move) }
+          let(:another_team) { FactoryGirl.create(:team) }
+
+          before do
+            post :update, params.merge(move: { team: another_team.id })
+          end
+
+          it 'updates move team' do
+            Move.find(move.id).team.should == another_team
+          end
+
+          it { response.should be_redirect }
+
+          it { assigns[:move].should == move }
+
+          it { should set_the_flash[:notice].to('Jogada atualizada!') }
+        end # context 'updating a time move'
+
+        context 'updating an end move' do
+          let(:move) { FactoryGirl.create(:end_move) }
+
+          before do
+            post :update, params.merge(move: { description: 'Jogo emocionante!' })
+          end
+
+          it 'updates move description' do
+            Move.find(move.id).description.should == 'Jogo emocionante!'
+          end
+
+          it { response.should be_redirect }
+
+          it { assigns[:move].should == move }
+
+          it { should set_the_flash[:notice].to('Jogada atualizada!') }
+        end # context 'updating an end move'
+      end # context 'as channels owner'
 
       context 'as an user other than the channels owner' do
         before do

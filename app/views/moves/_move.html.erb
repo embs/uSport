@@ -1,10 +1,16 @@
 <tr id="<%=move.id%>">
   <td width="40px">
-    <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
-      style: 'height: 40px; width: 40px;') %>
-      <% if move.quarter && move.quarter !=0 %>
-        <h3 align="center"> <%=move.quarter.to_s() + "º" %></h3>
-      <% end %>
+    <% unless move.kind == 'comment' || move.kind == 'penalty' %>
+      <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
+        style: 'height: 40px; width: 40px;') %>
+    <% end %>
+    <% if move.kind == 'penalty' %>
+      <%= image_tag(the_other_team_from(move).avatar, id: "thumb", class: "img-polaroid img-rounded",
+        style: 'height: 40px; width: 40px;') %>
+    <% end %>
+    <% if move.quarter && move.quarter !=0 %>
+      <h3 align="center"> <%= move.quarter.to_s + "º" %></h3>
+    <% end %>
   </td>
   <td>
     <p><b><%= move.main %></b> <%= move.message %></p>

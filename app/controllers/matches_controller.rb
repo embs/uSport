@@ -8,7 +8,8 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     authorize! :show, @match
     # @user = User.find(params[:user_id])
-    @moves = @match.moves.order('created_at DESC').page(params[:page])
+    @moves = @match.moves.includes(:team, :match, :player).
+      order('created_at DESC').page(params[:page])
     # Daqui para baixo são setadas as variáveis utilizadas para criação de move
     @move = Move.new(:match => @match)
     if can?(:create, @move)
@@ -40,7 +41,7 @@ class MatchesController < ApplicationController
   end
 
   def create
-    channel = Channel.find(params[:channel_id])
+    channel = Channel.find(params[:football_match][:channel_id])
     authorize! :manage, channel
     teams = params[:football_match].delete(:teams_ids) if params[:football_match][:teams_ids]
     @teams = Team.all
@@ -80,6 +81,18 @@ class MatchesController < ApplicationController
     end
 
     redirect_to match_path(match)
+  end
+
+  def destroy
+    @match = Match.find(params[:id])
+    authorize! :manage, @match
+    if @match.destroy
+      flash[:notice] = 'Partida removida!'
+      redirect_to channel_path(@match.channel)
+    else
+      flash[:error] = 'Ops! Não foi possível remover a partida.'
+      redirect_to match_path(@match)
+    end
   end
 
   def score

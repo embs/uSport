@@ -2,9 +2,10 @@
 
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
-    <%= image_tag(@channel.avatar(:thumb)) %>
-    <h4>
-      <%= @channel.name %> <%= show_heart_if_favorite(current_user, @channel).html_safe %>
+    <%= image_tag(@channel.avatar(:thumb_140), class: 'img img-polaroid') %>
+    <h4 title='<%= @channel.name %>'>
+      <%= @channel.name.truncate(15) %>
+      <%= show_heart_if_favorite(current_user, @channel).html_safe %>
     </h4>
     <dl>
       <% if @channel.description %>
@@ -66,13 +67,23 @@
     <div class="well">
       <h1>
         <%= link_to m.name, match_path(m)%>
+        <% if can? :manage, m %>
+          <%= link_to edit_match_path(m), class: 'btn', title: 'Editar Partida' do %>
+            <i class="icon-cog"></i>
+          <% end %>
+          <%= link_to match_path(m), class: 'btn btn-danger', title: 'Remover Partida',
+            method: :delete, confirm: 'A remoção da partida não pode ser desfeita.
+            Confirmar remoção?' do %>
+            <i class="icon-trash icon"></i>
+          <% end %>
+        <% end %>
       </h1>
       <%= m.teams[0].name %>
-      <%= image_tag m.teams[0].avatar(:thumb) %>
+      <%= image_tag m.teams[0].avatar(:thumb_90) %>
       <%= m.value1.to_s %>
       X
       <%= m.value2.to_s %>
-      <%= image_tag m.teams[1].avatar(:thumb) %>
+      <%= image_tag m.teams[1].avatar(:thumb_90) %>
       <%= m.teams[1].name %>
     </div>
   <% end %>

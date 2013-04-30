@@ -6,8 +6,10 @@
 
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
-    <%= image_tag(@match.channel.avatar(:thumb)) %>
-    <h3><%= @match.channel.name %></h3>
+    <%= image_tag(@match.channel.avatar(:thumb_140), class: 'img img-polaroid') %>
+    <h4 title='<%= @match.channel.name %>'>
+      <%= @match.channel.name.truncate(15) %>
+    </h4>
     <ul class="nav nav-list">
       <li>
         <%= link_to 'Página do Canal', channel_path(@match.channel) %>
@@ -21,6 +23,7 @@
     </ul>
   </div>
 <% end %>
+
 <style>
     div.sc_menu {
       /* Set it so we could calculate the offsetLeft */
@@ -35,7 +38,7 @@
       display: block;
       height: 110px;
       /* Max width here, for users without Javascript */
-      width: 1600px;
+      width: 3000px;
       padding: 0px;
       /* Remove default margin */
       margin: 0;
@@ -67,6 +70,14 @@
       height: 80px;
     }
   </style>
+
+<div id='pusher-warning' class='alert' style='display: none'>
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Atenção!</strong> Estamos buscando uma solução ilimitada para a quantidade
+  de espectadores que recebem atualizações em tempo real. Por enquanto, essa
+  capacidade é limitada e foi ultrapassada. Para visualizar novos lances,
+  por favor, recarregue a página.
+</div>
 
 <% if can? :create, @move %>
   <div id="NewMoveForm" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -124,12 +135,15 @@
       <ul class="sc_menu">
         <% ['punt', 'extrapoint', 'penalty', 'kickoff', 'fumble',
           'run', 'turnover', 'time', 'touchdown', 'fieldgoal', 'pass', 'sack',
-          'interception', 'end', 'comment'].each do |kind| %>
+          'interception', 'end', 'safety', 'two-point-conversion', 'comment'].each do |kind| %>
           <li>
-            <%= link_to '', class: 'linkModal', role: 'button', :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm", value: kind, title: kind.capitalize do %>
+            <%= link_to '', class: 'linkModal', role: 'button',
+              :'data-toggle' => 'modal', :'data-target' => "#NewMoveForm",
+              value: kind, title: "#{t("moves.#{kind}")}" do %>
+              <%= 's' unless kind == 'punt' %>
               <%= image_tag("icons/#{kind}.png", class: 'img-circle img-polaroid',
                 style: 'width: 80px; height: 80px') %>
-              <span><%= kind.capitalize %></span>
+              <span><%= "#{t("moves.#{kind}")}" %></span>
             <% end %>
           </li>
         <% end %>
@@ -146,9 +160,9 @@
         <div class="visible-phone"><%= @match.teams[0].abbreviation %> </div>
       </div>
       <div class="span4">
-        <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
+        <%= image_tag @match.teams[0].avatar(:thumb_90), style: "width: 60px; max-width:60px;" %>
         <span id='team1-score'><%= @match.value1.to_s %></span> X <span id='team2-score'><%= @match.value2.to_s %></span>
-        <%= image_tag @match.teams[1].avatar(:thumb), style: "width: 60px; max-width:60px;" %>
+        <%= image_tag @match.teams[1].avatar(:thumb_90), style: "width: 60px; max-width:60px;" %>
       </div>
       <div class="span4">
         <div class="hidden-phone"><%= @match.teams[1].name %></div>
@@ -163,14 +177,14 @@
       <thead>
         <tr>
           <td width="33%" style="text-align: right">
-            <%= image_tag @match.teams[0].avatar(:thumb), style: "width: 50px" %><br />
+            <%= image_tag @match.teams[0].avatar(:thumb_90), style: "width: 50px" %><br />
             <%= @match.teams[0].abbreviation %>
           </td>
           <td width="33%"  style="text-align: center; white-space: nowrap">
             <h3> <%= @match.value1.to_s + " X " + @match.value2.to_s%> </h3>
           </td>
           <td width="33%" style="text-align: left">
-            <%= image_tag @match.teams[1].avatar(:thumb),  style: "width: 50px" %><br />
+            <%= image_tag @match.teams[1].avatar(:thumb_90),  style: "width: 50px" %><br />
             <%= @match.teams[1].abbreviation %>
           </td>
         </tr>

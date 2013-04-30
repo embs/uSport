@@ -49,7 +49,7 @@ USport::Application.configure do
     }
   }
 
-  # Configuração do Paperclip
+  # Configuração do Paperclip para ambiente de desenvolvimento
   Paperclip.options[:command_path] = "/usr/bin/"
 
   # Configurações do Pusher para o ambiente de desenvolvimento
@@ -58,4 +58,18 @@ USport::Application.configure do
     :key => '5c87768feb3ea88e6f79',
     :secret => '5c7dde97f8959b90e222'
   }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    # Bullet.growl = true
+    # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
+    #                 :password => 'bullets_password_for_jabber',
+    #                 :receiver => 'your_account@jabber.org',
+    #                 :show_online_status => true }
+    Bullet.rails_logger = true
+    # Bullet.airbrake = true
+  end
 end
