@@ -40,4 +40,8 @@ USport::Application.routes.draw do
 
   # Rota para página about, que explica o funcionamento do uSport
   get '/about' => 'landing#about'
+
+  # Rotas para central de ajuda
+  match 'help', to: 'help#index'
+  match 'help/:topic(.:format)', to: 'help#topic'
 end
