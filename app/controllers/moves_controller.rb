@@ -11,18 +11,6 @@ class MovesController < ApplicationController
     end
   end
 
-  # retorna todos os moves mais recentes que o move com o ID referido além
-  # do próprio move
-  def show
-    @move = Move.find(params[:id])
-    authorize! :show, @move
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
   def new
     @match = Match.find(params[:match_id])
     authorize! :manage, @match

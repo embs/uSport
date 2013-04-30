@@ -1,4 +1,4 @@
-<tr id="<%=move.id%>">
+<tr class='move' id="<%= move.id %>">
   <td width="40px">
     <% unless move.kind == 'comment' || move.kind == 'penalty' %>
       <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
@@ -16,18 +16,30 @@
     <p><b><%= move.main %></b> <%= move.message %></p>
     <p><%= move.description %></p>
     <ul class="inline">
-      <%= link_to match_move_like_path(move.match, move), remote: true do %>
-        <i class="icon-thumbs-up" title='curtidas'></i>
-      <% end %>
-      <span id='move-<%= move.id %>-votes'><%= move.votes.length %></span>
-      <li><a href="#"><i class="icon-comment"></i></a></li><span>.</span>
-      <li class ="text-right muted" data-toggle="tooltip" title="<%= l move.created_at, format: :long %>" >
-        <%= time_ago_in_words(move.created_at, include_seconds = true).gsub("aproximadamente", "±") %> atrás
+      <li>
+        <%= link_to match_move_like_path(move.match, move), remote: true do %>
+          <i class="icon-thumbs-up" title='Curtir'></i>
+        <% end %>
+      </li>
+      <li>
+        <span id='move-<%= move.id %>-votes'><%= move.votes.length %></span>
+      </li>
+      <li>
+        <%= link_to '#show-comments', class: 'show-comments' do %>
+          <i class="icon-comment" title='Mostrar Comentários'></i>
+        <% end %>
+      </li>
+      <li class='comment-count'>
+        <%= move.comments.length %> Comentário(s)
+      </li>
+      <li class ="text-right muted" data-toggle="tooltip"
+        title="<%= l move.created_at, format: :long %>" >
+        <%= time_ago_in_words(move.created_at, include_seconds = true).
+          gsub("aproximadamente", "±") %> atrás
       </li>
     </ul>
     <% if show_comment_button %>
-      <%= link_to match_move_path(move.match, move),
-        class: 'btn' do %>
+      <%= content_tag 'a', class: 'btn comment', id: move.id do %>
         <i class="icon-comment"></i> Comentar
       <% end %><br class='hidden-desktop' /><br class='hidden-desktop' />
     <% end %>
@@ -41,5 +53,18 @@
         <i class="icon-trash icon-white"></i> Remover
       <% end %>
     <% end %>
+    <div id='form-for-comment' style='display: none'>
+      <br />
+      <%= form_for Comment.new, url: match_move_comments_path(move.match, move),
+        remote: true do |f| %>
+        <%= f.text_area :body %><br />
+        <%= f.submit nil, class: 'btn' %>
+      <% end %>
+    </div>
+    <div class='comments' style='display: none'>
+      <% move.comments.each do |comment| %>
+        <%= render comment %>
+      <% end %>
+    </div>
   </td>
 </tr>

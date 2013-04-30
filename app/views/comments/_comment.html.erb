@@ -1,0 +1,24 @@
+<div id='comment-<%= comment.id %>' class="media">
+  <br />
+  <a class="pull-left" href="#">
+    <img class="media-object" data-src="holder.js/64x64">
+    <%= image_tag comment.author.avatar(:thumb_90), class: 'media-object' %>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= comment.author.display_name %>
+      <small>
+        comentou
+        <%= time_ago_in_words(comment.created_at, include_seconds = true).
+          gsub("aproximadamente", "±") %> atrás
+      </small>
+    </h4>
+    <%= comment.body %>
+  </div>
+  <% if can? :manage, comment %>
+    <%= link_to match_move_comment_path(comment.move.match, comment.move, comment),
+      method: :delete, remote: true, confirm: 'Tem certeza?' do %>
+      <i class="icon-trash icon-white"></i>
+    <% end %>
+  <% end %>
+</div>

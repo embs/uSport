@@ -49,23 +49,6 @@ describe MovesController do
     it { should render_template(:new) }
   end
 
-  describe 'GET show' do
-    let(:match) { FactoryGirl.create(:match) }
-    let(:move) { FactoryGirl.create(:move, match: match) }
-
-    before do
-      get :show, match_id: match, id: move, format: :js
-    end
-
-    it { assigns[:move].should == move }
-
-    it { should render_template(:show) }
-
-    it 'responds with js' do
-      response.content_type.should == Mime::JS
-    end
-  end
-
   describe 'POST create' do
     let(:user) { FactoryGirl.create(:user) }
     let(:channel) { FactoryGirl.create(:channel, owner: user) }

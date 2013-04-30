@@ -1,0 +1,2 @@
+$('#comment-<%= @comment.id %>').slideUp(150, 'swing');
+$('.move#<%= @move.id %>').find('.comment-count').html('<%= @comment.move.comments.length %> Comentário(s)');

@@ -10,14 +10,27 @@ class CommentsController < ApplicationController
   end
 
   def create
-    move = Move.find(params[:move_id])
-    comment = Comment.new(params[:comment]) do |c|
+    @move = Move.find(params[:move_id])
+    @comment = Comment.new(params[:comment]) do |c|
       c.author = current_user
-      c.move = move
+      c.move = @move
     end
-    authorize! :create, comment
-    comment.save
+    authorize! :create, @comment
+    @comment.save
 
-    redirect_to match_path(move.match)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @comment = Comment.includes(:move).find(params[:id])
+    @move = @comment.move
+    authorize! :manage, @comment
+    @comment.destroy
+
+    respond_to do |format|
+      format.js
+    end
   end
 end

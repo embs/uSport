@@ -21,3 +21,33 @@ else {
     $('html, body').animate({ scrollTop: 0 }, 'slow');
   });
 }
+
+$(function() {
+  $('.btn.comment').click(function() {
+    var $this = $(this);
+    var $container = $this.parents('.move');
+    var $listItem = $container.find('#form-for-comment');
+
+    if($listItem.hasClass('open')) {
+      $listItem.slideUp(150, 'swing');
+    } else {
+      $listItem.slideDown(150, 'swing');
+    }
+
+    $listItem.toggleClass('open');
+  });
+
+  $('.show-comments').click(function() {
+    var $this = $(this);
+    var $container = $this.parents('.move');
+    var $listItem = $container.find('.comments');
+
+    if($listItem.hasClass('open')) {
+      $listItem.slideUp(150, 'swing');
+    } else {
+      $listItem.slideDown(150, 'swing');
+    }
+
+    $listItem.toggleClass('open');
+  });
+});

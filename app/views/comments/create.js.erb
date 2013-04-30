@@ -1,0 +1,5 @@
+$('.move#<%= @move.id %>').find('#form-for-comment').slideUp(150, 'swing');
+$('.move#<%= @move.id %>').find('#form-for-comment').toggleClass('open');
+$('.move#<%= @move.id %>').find('.comments').append("<%= j render(@comment) %>");
+$('.move#<%= @move.id %>').find('.comment-count').html('<%= @comment.move.comments.length %> Comentário(s)');
+$('.move#<%= @move.id %>').find('#comment_body').val('');

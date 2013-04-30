@@ -8,7 +8,8 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     authorize! :show, @match
     # @user = User.find(params[:user_id])
-    @moves = @match.moves.includes(:team, :match, :player, :votes).
+    @moves = @match.moves.includes(:team, :match, :player, :votes,
+      comments: [:author, :move]).
       order('created_at DESC').page(params[:page])
     # Daqui para baixo são setadas as variáveis utilizadas para criação de move
     @move = Move.new(:match => @match)
