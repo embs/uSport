@@ -22,9 +22,14 @@
           <% end %>
           <li class="divider-vertical"></li>
           <li>
-            <form class='navbar-search'>
-              <input type="text" class='search-query typeahead search' disabled placeholder='Buscar (em breve...)'>
-            </form>
+            <%= form_for '', url: search_index_path, html: { class: 'navbar-search form-search' } do |f| %>
+              <div class="input-append">
+                <%= f.text_field :q, class: 'search-query search', style: 'border-right: 0' %>
+                <%= button_tag(value: 'submit', class: 'btn', style: 'border-left: 0') do %>
+                  <i class='icon-search'></i>
+                <% end %>
+              </div>
+            <% end %>
           </li>
         </ul>
         <ul class="nav pull-right">

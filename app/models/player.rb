@@ -1,9 +1,16 @@
 class Player < ActiveRecord::Base
+  include PgSearch
+
   attr_accessible :first_name, :last_name, :position, :number, :team_id, :team
   validates_presence_of :first_name
   validates_numericality_of :number, greater_than_or_equal_to: 1,  allow_nil: true, less_than_or_equal_to: 100
   belongs_to :team
   has_many :moves
+
+  # Busca
+  pg_search_scope :search_by_attrs,
+    against: [:first_name, :last_name, :position, :number],
+    using: { tsearch: { prefix: true } }
 
   # Retorna um jogador baseado no input de texto do typeahead
   # Player.find_by_text_input('#80 Zagalo')

@@ -12,6 +12,8 @@ USport::Application.routes.draw do
 
   resources :players
 
+  match :search, to: 'search#index', as: :search_index
+
   resources :users, only: [:index, :show, :edit, :update] do
     resources :favorite_channels, only: [:index, :create, :destroy]
   end

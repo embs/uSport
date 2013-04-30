@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425153406) do
+ActiveRecord::Schema.define(:version => 20130430170012) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -96,6 +96,14 @@ ActiveRecord::Schema.define(:version => 20130425153406) do
   end
 
   add_index "moves", ["match_id"], :name => "index_moves_on_match_id"
+
+  create_table "pg_search_documents", :force => true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "players", :force => true do |t|
     t.string   "first_name"

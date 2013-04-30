@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
@@ -35,6 +35,8 @@ gem 'aws-sdk'
 gem 'enumerize'
 
 gem 'acts_as_votable'
+
+gem 'pg_search'
 
 group :development do
   gem 'bullet'

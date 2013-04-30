@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   extend Enumerize
+  include PgSearch
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :first_name, :last_name, :username, :avatar, :tos
@@ -34,6 +35,11 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username
   validates :tos, acceptance: true
   validates_length_of :username, in: 5..50
+
+  # Busca
+  pg_search_scope :search_by_attrs,
+    against: [:first_name, :last_name, :email, :username],
+    using: { tsearch: { prefix: true } }
 
   def self.create_with_omniauth(auth)
     User.create do |user|

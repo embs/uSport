@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+  include PgSearch
+
   # Getters & Setters
   attr_accessible :name, :abbreviation, :players, :sport_type, :avatar, :is_official
 
@@ -14,6 +16,11 @@ class Team < ActiveRecord::Base
   validates_presence_of :name, :abbreviation, :sport_type
   validates_inclusion_of :is_official, in: [true, false]
   validates_length_of :abbreviation, maximum: 3
+
+  # Busca
+  pg_search_scope :search_by_attrs,
+    against: [:name, :abbreviation, :sport_type],
+    using: { tsearch: { prefix: true } }
 
   def find_player_by_text_input(input)
     splitted = input.split

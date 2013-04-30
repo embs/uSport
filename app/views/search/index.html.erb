@@ -1,0 +1,55 @@
+<div class='well'>
+<% @matches.find_each do |match| %>
+  <div class="media">
+    <a class="pull-left">
+      <%= image_tag 'icons/touchdown.png', width: '90px' %>
+    </a>
+    <div class="media-body">
+      <%= link_to match_path(match) do %>
+        <h4 class="media-heading"><%= match.name %> <small>(partida)</small></h4>
+      <% end %>
+      <%= match.place %>
+      <%= l match.date, format: :short %>
+      por <%= match.channel.name %>
+    </div>
+  </div>
+<% end %>
+<%= @users.find_each do |user| %>
+  <div class="media">
+    <a class="pull-left">
+      <%= image_tag user.avatar(:thumb_90) %>
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading"><%= user.display_name %> <small>(usuário)</small></h4>
+      <%= user.username %>
+    </div>
+  </div>
+<% end %>
+<%= @players.find_each do |player| %>
+  <div class="media">
+    <a class="pull-left">
+      <%= image_tag 'avatars/missing.gif' %>
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading"><%= player.display_name %> <small>(jogador)</small></h4>
+    </div>
+    #<%= player.number %>
+    <%= player.position %>
+    <%= player.team.name %>
+  </div>
+<% end %>
+<%= @teams.find_each do |team| %>
+  <div class="media">
+    <a class="pull-left">
+      <%= image_tag team.avatar(:thumb_90) %>
+    </a>
+    <div class="media-body">
+      <%= link_to team_path(team) do %>
+        <h4 class="media-heading"><%= team.name %> <small>(time)</small></h4>
+      <% end %>
+      <%= team.abbreviation %>
+      <%= team.sport_type %>
+    </div>
+  </div>
+<% end %>
+</div>
