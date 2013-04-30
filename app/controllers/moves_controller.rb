@@ -151,4 +151,14 @@ class MovesController < ApplicationController
       format.js
     end
   end
+
+  def vote
+    @move = Move.find(params[:move_id])
+    authorize! :show, @move
+    @move.liked_by current_user
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end
