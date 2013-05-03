@@ -62,24 +62,44 @@
     <h2>Primeiros Passos</h2>
     <ul class="nav nav-tabs nav-stacked">
       <li>
-        <%= link_to '#help', class: 'expander' do %>
+        <%= link_to '#help', id: 'sign-up', class: 'expander' do %>
           <i class="chevron icon-chevron-right"></i> Como me cadastro?
         <% end %>
       </li>
       <li class='expand-help' id='sign-up' style='display: none'>
         <a>
-          Você pode se cadastrar através de nossa página de cadastro ou através
-          do Facebook
+          <%= render partial: 'sign_up' %>
         </a>
       </li>
       <li>
-        <%= link_to 'Como faço login pelo Facebook?' %>
+        <%= link_to '#help', id: 'facebook-connect', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i> Como faço login pelo Facebook?
+        <% end %>
+      </li>
+      <li class='expand-help' id='facebook-connect' style='display: none'>
+        <a>
+          <%= render partial: 'facebook_connect' %>
+        </a>
       </li>
       <li>
-        <%= link_to 'O que é exibido na página inicial do uSport?' %>
+        <%= link_to '#help', id: 'landing-page', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i> O que é exibido na página inicial do uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='landing-page' style='display: none'>
+        <a>
+          <%= render partial: 'landing_page' %>
+        </a>
       </li>
       <li>
-        <%= link_to 'Por que o uSport só dá suporte à transmissão de jogos de Futebol Americano?' %>
+        <%= link_to '#help', id: 'why-football', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i> Por que o uSport só dá suporte à transmissão de jogos de Futebol Americano?
+        <% end %>
+      </li>
+      <li class='expand-help' id='why-football' style='display: none'>
+        <a>
+          <%= render partial: 'why_football' %>
+        </a>
       </li>
     </ul>
   </div>
@@ -89,12 +109,39 @@
   <div class='page-header'>
     <h2>Transmissão</h2>
     <ul class="nav nav-tabs nav-stacked">
-      <li><%= link_to 'Como transmito um jogo de futebol americano através do uSport?' %></li>
       <li>
-        <%= link_to 'Como transmito um jogo de futebol americano através do uSport utilizando o
-        meu celular ou tablet?' %>
+        <%= link_to '#help', id: 'how-broadcast', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i> Como transmito um jogo de futebol americano através do uSport?
+        <% end %>
       </li>
-      <li><%= link_to 'Como crio uma partida de futebol americano no uSport?' %></li>
+      <li class='expand-help' id='how-broadcast' style='display: none'>
+        <a>
+          <%= render partial: 'how_broadcast' %>
+        </a>
+      </li>
+      <li>
+        <%= link_to '#help', id: 'how-broadcast-mobile', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Como transmito um jogo de futebol americano através do uSport utilizando o
+          meu celular ou tablet?
+        <% end %>
+      </li>
+      <li class='expand-help' id='how-broadcast-mobile' style='display: none'>
+        <a>
+          <%= render partial: 'how_broadcast_mobile' %>
+        </a>
+      </li>
+      <li>
+        <%= link_to '#help', id: 'how-create-match', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Como crio uma partida de futebol americano no uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='how-create-match' style='display: none'>
+        <a>
+          <%= render partial: 'how_create_match' %>
+        </a>
+      </li>
     </ul>
   </div>
 </section>
@@ -104,9 +151,27 @@
     <h2>Transmissão Colaborativa</h2>
     <ul class="nav nav-tabs nav-stacked">
       <li>
-        <%= link_to 'Uma partida pode ser transmitida por mais de uma pessoa ao mesmo tempo?' %>
+        <%= link_to '#help', id: 'simultaneous-broadcast', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Uma partida pode ser transmitida por mais de uma pessoa ao mesmo tempo?
+        <% end %>
       </li>
-      <li><%= link_to 'Como transmitir uma partida de futebol americano colaborativamente utilizando o uSport?' %></li>
+      <li class='expand-help' id='simultaneous-broadcast' style='display: none'>
+        <a>
+          <%= render partial: 'simultaneous_broadcast' %>
+        </a>
+      </li>
+      <li>
+        <%= link_to '#help', id: 'how-collab-broadcast', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Como transmitir uma partida de futebol americano colaborativamente utilizando o uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='how-collab-broadcast' style='display: none'>
+        <a>
+          <%= render partial: 'how_collab_broadcast' %>
+        </a>
+      </li>
     </ul>
   </div>
 </section>
@@ -115,9 +180,39 @@
   <div class='page-header'>
     <h2>Gerenciamento de Times e Jogadores</h2>
     <ul class="nav nav-tabs nav-stacked">
-      <li><%= link_to 'Quais times estão cadastrados no uSport?' %></li>
-      <li><%= link_to 'Quem é responsável por cadastrar e manter os times no uSport?' %></li>
-      <li><%= link_to 'Posso criar meu próprio time no uSport?' %></li>
+      <li>
+        <%= link_to '#help', id: 'what-teams', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Quais times estão cadastrados no uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='what-teams' style='display: none'>
+        <a>
+          <%= render partial: 'what_teams' %>
+        </a>
+      </li>
+      <li>
+        <%= link_to '#help', id: 'who-creates-teams', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Quem é responsável por cadastrar e manter os times no uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='who-creates-teams' style='display: none'>
+        <a>
+          <%= render partial: 'who_creates_teams' %>
+        </a>
+      </li>
+      <li>
+        <%= link_to '#help', id: 'how-create-team', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Posso criar meu próprio time no uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='how-create-team' style='display: none'>
+        <a>
+          <%= render partial: 'how_create_team' %>
+        </a>
+      </li>
     </ul>
   </div>
 </section>
@@ -126,7 +221,17 @@
   <div class='page-header'>
     <h2>Funcionalidades Futuras</h2>
     <ul class="nav nav-tabs nav-stacked">
-      <li><%= link_to 'Posso criar um campeonato no uSport?' %></li>
+      <li>
+        <%= link_to '#help', id: 'championship', class: 'expander' do %>
+          <i class="chevron icon-chevron-right"></i>
+          Posso criar um campeonato no uSport?
+        <% end %>
+      </li>
+      <li class='expand-help' id='championship' style='display: none'>
+        <a>
+          <%= render partial: 'championship' %>
+        </a>
+      </li>
     </ul>
   </div>
 </section>
