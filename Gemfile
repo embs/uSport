@@ -40,6 +40,8 @@ gem 'acts_as_votable'
 
 gem 'pg_search'
 
+gem 'twitter-bootstrap-rails'
+
 group :development do
   gem 'bullet'
 end
@@ -64,7 +66,6 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
   gem 'less-rails'
-  gem 'twitter-bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 
