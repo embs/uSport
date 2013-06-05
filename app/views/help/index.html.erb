@@ -1,44 +1,17 @@
 <% content_for (:include_js) { 'help' } %>
 
+<% help_center = YAML.load_file('config/help_center.yml') %>
+
 <% content_for :left_side_bar do %>
-<ul class="nav nav-list bs-docs-sidenav affix">
-  <li class="active help-center">
-    <a href="#help-center">
-      Central de Ajuda
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-  <li>
-    <a href="#first-steps">
-      Primeiros Passos
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-  <li>
-    <a href="#broadcasting">
-      Transmissão
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-  <li>
-    <a href="#collab-broadcasting">
-      Colaboração
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-  <li>
-    <a href="#teams-management">
-     Times e Jogadores
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-  <li>
-    <a href="#upcoming">
-      Em breve...
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-</ul>
+  <ul class="nav nav-list bs-docs-sidenav affix">
+    <% help_center.each do |key, val| %>
+      <li>
+        <%= link_to "##{key}" do %>
+          <%= val['nav-entry'] %> <i class="icon-chevron-right"></i>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
 
 <div class="alert">
@@ -56,183 +29,26 @@
     que seja seu objetivo (transmitir, acompanhar, comentar jogadas, etc.).
   </div>
 </section>
-<section id='first-steps'>
-  <br />
-  <div class='page-header'>
-    <h2>Primeiros Passos</h2>
-    <ul class="nav nav-tabs nav-stacked">
-      <li>
-        <%= link_to '#help', id: 'sign-up', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i> Como me cadastro?
-        <% end %>
-      </li>
-      <li class='expand-help' id='sign-up' style='display: none'>
-        <a>
-          <%= render partial: 'sign_up' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'facebook-connect', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i> Como faço login pelo Facebook?
-        <% end %>
-      </li>
-      <li class='expand-help' id='facebook-connect' style='display: none'>
-        <a>
-          <%= render partial: 'facebook_connect' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'landing-page', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i> O que é exibido na página inicial do uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='landing-page' style='display: none'>
-        <a>
-          <%= render partial: 'landing_page' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'why-football', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i> Por que o uSport só dá suporte à transmissão de jogos de Futebol Americano?
-        <% end %>
-      </li>
-      <li class='expand-help' id='why-football' style='display: none'>
-        <a>
-          <%= render partial: 'why_football' %>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-<section id='broadcasting'>
-  <br />
-  <div class='page-header'>
-    <h2>Transmissão</h2>
-    <ul class="nav nav-tabs nav-stacked">
-      <li>
-        <%= link_to '#help', id: 'how-broadcast', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i> Como transmito um jogo de futebol americano através do uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='how-broadcast' style='display: none'>
-        <a>
-          <%= render partial: 'how_broadcast' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'how-broadcast-mobile', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Como transmito um jogo de futebol americano através do uSport utilizando o
-          meu celular ou tablet?
-        <% end %>
-      </li>
-      <li class='expand-help' id='how-broadcast-mobile' style='display: none'>
-        <a>
-          <%= render partial: 'how_broadcast_mobile' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'how-create-match', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Como crio uma partida de futebol americano no uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='how-create-match' style='display: none'>
-        <a>
-          <%= render partial: 'how_create_match' %>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-<section id='collab-broadcasting'>
-  <br />
-  <div class='page-header'>
-    <h2>Transmissão Colaborativa</h2>
-    <ul class="nav nav-tabs nav-stacked">
-      <li>
-        <%= link_to '#help', id: 'simultaneous-broadcast', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Uma partida pode ser transmitida por mais de uma pessoa ao mesmo tempo?
-        <% end %>
-      </li>
-      <li class='expand-help' id='simultaneous-broadcast' style='display: none'>
-        <a>
-          <%= render partial: 'simultaneous_broadcast' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'how-collab-broadcast', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Como transmitir uma partida de futebol americano colaborativamente utilizando o uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='how-collab-broadcast' style='display: none'>
-        <a>
-          <%= render partial: 'how_collab_broadcast' %>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-<section id='teams-management'>
-  <br />
-  <div class='page-header'>
-    <h2>Gerenciamento de Times e Jogadores</h2>
-    <ul class="nav nav-tabs nav-stacked">
-      <li>
-        <%= link_to '#help', id: 'what-teams', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Quais times estão cadastrados no uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='what-teams' style='display: none'>
-        <a>
-          <%= render partial: 'what_teams' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'who-creates-teams', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Quem é responsável por cadastrar e manter os times no uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='who-creates-teams' style='display: none'>
-        <a>
-          <%= render partial: 'who_creates_teams' %>
-        </a>
-      </li>
-      <li>
-        <%= link_to '#help', id: 'how-create-team', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Posso criar meu próprio time no uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='how-create-team' style='display: none'>
-        <a>
-          <%= render partial: 'how_create_team' %>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-<section id='upcoming'>
-  <br />
-  <div class='page-header'>
-    <h2>Funcionalidades Futuras</h2>
-    <ul class="nav nav-tabs nav-stacked">
-      <li>
-        <%= link_to '#help', id: 'championship', class: 'expander' do %>
-          <i class="chevron icon-chevron-right"></i>
-          Posso criar um campeonato no uSport?
-        <% end %>
-      </li>
-      <li class='expand-help' id='championship' style='display: none'>
-        <a>
-          <%= render partial: 'championship' %>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
 
+<% help_center.each do |key, val| %>
+  <section id='<%= key %>'>
+    <br />
+    <div class='page-header'>
+      <h2><%= val['title'] %></h2>
+      <ul class="nav nav-tabs nav-stacked">
+        <% val['topics'].each do |k, v| %>
+          <li>
+            <%= link_to '#help', id: "#{k}", class: 'expander' do %>
+              <i class="chevron icon-chevron-right"></i> <%= v %>
+            <% end %>
+          </li>
+          <li class='expand-help disabled' id='<%= k %>' style='display: none'>
+            <a>
+              <%= render partial: "#{k}" %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+<% end %>

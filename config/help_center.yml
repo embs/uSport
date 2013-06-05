@@ -1,0 +1,33 @@
+first_steps:
+  nav-entry: Primeiros Passos
+  title: Primeiros Passos
+  topics:
+    sign_up: Como me Cadastro?
+    facebook_connect: Como faço login pelo Facebook?
+    landing_page: O que é exibido na página inicial do uSport?
+    why_football: Por que o uSport só dá suporte à transmissão de jogos de Futebol Americano?
+broadcasting:
+  nav-entry: Transmissão
+  title: Transmissão
+  topics:
+    how_broadcast: Como transmito um jogo de futebol americano através do uSport?
+    how_broadcast_mobile: Como transmito um jogo de futebol americano através do uSport utilizando o meu celular ou tablet?
+    how_create_match: Como crio uma partida de futebol americano no uSport?
+collab_broadcasting:
+  nav-entry: Colaboração
+  title: Transmissão Colaborativa
+  topics:
+    simultaneous_broadcast: Uma partida pode ser transmitida por mais de uma pessoa ao mesmo tempo?
+    how_collab_broadcast: Como transmitir uma partida de futebol americano colaborativamente utilizando o uSport?
+teams_management:
+  nav-entry: Times e Jogadores
+  title: Gerenciamento de Times e Jogadores
+  topics:
+    what_teams: Quais times estão cadastrados no uSport?
+    who_creates_teams: Quem é responsável por cadastrar e manter os times no uSport?
+    how_create_team: Posso criar meu próprio time no uSport?
+upcoming:
+  nav-entry: Em breve...
+  title: Funcionalidades Futuras
+  topics:
+    championship: Posso criar um campeonato no uSport?

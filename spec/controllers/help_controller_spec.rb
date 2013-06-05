@@ -17,8 +17,8 @@ describe HelpController do
       get :topic, topic: 'sign_up'
     end
 
-    it { response.should be_success }
+    xit { response.should be_success }
 
-    it { should render_template(:sign_up) }
+    xit { should render_template(:sign_up) }
   end
 end
