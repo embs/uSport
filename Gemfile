@@ -42,6 +42,8 @@ gem 'pg_search'
 
 gem 'twitter-bootstrap-rails'
 
+gem 'taps'
+
 group :development do
   gem 'bullet'
 end
