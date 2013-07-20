@@ -1,4 +1,5 @@
 <tr class='move' id="<%= move.id %>">
+  <%# primeira parte da tabela, com imagem do time e quarto %>
   <td width="40px">
     <% unless move.kind == 'comment' || move.kind == 'penalty' %>
       <%= image_tag(move.team.avatar, id: "thumb", class: "img-polaroid img-rounded",
@@ -12,6 +13,9 @@
       <h3 align="center"> <%= move.quarter.to_s + "º" %></h3>
     <% end %>
   </td>
+
+  <%#Segunda parte da tabela, onde ficam as mensagens da jogada. Links de edit,
+  comentários etc%>
   <td>
     <p><b><%= move.main %></b> <%= move.message %></p>
     <p><%= move.description %></p>
