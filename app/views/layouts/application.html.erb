@@ -55,10 +55,9 @@
     <% end %>
   </head>
   <body>
-    <div class="wrapper">
       <%= render partial: "shared/navbar" %>
-      <div class="container-fluid">
-        <div class="row-fluid">
+      <div class="container">
+        <div class="row">
           <%= content_for :top_of_content %>
           <div class="span2 visible-desktop">
             <%= yield :left_side_bar %>
@@ -70,7 +69,6 @@
         </div>
       </div>
       <%= render partial: "shared/footer" %>
-    </div>
 
     <!-- Javascripts
     ================================================== -->

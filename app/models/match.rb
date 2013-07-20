@@ -18,4 +18,8 @@ class Match < ActiveRecord::Base
   pg_search_scope :search_by_attrs,
     against: [:name], associated_against: { teams: :name },
     using: { tsearch: { prefix: true } }
+
+  def day
+    I18n.l(date.to_date, format: :long)
+  end
 end

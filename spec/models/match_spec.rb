@@ -48,4 +48,12 @@ describe Match do
       @new_match.teams.should include team1, team2
     end
   end
+
+  describe 'day' do
+    let(:match) { FactoryGirl.create(:match) }
+
+    it 'returns day of match date' do
+      match.day.should == I18n.l(match.date.to_date, format: :long)
+    end
+  end
 end

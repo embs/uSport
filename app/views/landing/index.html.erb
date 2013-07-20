@@ -4,14 +4,18 @@
   <%= render partial: 'shared/leftbar' %>
 <% end %>
 
-<% if @matches.empty? %>
+<% if @matches_per_day.empty? %>
   <div class='alert alert-info' id="empty-message">
     Nada pra ver aqui. :(
   </div>
 <% else %>
-  <div class="thumbnails">
-    <%= render partial: 'matches/preview', collection: @matches %>
-  </div>
+  <% @matches_per_day.each do |day, previews| %>
+    <hr />
+    <h3><%= day %></h3>
+    <ul class="thumbnails">
+      <%= render partial: 'matches/preview', collection: previews %>
+    </ul>
+  <% end %>
 <% end %>
 
 </div>

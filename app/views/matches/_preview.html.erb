@@ -1,18 +1,11 @@
-<% if (preview_counter % 3) == 0 %>
-  <% if preview_counter > 0 %>
-    </div>
-  <% end %>
-  <div class="row-fluid">
-<% end %>
-<div class="span4">
-  <%= link_to match_path(preview) do %>
-    <div class="well thumbnail row-fluid">
+<li class="span3">
+    <div class="thumbnail">
       <table class="table table-striped" style="margin-bottom: 0px">
         <thead>
           <tr>
             <th colspan="3" style="line-height: 5px">
               <p>
-                <%= preview.name %> |
+                <%= link_to preview.name, match_path(preview) %> |
                 <span id='match-<%= preview.id %>-viewers' class='team-avatar label'
                   data-toogle='tooltip' data-placement='top'
                   data-original-title='Fãs acompanhando esta partida'>
@@ -57,5 +50,4 @@
         </tbody>
       </table>
     </div>
-  <% end %>
-</div>
+</li>
