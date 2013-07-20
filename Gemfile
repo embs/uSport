@@ -26,10 +26,6 @@ gem 'kaminari'
 
 gem 'rack-rewrite'
 
-gem 'pusher'
-
-gem 'pusher_rails'
-
 gem 'delayed_job_active_record'
 
 gem 'aws-sdk'

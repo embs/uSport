@@ -52,13 +52,6 @@ USport::Application.configure do
   # Configuração do Paperclip para ambiente de desenvolvimento
   Paperclip.options[:command_path] = "/usr/bin/"
 
-  # Configurações do Pusher para o ambiente de desenvolvimento
-  config.pusher = {
-    :app_id => '41805',
-    :key => '5c87768feb3ea88e6f79',
-    :secret => '5c7dde97f8959b90e222'
-  }
-
   config.after_initialize do
     enable = false
     Bullet.enable = enable

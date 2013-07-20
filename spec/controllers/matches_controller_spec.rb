@@ -226,22 +226,6 @@ describe MatchesController do
     it { should set_the_flash[:notice] }
   end
 
-  describe 'POST auth' do
-    let(:match) { FactoryGirl.create :match }
-
-    before do
-      post :auth, channel_name: "presence-match-#{match.id}",
-        socket_id: '123.45678', user_id: SecureRandom.hex(4)
-    end
-
-    it { response.should be_success }
-
-    it 'should retrieve an auth key' do
-      auth_response = JSON.parse(response.body)
-      auth_response.should have_key('auth')
-    end
-  end
-
   describe 'POST viewers' do
     let(:match) { FactoryGirl.create :match }
 

@@ -1,9 +1,5 @@
 <% content_for (:include_js) { 'matches' } %>
 
-<script>
-  var match_id = '<%= @match.id %>'
-</script>
-
 <% content_for :left_side_bar do %>
   <div class='thumbnail well'>
     <%= image_tag(@match.channel.avatar(:thumb_140), class: 'img img-polaroid') %>

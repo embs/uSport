@@ -60,16 +60,6 @@ class MovesController < ApplicationController
     end
     @match.save
 
-    begin
-      Pusher.trigger("match-#{@match.id}", 'new-move',
-        {
-          val1: @match.value1, val2: @match.value2,
-          move: @move.id
-        })
-    rescue Pusher::Error => e
-      #TODO
-    end
-
     respond_to do |format|
       format.html { render 'create.js.erb' }
       format.js
