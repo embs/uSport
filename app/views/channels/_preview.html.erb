@@ -1,5 +1,5 @@
-<%= link_to channel_path(preview), style: "display: inline-block" do %>
-  <div style="display: inline-block; max-width: 250px; padding: 0px" class="well">
+<li class="span3">
+  <div class='thumbnail' style="display: inline-block; padding: 0px; min-height: 200px">
     <table class="table table-striped" style="margin-bottom: 0px">
       <thead>
         <tr>
@@ -9,10 +9,12 @@
               :'data-placement' => 'top', :'data-original-title' => preview.name) %>
           </th>
           <th colspan="2" title='<%= preview.name %>'>
-              <%= preview.name.truncate(15) %>
+              <%= link_to preview.name.truncate(15), channel_path(preview) %>
               <%= show_heart_if_favorite(current_user, preview).html_safe %>
               <p class='muted' style="font-size: 11px">
-                por <%= link_to(preview.owner.display_name,"#") %><span style="padding: 0px 5px">.</span>
+                por
+                <%= link_to(preview.owner.display_name, user_path(preview.owner)) %>
+                <span style="padding: 0px 5px">.</span>
                 <%= time_ago_in_words(preview.created_at).gsub('aproximadamente','±')%>
               </p>
           </th>
@@ -85,4 +87,4 @@
       </tbody>
     </table>
   </div>
-<% end %>
+</li>

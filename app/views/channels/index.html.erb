@@ -19,6 +19,6 @@
   </div>
 <% end %>
 
-<% @channels.each_with_index do |channel, counter| %>
-  <%= render partial: 'preview', collection: [channel] %>
-<% end %>
+<ul class="thumbnails">
+  <%= render partial: 'preview', collection: @channels %>
+</ul>
