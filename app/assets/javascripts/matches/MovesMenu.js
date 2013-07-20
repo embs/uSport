@@ -44,7 +44,7 @@ $(function(){
 			$('#touchdown-kind').show();
 			$('#team').show();
 			$('#player').show();
-			$('#player input').attr('required', 'required');
+			$('#player input').removeAttr('required');
 			$('#yards').show();
 			$('#quarter').show();
 			$('#description').show();
@@ -95,7 +95,7 @@ $(function(){
 			$('#touchdown-kind').hide();
 			$('#team').show();
 			$('#player').show();
-			$('#player input').attr('required', 'required');
+			$('#player input').removeAttr('required');
 			$('#yards').show();
 			$('#quarter').show();
 			$('#description').show();

@@ -74,6 +74,20 @@ describe MovesController do
       end
     end # context 'a touchdown'
 
+    context 'a touchdown without player' do
+      before do
+        controller.stub(current_user: user)
+        post :create, user_id: match.channel.owner, channel_id: match.channel,
+          match_id: match, move: {
+            team: team.id, kind: 'touchdown', yards: -50
+          }, format: :js
+      end
+
+      it 'creates new move' do
+        Move.last.should_not be_nil
+      end
+    end # context 'a touchdown without player'
+
     context 'a comment' do
       before do
         controller.stub(current_user: user)

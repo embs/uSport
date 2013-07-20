@@ -53,8 +53,8 @@ help.js: help-d20bdd1ee9315fcccfbbb405bb1b009e.js
 help/index.js: help-d20bdd1ee9315fcccfbbb405bb1b009e.js
 landing.js: landing-66319847c68329ef277afb98e0902812.js
 landing/index.js: landing-66319847c68329ef277afb98e0902812.js
-matches.js: matches-cab0a49d09c067de6af84b6a65a334c6.js
-matches/index.js: matches-cab0a49d09c067de6af84b6a65a334c6.js
+matches.js: matches-f34a4f70d48b5c7ca357b05a62b04abd.js
+matches/index.js: matches-f34a4f70d48b5c7ca357b05a62b04abd.js
 application.css: application-961549364db5c6bdcb8e9c510be5964b.css
 application/index.css: application-961549364db5c6bdcb8e9c510be5964b.css
 fontawesome-webfont.eot: fontawesome-webfont-324578b336325769e71bb24e02877ffa.eot

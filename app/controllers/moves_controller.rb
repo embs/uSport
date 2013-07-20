@@ -36,7 +36,7 @@ class MovesController < ApplicationController
   def create
     team = Team.find(params[:move].delete(:team))
     @match = Match.find(params[:match_id])
-    unless ['comment', 'end', 'time'].include?(params[:move][:kind])
+    unless !params[:move][:player] || params[:move][:player]
       player = team.find_player_by_text_input(params[:move][:player])
       authorize! :manage, Move.new(match: @match)
       unless player
