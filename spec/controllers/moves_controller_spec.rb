@@ -318,7 +318,7 @@ describe MovesController do
       it 'does not destroy the move' do
           expect {
             Move.find(move.id)
-          }.to_not raise_error(ActiveRecord::RecordNotFound)
+          }.to_not raise_error
       end
     end
 
@@ -380,7 +380,7 @@ describe MovesController do
         it 'does not destroy the move' do
             expect {
               Move.find(move.id)
-            }.to_not raise_error(ActiveRecord::RecordNotFound)
+            }.to_not raise_error
         end
       end
     end # context 'when logged'

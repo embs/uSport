@@ -276,7 +276,7 @@ describe TeamsController do
         it 'does not destroy the team' do
           expect {
             Team.find(team.id)
-          }.to_not raise_error(ActiveRecord::RecordNotFound)
+          }.to_not raise_error
         end
 
         it { response.should be_redirect }
