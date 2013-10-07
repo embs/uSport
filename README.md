@@ -14,9 +14,9 @@ Os modelos principais do aplicativo são:
 
 ## Wiki
 Se você precisar de ajuda e as informações do README não forem suficientes para resolver
-seu problema, consulte a [Wiki do projeto](https://github.com/carlosecmacedo/quince/wiki).
+seu problema, consulte a [Wiki do projeto](https://bitbucket.org/quince/usport/wiki).
 Lá você pode encontrar informações importantes sobre ferramentas utilizadas e setup --
-incluindo [como instalar o PostgreSQL](https://github.com/carlosecmacedo/quince/wiki/Instalando-o-PostgreSQL-em-distribui%C3%A7%C3%B5es-baseadas-no-Ubuntu)
+incluindo [como instalar o PostgreSQL](https://bitbucket.org/quince/usport/wiki/Instalando%20o%20Postgres%20em%20distribui%C3%A7%C3%B5es%20baseadas%20no%20Ubuntu)
 
 ##  Setup
 
@@ -68,12 +68,6 @@ $ rspec spec/controllers/moves_controller_spec.rb # indicando o nome do arquivo
 
 # Ou indicando o nome do arquivo e o número da linha do caso de teste que se quer rodar!
 $ rspec spec/controllers/moves_controller_spec.rb:81
-```
-
-## Pusher
-### Ativar WebHooks no ambiente de desenvolvimento
-```ruby
-#TODO
 ```
 
 ## Delayed::Job
@@ -140,7 +134,7 @@ $ git push heroku master
 ```
 
 ### Delayed::Job no Heroku
-Se você não sabe o que é Delayed::Job, leia [esta seção](https://github.com/carlosecmacedo/quince#delayedjob)
+Se você não sabe o que é Delayed::Job, leia [esta seção](https://bitbucket.org/quince/usport#markdown-header-delayedjob)
 
 Para que os 'delayed jobs' funcionem adequadamente no Heroku, é necessário configurar um
 worker. Isso é feito da seguinte maneira:
@@ -156,7 +150,7 @@ Para mais informações, consulte o [artigo do Heroku sobre Delayed::Job](https:
 
 ## Como Colaborar
 ### O jeito certo
-1. Escolha um [issue no Github](https://github.com/carlosecmacedo/quince/issues)
+1. Escolha um [issue no Bitbucket](https://bitbucket.org/quince/usport/issues?status=new&status=open)
 que não esteja atribuído a alguém e atribua a você mesmo ou detecte alguma necessidade
 no projeto (melhoria, conserto de bug, nova funcionalidade, concepção de tela, etc.),
 crie um issue para isso e atribua a você se quiser trabalhar nele;
@@ -169,7 +163,7 @@ passando, então eu adiciono tudo ao meu commit com `git add .`, crio o novo com
 com `git commit -m "Altera a URL para visualização de perfil de usuário de maneira
 que a URL agora é /users/usernamedousuario. Closes #número-do-issue-relacionado"`
 e faço o push pro repositório remoto com `git push origin user-url-refactor`;
-5. Através da interface [gráfica do Github](https://github.com/carlosecmacedo/quince),
+5. Através da interface [gráfica do Bitbucket](https://bitbucket.org/quince/usport),
 crie um novo Pull Request informando que quer dar merge das mudanças contidas no
 branch user-url-refactor para o branch master;
 6. Aguarde revisão de outros colaboradores até que não haja ressalvas quanto ao merge;
