@@ -17,8 +17,5 @@
 config/database.yml
 config/database.yml~
 
-# Ignora arquivo de configuração do RVM
-.rvmrc
-
 # Ignora arquivos criados pelo Paperclip no ambiente de desenvolvimento
 /public/system
