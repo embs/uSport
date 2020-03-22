@@ -1,6 +1,8 @@
 # uSport
 Sports events crowdcasting web app.
 
+![first-transmission](2013-04-27.jpg)
+
 ## Warning
 Migration from [bitbucket repo](http://bitbucket.org/embs/usport) is still a
 work in progress. Shout it if you can help.
